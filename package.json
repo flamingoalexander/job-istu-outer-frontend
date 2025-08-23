@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Frontend часть внешнего сайта job istu edu",
   "productName": "Сервис Производственная практика",
-  "author": "Alexander Vokin <setvvgamer@gmail.com>",
+  "author": "INRTU",
   "type": "module",
   "private": true,
   "scripts": {
