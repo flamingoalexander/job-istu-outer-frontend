@@ -1,43 +1,40 @@
 # Сервис Производственная практика (job-istu-outer-frontend)
 
-Frontend часть внешнего сайта job istu edu
+Frontend часть внешнего сайта job istu edu.
+Проект представляет собой SPA приложение на Vue3 с использованием фреймворка Quasar.
 
-## Install the dependencies
+## Инструкция:
 
-```bash
-yarn
-# or
-npm install
-```
-
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Установка зависимостей
 
 ```bash
-quasar dev
+yarn install
 ```
 
-### Lint the files
+### Создание .env файла
+
+Необходимо создать файл с именем .env, скопировать и заполнить по необходимости содержимое файла .env-example
+
+### Запуск приложение в режиме разработки
+
+```bash
+yarn dev
+```
+
+### Проверка стиля кода
 
 ```bash
 yarn lint
-# or
-npm run lint
 ```
 
-### Format the files
+### Форматирование кода
 
 ```bash
 yarn format
-# or
-npm run format
 ```
 
-### Build the app for production
+### Production сборка
 
 ```bash
-quasar build
+yarn build
 ```
-
-### Customize the configuration
-
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).

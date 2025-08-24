@@ -2,12 +2,9 @@ import { defineConfig } from '#q-app/wrappers';
 
 export default defineConfig((/* ctx */) => {
   return {
-    boot: ['axios'],
+    boot: ['axios', 'fetch.stores'],
     css: ['app.scss'],
-    extras: [
-      'roboto-font',
-      'material-icons',
-    ],
+    extras: ['roboto-font', 'material-icons'],
     build: {
       target: {
         browser: ['es2022', 'firefox115', 'chrome115', 'safari14'],
@@ -37,6 +34,12 @@ export default defineConfig((/* ctx */) => {
     },
     devServer: {
       open: true,
+      proxy: {
+        '/api': {
+          target: 'https://job.istu.edu/',
+          changeOrigin: true
+        },
+      },
     },
     framework: {
       config: {},
