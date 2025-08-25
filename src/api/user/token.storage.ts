@@ -9,11 +9,15 @@ function storage(kind: StorageKind): Storage {
 
 export const tokenStorage = {
   set(access: string, rememberMe: boolean) {
-    // запоминаем, куда положили
     localStorage.setItem(REMEMBER_KEY, rememberMe ? '1' : '0');
     const s = rememberMe ? storage('local') : storage('session');
     s.setItem(ACCESS_KEY, access);
-    // убираем из другого склада
+    (rememberMe ? storage('session') : storage('local')).removeItem(ACCESS_KEY);
+  },
+  refresh(access: string) {
+    const rememberMe = localStorage.getItem(REMEMBER_KEY) === '1';
+    const s = rememberMe ? storage('local') : storage('session');
+    s.setItem(ACCESS_KEY, access);
     (rememberMe ? storage('session') : storage('local')).removeItem(ACCESS_KEY);
   },
 

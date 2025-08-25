@@ -1,8 +1,7 @@
 import { defineConfig } from '#q-app/wrappers';
-
 export default defineConfig((/* ctx */) => {
   return {
-    boot: ['axios', 'fetch.stores'],
+    boot: ['fetch.stores'],
     css: ['app.scss'],
     extras: ['roboto-font', 'material-icons'],
     build: {
@@ -37,7 +36,7 @@ export default defineConfig((/* ctx */) => {
       proxy: {
         '/api': {
           target: 'https://job.istu.edu/',
-          changeOrigin: true
+          changeOrigin: true,
         },
       },
     },

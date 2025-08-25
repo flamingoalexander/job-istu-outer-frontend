@@ -1,6 +1,12 @@
 import { defineStore } from '#q-app/wrappers';
 import { createPinia } from 'pinia';
 
+export enum StorageStatus {
+  Idle = 'idle',
+  Pending = 'pending',
+  Success = 'success',
+  Error = 'error',
+}
 /*
  * When adding new properties to stores, you should also
  * extend the `PiniaCustomProperties` interface.
