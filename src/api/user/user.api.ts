@@ -28,4 +28,3 @@ export const logout = async (): Promise<void> => {
     throw e instanceof Error ? e : new Error(String(e));
   }
 };
-

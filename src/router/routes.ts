@@ -3,14 +3,22 @@ import type { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
+    name: 'home',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/InstitutesList.vue') }],
+    children: [{ path: '', component: () => import('pages/MainPage.vue') }],
   },
   {
-    path: '/institute/:instituteId',
+    path: '/institute',
     name: 'institute',
-    component: () => import('pages/InstituteView.vue'),
-    props: true,
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: ':instituteId',
+        name: 'institute-detail',
+        component: () => import('pages/InstitutePage.vue'),
+        props: true,
+      },
+    ],
   },
   // Always leave this as last one,
   // but you can also remove it

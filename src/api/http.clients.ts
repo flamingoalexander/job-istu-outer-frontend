@@ -1,7 +1,7 @@
 import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import { tokenStorage } from 'src/api/user/token.storage';
-import { AuthError, TokenRefreshError } from 'src/api/errors';
+import { TokenRefreshError } from 'src/api/errors';
 import ENDPOINTS from 'src/constants/endpoints';
 
 const API_URL = '/api/out';
@@ -28,8 +28,8 @@ const refreshAccessToken = async (): Promise<string> => {
   try {
     const { data } = await authHttpClient.post<{ access: string }>(ENDPOINTS.auth.refresh());
     return data.access;
-  } catch (e) {
-    throw new TokenRefreshError(e instanceof Error ? e.message : 'Failed to refresh access token');
+  } catch {
+    throw new TokenRefreshError('Failed to refresh access token');
   }
 };
 
@@ -61,17 +61,11 @@ userHttpClient.interceptors.response.use(
       return Promise.reject(error);
     }
     cfg._retry = true;
-
-    try {
-      const newAccess = await refreshAccessToken();
-      tokenStorage.refresh(newAccess);
-      cfg.headers = cfg.headers ?? {};
-      cfg.headers.Authorization = `Bearer ${newAccess}`;
-      return userHttpClient.request(cfg);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (e) {
-      return Promise.reject(new AuthError('failed to refresh access token'));
-    }
+    const newAccess = await refreshAccessToken();
+    tokenStorage.refresh(newAccess);
+    cfg.headers = cfg.headers ?? {};
+    cfg.headers.Authorization = `Bearer ${newAccess}`;
+    return userHttpClient.request(cfg);
   },
 );
 

@@ -15,9 +15,9 @@
 
 <script setup lang="ts">
 defineProps<{
-  name: string
-  imageUrl: string
-}>()
+  name: string;
+  imageUrl: string;
+}>();
 </script>
 
 <style scoped>
@@ -31,8 +31,8 @@ defineProps<{
 }
 
 .inst-image {
-  width: 100px;       /* ширина картинки */
-  height: 100px;      /* квадрат */
+  width: 100px; /* ширина картинки */
+  height: 100px; /* квадрат */
   object-fit: contain;
 }
 

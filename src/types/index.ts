@@ -37,8 +37,8 @@ export type Contact = {
 
 export type Theme = {
   id: 0;
-  title: 'string';
-  type: 'ВКР';
+  title: string;
+  type: string;
 };
 export type Practice = {
   id: number;

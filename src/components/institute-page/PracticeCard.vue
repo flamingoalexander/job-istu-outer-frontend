@@ -1,14 +1,11 @@
-<!-- components/PracticeCard.vue -->
 <template>
   <q-card flat bordered class="q-pa-md q-mb-lg">
-
-    <!-- Шапка: логотип + название + краткое описание/соглашения -->
     <div class="row items-center q-col-gutter-md">
       <div class="col-12 col-md-auto">
         <q-img
           :src="practice.company.image_url"
           :ratio="1"
-          style="width: 120px; max-width: 100%;"
+          style="width: 120px; max-width: 100%"
           :placeholder-src="fallbackImg"
           loading="lazy"
         />
@@ -34,14 +31,8 @@
 
     <q-separator class="q-my-md" />
 
-    <!-- Темы -->
     <div class="q-gutter-sm">
-      <q-chip
-        v-for="t in visibleThemes"
-        :key="t.id"
-        glossy
-        size="md"
-      >
+      <q-chip v-for="t in visibleThemes" :key="t.id" glossy size="md">
         {{ t.title }}
       </q-chip>
 
@@ -50,10 +41,8 @@
       </q-badge>
     </div>
 
-    <!-- Доп. сведения (раскрываемая часть) -->
     <q-slide-transition>
       <div v-show="expanded" class="q-mt-md q-gutter-md">
-
         <div class="row items-start">
           <div class="col-12 col-md-6">
             <div class="text-subtitle2">Направление деятельности компании</div>
@@ -71,62 +60,48 @@
 
         <q-separator />
 
-        <!-- Ссылки/документы -->
         <div class="row q-col-gutter-sm">
-          <div
-            class="col-auto"
-            v-for="link in practice.contacts"
-            :key="link.id"
-          >
-<!--            <q-btn-->
-<!--              :label="link.type === 'Веб-сайт' ? 'Веб-сайт' : link.type"-->
-<!--              target="_blank"-->
-<!--              rel="noopener"-->
-<!--              outline-->
-<!--              size="sm"-->
-<!--              icon="open_in_new"-->
-<!--            />-->
+          <div class="col-auto" v-for="link in practice.contacts" :key="link.id">
           </div>
         </div>
       </div>
     </q-slide-transition>
-
   </q-card>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import type { Practice } from 'src/types'
+import { computed } from 'vue';
+import type { Practice } from 'src/types';
 
 const props = defineProps<{
-  practice: Practice
-  expanded?: boolean
-  maxCollapsedThemes?: number
-}>()
+  practice: Practice;
+  expanded?: boolean;
+  maxCollapsedThemes?: number;
+}>();
 
 const emit = defineEmits<{
-  (e: 'update:expanded', value: boolean): void
-}>()
+  (e: 'update:expanded', value: boolean): void;
+}>();
 
 const expanded = computed({
   get: () => props.expanded ?? false,
-  set: (v: boolean) => emit('update:expanded', v)
-})
+  set: (v: boolean) => emit('update:expanded', v),
+});
 
-const maxCollapsed = computed(() => props.maxCollapsedThemes ?? 3)
+const maxCollapsed = computed(() => props.maxCollapsedThemes ?? 3);
 
 const visibleThemes = computed(() => {
-  const all = props.practice.themes || []
-  return expanded.value ? all : all.slice(0, maxCollapsed.value)
-})
+  const all = props.practice.themes || [];
+  return expanded.value ? all : all.slice(0, maxCollapsed.value);
+});
 
 const themesHiddenCount = computed(() => {
-  const total = props.practice.themes?.length ?? 0
-  return Math.max(0, total - visibleThemes.value.length)
-})
+  const total = props.practice.themes?.length ?? 0;
+  return Math.max(0, total - visibleThemes.value.length);
+});
 
 function toggle() {
-  expanded.value = !expanded.value
+  expanded.value = !expanded.value;
 }
 
 const fallbackImg =
@@ -138,5 +113,5 @@ const fallbackImg =
     Нет изображения
   </text>
 </svg>
-`)
+`);
 </script>
