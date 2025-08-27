@@ -2,26 +2,15 @@
 import { ref, reactive, computed } from 'vue'
 import { useQuasar, Loading, QSpinner } from 'quasar'
 import UserInfoForm from 'src/components/UserInfoForm.vue'
-import CompanyInfoForm from 'src/CompanyInfoForm.vue';
+import { useUserStore } from 'stores/user';
 
 const $q = useQuasar()
 
-/** ======= Моки/заглушки данных ======= */
-const user = reactive({
-  username: 'partner_123',
-  email: 'partner@example.com',
-  first_name: 'Иван',
-  last_name: 'Петров'
-})
+const user = useUserStore();
 
-const company = reactive({
-  image_url: 'https://cdn.quasar.dev/img/parallax1.jpg',
-  name: 'ООО «ТехноПрогресс»',
-  area_of_activity: 'Разработка ПО и интеграция',
-  head_full_name: 'Сидоров Максим Сергеевич',
-  agreement: '№42/2024 от 12.04.2024',
-  hire_count: 7
-})
+/** ======= Моки/заглушки данных ======= */
+
+const company = user?.company;
 
 /** Темы — три типа: ПР, ВКР, НИОКР */
 const themes = ref([
@@ -57,10 +46,6 @@ const practiceForm = reactive({
 })
 
 /** ======= Хелперы ======= */
-async function withLoading<T>(fn: () => Promise<T>) {
-  Loading.show({ spinner: QSpinner })
-  try { return await fn() } finally { Loading.hide() }
-}
 
 function removeTheme(themeId: number) {
   themes.value = themes.value.filter(t => t.id !== themeId)

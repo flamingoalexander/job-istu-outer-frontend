@@ -1,23 +1,25 @@
 <script setup lang="ts">
-import { ref, reactive, onBeforeMount } from 'vue'
-
+import { ref, reactive } from 'vue'
+import type {Credentials} from 'src/types/auth';
+import authFormImage from '/pics/auth-form-preview.jpg'
 const isDisabled = ref(false)
 const authMessage = ref('')
+import { useUserStore } from 'stores/user';
+import { useRouter } from "vue-router";
 
-const authHolder = reactive({
+const credentials: Credentials = reactive({
   username: '',
   password: '',
   rememberMe: false
 })
-
+const router = useRouter();
 const loading = ref(false)
-
+const userStore = useUserStore();
 const handleAuth = async () => {
-
+  await userStore.login(credentials);
+  await router.push('/profile');
 }
 
-onBeforeMount(() => {
-})
 </script>
 
 <template>
@@ -26,7 +28,7 @@ onBeforeMount(() => {
       <div class="row items-stretch no-wrap">
         <div class="col-12 col-md-6">
           <q-img
-            src="src/assets/beztexta.jpg"
+            :src=authFormImage
             ratio="4/3"
             class="full-height radius-left"
             :img-class="'object-cover'"
@@ -39,7 +41,6 @@ onBeforeMount(() => {
           </q-img>
         </div>
 
-        <!-- Правая часть: форма -->
         <div class="col-12 col-md-6 bg-white radius-right flex column">
           <div class="q-pa-lg">
             <div class="text-h4 text-dark q-mb-md">Авторизация</div>
@@ -54,7 +55,7 @@ onBeforeMount(() => {
 
             <q-form @submit.prevent="handleAuth" class="q-gutter-md">
               <q-input
-                v-model="authHolder.username"
+                v-model="credentials.username"
                 label="Логин"
                 autocomplete="username"
                 outlined
@@ -65,7 +66,7 @@ onBeforeMount(() => {
               />
 
               <q-input
-                v-model="authHolder.password"
+                v-model="credentials.password"
                 type="password"
                 label="Пароль"
                 autocomplete="current-password"
@@ -78,7 +79,7 @@ onBeforeMount(() => {
               <div class="row items-center">
                 <div class="col">
                   <q-checkbox
-                    v-model="authHolder.rememberMe"
+                    v-model="credentials.rememberMe"
                     :disable="isDisabled || loading"
                     label="Запомнить меня"
                     dense
@@ -130,7 +131,6 @@ onBeforeMount(() => {
   overflow: hidden;
 }
 
-/* Скругления для половинок, чтобы на мобильном не было артефактов */
 .radius-left {
   border-top-left-radius: 24px;
   border-bottom-left-radius: 24px;
@@ -140,7 +140,6 @@ onBeforeMount(() => {
   border-bottom-right-radius: 24px;
 }
 
-/* На мобильных — общий радиус у контейнера, без половинчатых скруглений */
 @media (max-width: 1023px) {
   .radius-left,
   .radius-right {
@@ -151,12 +150,10 @@ onBeforeMount(() => {
   }
 }
 
-/* Лёгкая тень для текста поверх картинки */
 .text-shadow-2 {
   text-shadow: 0 2px 6px rgba(0,0,0,0.18);
 }
 
-/* Подправим высоту изображения в правдоподобных пределах */
 .full-height {
   height: 100%;
   min-height: 420px;

@@ -41,6 +41,23 @@ export default defineConfigWithVueTs(
       '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
     },
   },
+  {
+    files: ['**/*.vue'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/api/**', 'src/api/**'],
+              message:
+                '🚫 В компонентах нельзя импортировать напрямую из api. Используй store/composables/сервисы.',
+            },
+          ],
+        },
+      ],
+    },
+  },
   // https://github.com/vuejs/eslint-config-typescript
   vueTsConfigs.recommendedTypeChecked,
 

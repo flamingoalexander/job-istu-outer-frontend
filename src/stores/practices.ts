@@ -3,7 +3,7 @@ import type { Practice } from 'src/types';
 import { StorageStatus } from 'stores/index';
 import ENDPOINTS from 'src/constants/endpoints';
 import { find } from 'lodash';
-import { publicHttpClient } from 'src/api/http.clients';
+import { publicHttpClient } from 'src/api/requests/http.clients';
 
 export const usePracticesStore = defineStore('practices', {
   state: () => ({

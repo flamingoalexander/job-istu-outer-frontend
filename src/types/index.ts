@@ -6,6 +6,13 @@ export type Institute = {
   directions: Direction[];
 };
 
+export type UserInfo = {
+  username: string,
+  first_name: string,
+  last_name: string,
+  email: string
+}
+
 export type Direction = {
   id: number;
   short_name: string;
@@ -28,7 +35,18 @@ export type Company = {
   head_full_name: string;
   head_job_title: string;
 };
-
+export type UserCompany = {
+  id: number;
+  name: string;
+  argeement_date_begin: string;
+  agreement_date_end: string;
+  agreement: string;
+  image_url: string;
+  area_of_activity: string;
+  head_full_name: string;
+  head_job_title: string;
+  hire_count: number;
+};
 export type Contact = {
   id: number;
   type: number;

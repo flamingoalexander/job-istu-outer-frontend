@@ -3,7 +3,7 @@ import { type Institute } from 'src/types';
 import ENDPOINTS from 'src/constants/endpoints';
 import { StorageStatus } from 'stores/index';
 import { find } from 'lodash';
-import { publicHttpClient } from 'src/api/http.clients';
+import { publicHttpClient } from 'src/api/requests/http.clients';
 
 export const useInstitutesStore = defineStore('institutes', {
   state: () => ({

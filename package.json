@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
+    "ajv": "^8.17.1",
+    "ajv-errors": "^3.0.0",
     "axios": "^1.2.1",
     "lodash": "^4.17.21",
     "pinia": "^3.0.1",
