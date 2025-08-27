@@ -44,8 +44,18 @@
           />
         </q-avatar>
       </q-btn>
-      <q-btn round flat :to="{ name: 'auth' }" aria-label="Войти">
+      <q-btn round flat :to="{ path: '/auth' }" aria-label="Войти">
         <q-avatar size="36px">
+          <q-img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALBplMxySL51Y_dJZ5FTrLpa1rpD72FebJA&usqp=CAU"
+            alt="Профиль"
+            ratio="1"
+            loading="lazy"
+          />
+        </q-avatar>
+      </q-btn>
+      <q-btn round flat :to="{ path: '/profile' }" aria-label="Войти">
+        <q-avatar size="48px">
           <q-img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALBplMxySL51Y_dJZ5FTrLpa1rpD72FebJA&usqp=CAU"
             alt="Профиль"
@@ -58,7 +68,8 @@
   </q-header>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+</script>
 
 <style scoped>
 :deep(.q-toolbar) {

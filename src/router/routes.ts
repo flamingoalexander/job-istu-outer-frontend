@@ -20,8 +20,33 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-  // Always leave this as last one,
-  // but you can also remove it
+  {
+    //TODO разобраться почему нужен редирект
+    path: '/auth',
+    name: 'auth',
+    component: () => import('layouts/MainLayout.vue'),
+    redirect: { name: 'auth.index' },
+    children: [
+      {
+        path: '',
+        name: 'auth.index',
+        component: () => import('pages/AuthPage.vue'),
+      }
+    ]
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('layouts/MainLayout.vue'),
+    redirect: { name: 'profile.index' },
+    children: [
+      {
+        path: '',
+        name: 'profile.index',
+        component: () => import('pages/PersonalAccount.vue')
+      }
+    ]
+  },
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),
