@@ -6,6 +6,7 @@
   "author": "INRTU",
   "type": "module",
   "private": true,
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "lint": "eslint -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs,vue}\"",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",

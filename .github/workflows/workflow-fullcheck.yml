@@ -1,0 +1,39 @@
+name: workflow-fullcheck.yml
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  fullcheck:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 24.x ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Starting Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Enable Corepack (Yarn)
+        run: |
+            corepack enable
+            corepack prepare --activate
+      - name: Cache Yarn Berry artifacts
+        uses: actions/cache@v4
+        with:
+          path: .yarn/cache
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-${{ runner.os }}-
+      - name: install deps
+        run: yarn install --immutable
+      - name: build
+        run: yarn build
+      - name: lint check
+        run: yarn lint
+      - name: type check
+        run: yarn typecheck
+      - name: format check
+        run: yarn format:check
