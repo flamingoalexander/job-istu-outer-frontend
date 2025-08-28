@@ -15,7 +15,7 @@
       >
         Произошла ошибка при загрузке партнёров
       </q-banner>
-      <div v-else class="q-gutter-y-md padding" >
+      <div v-else class="q-gutter-y-md padding">
         <PracticeCard
           v-for="p in practiceStorage.items"
           :key="p.company.id"

@@ -31,8 +31,8 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: 'auth.index',
         component: () => import('pages/AuthPage.vue'),
-      }
-    ]
+      },
+    ],
   },
   {
     path: '/profile',
@@ -43,9 +43,9 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         name: 'profile.index',
-        component: () => import('pages/PersonalAccount.vue')
-      }
-    ]
+        component: () => import('pages/PersonalAccount.vue'),
+      },
+    ],
   },
   {
     path: '/:catchAll(.*)*',

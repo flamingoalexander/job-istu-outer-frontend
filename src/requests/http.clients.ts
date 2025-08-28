@@ -1,6 +1,6 @@
 import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import axios from 'axios';
-import { tokenStorage } from 'src/api/user/token.storage';
+import { tokenStorage } from 'src/requests/token.storage';
 import { TokenRefreshError } from 'src/api/errors';
 import ENDPOINTS from 'src/constants/endpoints';
 

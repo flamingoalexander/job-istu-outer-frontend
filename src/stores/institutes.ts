@@ -3,7 +3,7 @@ import { type Institute } from 'src/types';
 import ENDPOINTS from 'src/constants/endpoints';
 import { StorageStatus } from 'stores/index';
 import { find } from 'lodash';
-import { publicHttpClient } from 'src/api/requests/http.clients';
+import { publicHttpClient } from 'src/requests/http.clients';
 
 export const useInstitutesStore = defineStore('institutes', {
   state: () => ({
@@ -21,13 +21,13 @@ export const useInstitutesStore = defineStore('institutes', {
 
   actions: {
     async fetch(force = false) {
-      if (this.status === StorageStatus.Success && !force) return;
+      if (this.status === StorageStatus.Ready && !force) return;
       if (this.status === StorageStatus.Pending) return;
       this.status = StorageStatus.Pending;
       try {
         const { data } = await publicHttpClient.get<Institute[]>(ENDPOINTS.faculty.getAll());
         this.items = data;
-        this.status = StorageStatus.Success;
+        this.status = StorageStatus.Ready;
       } catch (e: unknown) {
         this.status = StorageStatus.Error;
         throw e;

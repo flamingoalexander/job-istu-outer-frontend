@@ -4,7 +4,7 @@ import { createPinia } from 'pinia';
 export enum StorageStatus {
   Idle = 'idle',
   Pending = 'pending',
-  Success = 'success',
+  Ready = 'ready',
   Error = 'error',
 }
 /*

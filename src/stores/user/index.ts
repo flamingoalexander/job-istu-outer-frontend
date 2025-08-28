@@ -1,40 +1,88 @@
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import type { Company, Practice, Theme, Contact } from 'src/types';
-import { StorageStatus } from 'stores/index';
-import { getUserCompany, getUserInfo, login, logout } from 'src/api/user';
+import type { Contact, Practice, Theme, UserCompany } from 'src/types';
+import { ThemeTypes } from 'src/types';
+import { StorageStatus } from 'stores';
+import {
+  getUserCompany,
+  getUserInfo,
+  login,
+  logout,
+  getUserThemes,
+  getUserContacts,
+  updateUserCompany,
+  updateUserInfo,
+} from 'src/api/user';
 import type { Credentials } from 'src/types/auth';
+import type { UserCompanyBaseInput, UserInfoBaseInput } from 'src/requests';
+
+type UserState = {
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  company: UserCompany | null;
+  themes: Theme[];
+  contacts: Contact[];
+  practices: Practice[];
+  status: StorageStatus;
+};
 
 export const useUserStore = defineStore('user', {
-  state: () => ({
-    username: null as string | null,
-    first_name: null as string | null,
-    last_name: null as string | null,
-    email: null as string | null,
-    company: null as Company | null,
+  state: (): UserState => ({
+    username: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    company: null,
+    themes: [],
+    contacts: [],
+    practices: [],
     status: StorageStatus.Idle,
-    themes: null as Theme[] | null,
-    contacts: null as Contact[] | null,
-    practices: null as Practice[] | null,
-    isAuthenticated: false,
   }),
   actions: {
     async login(credentials: Credentials): Promise<void> {
       this.status = StorageStatus.Pending;
       await login(credentials);
-      const userInfo = await getUserInfo();
-      console.log(userInfo);
+      const [info, company, themes, contacts] = await Promise.all([
+        getUserInfo(),
+        getUserCompany(),
+        getUserThemes(),
+        getUserContacts(),
+      ]);
+      this.username = info.username;
+      this.first_name = info.first_name;
+      this.last_name = info.last_name;
+      this.email = info.email;
+      this.company = company;
+      this.themes = themes;
+      this.contacts = contacts;
+      this.status = StorageStatus.Ready;
+    },
+    async logout() {
+      this.status = StorageStatus.Pending;
+      await logout();
+      this.$reset();
+    },
+    async updateUserInfo(payload: UserInfoBaseInput): Promise<void> {
+      this.status = StorageStatus.Pending;
+      const userInfo = await updateUserInfo(payload);
       this.username = userInfo.username;
       this.first_name = userInfo.first_name;
       this.last_name = userInfo.last_name;
       this.email = userInfo.email;
-      const company = await getUserCompany();
-      console.log(company);
-      this.company = company;
-
+      this.status = StorageStatus.Ready;
     },
-    async logout() {
-      await logout();
+    async updateUserCompany(payload: UserCompanyBaseInput): Promise<void> {
+      this.status = StorageStatus.Pending;
+      this.company = await updateUserCompany(payload);
+      this.status = StorageStatus.Ready;
     },
+  },
+  getters: {
+    isAuthenticated: (s) => Boolean(s.username || s.email || s.company),
+    practiceThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.PR),
+    vkrThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.VKR),
+    niokrThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.NIOKR),
   },
 });
 

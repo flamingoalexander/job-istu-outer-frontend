@@ -19,6 +19,22 @@ const ENDPOINTS = {
   user: {
     getInfo: () => 'base/user/info',
     getCompany: () => 'base/user/company',
+    getThemes: () => 'base/user/themes',
+    getContacts: () => 'base/user/contact',
+
+    getPractices: () => 'base/user/practice',
+    postPractices: () => 'base/user/practice',
+
+    patchInfo: () => 'base/user/info',
+    patchCompany: () => 'base/user/company',
+
+    postTheme: () => 'base/user/themes/',
+    deleteTheme: () => 'base/user/themes/',
+
+    postThemeToPractice: (themeId: number, practiceId: number) =>
+      `base/user/practice/${practiceId}/themes/${themeId}/`,
+    deleteThemeFromPractice: (themeId: number, practiceId: number) =>
+      `base/user/practice/${practiceId}/themes/${themeId}/`,
   },
 };
 export default ENDPOINTS;

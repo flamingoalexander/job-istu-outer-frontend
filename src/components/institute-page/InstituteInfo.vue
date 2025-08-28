@@ -1,95 +1,95 @@
 <template>
-    <q-card flat bordered class="q-pa-md q-gutter-y-md">
-      <div class="row items-center q-col-gutter-md">
-        <div class="col-12 col-md-auto">
-          <q-img
-            :src="currentInstitute?.image_url"
-            alt="Логотип института"
-            ratio="1"
-            style="width: 12rem; max-width: 100%"
-            :placeholder-src="fallbackImg"
-            loading="lazy"
-          />
+  <q-card flat bordered class="q-pa-md q-gutter-y-md">
+    <div class="row items-center q-col-gutter-md">
+      <div class="col-12 col-md-auto">
+        <q-img
+          :src="currentInstitute?.image_url"
+          alt="Логотип института"
+          ratio="1"
+          style="width: 12rem; max-width: 100%"
+          :placeholder-src="fallbackImg"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="col">
+        <div class="text-h5">
+          Промышленные партнёры института
+          <br />
+          “{{ currentInstitute?.name }}”
         </div>
+      </div>
+    </div>
 
-        <div class="col">
-          <div class="text-h5">
-            Промышленные партнёры института
-            <br />
-            “{{ currentInstitute?.name }}”
+    <q-separator />
+
+    <!-- Секции направлений -->
+    <div class="q-gutter-y-lg">
+      <section v-if="bachelor.length">
+        <div class="text-h6 q-mb-sm">Бакалавриат</div>
+        <div class="row q-col-gutter-sm">
+          <div v-for="dir in bachelor" :key="dir.id" class="col-auto">
+            <q-chip clickable :href="dir.url || undefined" target="_blank" rel="noopener" glossy>
+              {{ dir.short_name }}
+              <q-tooltip anchor="bottom middle" self="top middle" class="bg-grey-9 text-white">
+                {{ dir.full_name }}
+              </q-tooltip>
+            </q-chip>
           </div>
         </div>
-      </div>
+        <q-separator class="q-mt-md" />
+      </section>
 
-      <q-separator />
-
-      <!-- Секции направлений -->
-      <div class="q-gutter-y-lg">
-        <section v-if="bachelor.length">
-          <div class="text-h6 q-mb-sm">Бакалавриат</div>
-          <div class="row q-col-gutter-sm">
-            <div v-for="dir in bachelor" :key="dir.id" class="col-auto">
-              <q-chip clickable :href="dir.url || undefined" target="_blank" rel="noopener" glossy>
-                {{ dir.short_name }}
-                <q-tooltip anchor="bottom middle" self="top middle" class="bg-grey-9 text-white">
-                  {{ dir.full_name }}
-                </q-tooltip>
-              </q-chip>
-            </div>
+      <section v-if="magistracy.length">
+        <div class="text-h6 q-mb-sm">Магистратура</div>
+        <div class="row q-col-gutter-sm">
+          <div v-for="dir in magistracy" :key="dir.id" class="col-auto">
+            <q-chip clickable :href="dir.url || undefined" target="_blank" rel="noopener" glossy>
+              {{ dir.short_name }}
+              <q-tooltip anchor="bottom middle" self="top middle" class="bg-grey-9 text-white">
+                {{ dir.full_name }}
+              </q-tooltip>
+            </q-chip>
           </div>
-          <q-separator class="q-mt-md" />
-        </section>
+        </div>
+        <q-separator class="q-mt-md" />
+      </section>
 
-        <section v-if="magistracy.length">
-          <div class="text-h6 q-mb-sm">Магистратура</div>
-          <div class="row q-col-gutter-sm">
-            <div v-for="dir in magistracy" :key="dir.id" class="col-auto">
-              <q-chip clickable :href="dir.url || undefined" target="_blank" rel="noopener" glossy>
-                {{ dir.short_name }}
-                <q-tooltip anchor="bottom middle" self="top middle" class="bg-grey-9 text-white">
-                  {{ dir.full_name }}
-                </q-tooltip>
-              </q-chip>
-            </div>
+      <section v-if="specialty.length">
+        <div class="text-h6 q-mb-sm">Специалитет</div>
+        <div class="row q-col-gutter-sm">
+          <div v-for="dir in specialty" :key="dir.id" class="col-auto">
+            <q-chip clickable :href="dir.url || undefined" target="_blank" rel="noopener" glossy>
+              {{ dir.short_name }}
+              <q-tooltip anchor="bottom middle" self="top middle" class="bg-grey-9 text-white">
+                {{ dir.full_name }}
+              </q-tooltip>
+            </q-chip>
           </div>
-          <q-separator class="q-mt-md" />
-        </section>
+        </div>
+        <q-separator class="q-mt-md" />
+      </section>
 
-        <section v-if="specialty.length">
-          <div class="text-h6 q-mb-sm">Специалитет</div>
-          <div class="row q-col-gutter-sm">
-            <div v-for="dir in specialty" :key="dir.id" class="col-auto">
-              <q-chip clickable :href="dir.url || undefined" target="_blank" rel="noopener" glossy>
-                {{ dir.short_name }}
-                <q-tooltip anchor="bottom middle" self="top middle" class="bg-grey-9 text-white">
-                  {{ dir.full_name }}
-                </q-tooltip>
-              </q-chip>
-            </div>
+      <section v-if="other.length">
+        <div class="text-h6 q-mb-sm">Другие</div>
+        <div class="row q-col-gutter-sm">
+          <div v-for="dir in other" :key="dir.id" class="col-auto">
+            <q-chip clickable :href="dir.url || undefined" target="_blank" rel="noopener" glossy>
+              {{ dir.short_name }}
+              <q-tooltip anchor="bottom middle" self="top middle" class="bg-grey-9 text-white">
+                {{ dir.full_name }}
+              </q-tooltip>
+            </q-chip>
           </div>
-          <q-separator class="q-mt-md" />
-        </section>
+        </div>
+      </section>
+    </div>
 
-        <section v-if="other.length">
-          <div class="text-h6 q-mb-sm">Другие</div>
-          <div class="row q-col-gutter-sm">
-            <div v-for="dir in other" :key="dir.id" class="col-auto">
-              <q-chip clickable :href="dir.url || undefined" target="_blank" rel="noopener" glossy>
-                {{ dir.short_name }}
-                <q-tooltip anchor="bottom middle" self="top middle" class="bg-grey-9 text-white">
-                  {{ dir.full_name }}
-                </q-tooltip>
-              </q-chip>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <!-- Кнопка "На главную" -->
-      <div class="row justify-end q-mt-lg">
-        <q-btn color="grey-7" flat :to="{ name: 'home' }" label="На главную" />
-      </div>
-    </q-card>
+    <!-- Кнопка "На главную" -->
+    <div class="row justify-end q-mt-lg">
+      <q-btn color="grey-7" flat :to="{ name: 'home' }" label="На главную" />
+    </div>
+  </q-card>
 </template>
 
 <script setup lang="ts">

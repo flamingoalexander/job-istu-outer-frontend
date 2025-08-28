@@ -12,7 +12,6 @@ export class TokenRefreshError extends Error {
   }
 }
 
-
 export class ResponseError extends Error {
   constructor(message = 'Wrong response occurred') {
     super(message);

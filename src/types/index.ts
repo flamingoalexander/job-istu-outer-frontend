@@ -7,11 +7,11 @@ export type Institute = {
 };
 
 export type UserInfo = {
-  username: string,
-  first_name: string,
-  last_name: string,
-  email: string
-}
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+};
 
 export type Direction = {
   id: number;
@@ -35,16 +35,7 @@ export type Company = {
   head_full_name: string;
   head_job_title: string;
 };
-export type UserCompany = {
-  id: number;
-  name: string;
-  argeement_date_begin: string;
-  agreement_date_end: string;
-  agreement: string;
-  image_url: string;
-  area_of_activity: string;
-  head_full_name: string;
-  head_job_title: string;
+export type UserCompany = Company & {
   hire_count: number;
 };
 export type Contact = {
@@ -52,11 +43,15 @@ export type Contact = {
   type: number;
   value: string;
 };
-
+export enum ThemeTypes {
+  PR = 'ПР',
+  VKR = 'ВКР',
+  NIOKR = 'НИОКР',
+}
 export type Theme = {
   id: 0;
   title: string;
-  type: string;
+  type: ThemeTypes;
 };
 export type Practice = {
   id: number;

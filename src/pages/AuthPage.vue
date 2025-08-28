@@ -1,25 +1,24 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-import type {Credentials} from 'src/types/auth';
-import authFormImage from '/pics/auth-form-preview.jpg'
-const isDisabled = ref(false)
-const authMessage = ref('')
+import { ref, reactive } from 'vue';
+import type { Credentials } from 'src/types/auth';
+import authFormImage from '/pics/auth-form-preview.jpg';
+const isDisabled = ref(false);
+const authMessage = ref('');
 import { useUserStore } from 'stores/user';
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router';
 
 const credentials: Credentials = reactive({
   username: '',
   password: '',
-  rememberMe: false
-})
+  rememberMe: false,
+});
 const router = useRouter();
-const loading = ref(false)
+const loading = ref(false);
 const userStore = useUserStore();
 const handleAuth = async () => {
   await userStore.login(credentials);
   await router.push('/profile');
-}
-
+};
 </script>
 
 <template>
@@ -28,14 +27,16 @@ const handleAuth = async () => {
       <div class="row items-stretch no-wrap">
         <div class="col-12 col-md-6">
           <q-img
-            :src=authFormImage
+            :src="authFormImage"
             ratio="4/3"
             class="full-height radius-left"
             :img-class="'object-cover'"
           >
-            <div class="absolute-top-left q-pa-lg text-dark text-weight-medium text-h2 text-shadow-2">
-              Центр<br>
-              Карьеры <br>
+            <div
+              class="absolute-top-left q-pa-lg text-dark text-weight-medium text-h2 text-shadow-2"
+            >
+              Центр<br />
+              Карьеры <br />
               ИРНИТУ
             </div>
           </q-img>
@@ -96,9 +97,7 @@ const handleAuth = async () => {
                     color="primary"
                     class="full-width q-py-sm radius-md"
                   >
-                    <div class="text-center">
-                      Производственный<br>партнер
-                    </div>
+                    <div class="text-center">Производственный<br />партнер</div>
                   </q-btn>
                 </div>
 
@@ -151,7 +150,7 @@ const handleAuth = async () => {
 }
 
 .text-shadow-2 {
-  text-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
 }
 
 .full-height {

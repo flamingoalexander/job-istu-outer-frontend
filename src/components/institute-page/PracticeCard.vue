@@ -61,8 +61,7 @@
         <q-separator />
 
         <div class="row q-col-gutter-sm">
-          <div class="col-auto" v-for="link in practice.contacts" :key="link.id">
-          </div>
+          <div class="col-auto" v-for="link in practice.contacts" :key="link.id"></div>
         </div>
       </div>
     </q-slide-transition>
