@@ -16,8 +16,13 @@ const router = useRouter();
 const loading = ref(false);
 const userStore = useUserStore();
 const handleAuth = async () => {
-  await userStore.login(credentials);
-  await router.push('/profile');
+  loading.value = true;
+  try {
+    await userStore.login(credentials);
+    await router.push('/profile');
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 
@@ -89,28 +94,23 @@ const handleAuth = async () => {
               </div>
 
               <div class="row items-center q-mt-lg">
-                <div class="col-12 col-sm-7 q-pr-sm q-mb-sm">
-                  <q-btn
-                    type="submit"
-                    :loading="loading"
-                    unelevated
-                    color="primary"
-                    class="full-width q-py-sm radius-md"
-                  >
-                    <div class="text-center">Производственный<br />партнер</div>
-                  </q-btn>
-                </div>
-
-                <div class="col-12 col-sm-5 q-pl-sm">
-                  <q-btn
-                    href="https://job.istu.edu/inner"
-                    target="_blank"
-                    unelevated
-                    class="full-width q-py-sm radius-md"
-                    color="cyan-5"
-                    label="ИРНИТУ"
-                  />
-                </div>
+                <q-btn
+                  type="submit"
+                  :loading="loading"
+                  unelevated
+                  color="primary"
+                  class="full-width q-py-sm radius-md"
+                >
+                  <div class="text-center">Производственный<br />партнер</div>
+                </q-btn>
+                <q-btn
+                  href="https://job.istu.edu/inner"
+                  target="_blank"
+                  unelevated
+                  class="full-width q-py-sm radius-md"
+                  color="cyan-5"
+                  label="ИРНИТУ"
+                />
               </div>
             </q-form>
           </div>

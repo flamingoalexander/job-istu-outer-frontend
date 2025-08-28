@@ -4,13 +4,14 @@ import UserInfoForm from 'src/components/UserInfoForm.vue';
 import { useUserStore } from 'stores/user';
 import { storeToRefs } from 'pinia';
 import type { UserInfoBaseInput } from '../requests';
+import { useRouter } from 'vue-router';
 
 const userStore = useUserStore();
 const { company, username, first_name, last_name, email } = storeToRefs(userStore);
 
 const userInfoFormVisible = ref(false);
 const userCompanyFormVisible = ref(false);
-
+const router = useRouter();
 const applyUserInfoPatch = async (payload: UserInfoBaseInput) => {
   await userStore.updateUserInfo(payload);
 };
@@ -18,6 +19,10 @@ const applyUserInfoPatch = async (payload: UserInfoBaseInput) => {
 // const applyUserCompanyPatch = async (payload: UserCompanyBaseInput) => {
 //   await userStore.updateUserCompany(payload);
 // };
+const logout = async () => {
+  await userStore.logout();
+  await router.push('auth');
+};
 </script>
 
 <template>
@@ -117,6 +122,7 @@ const applyUserInfoPatch = async (payload: UserInfoBaseInput) => {
             </div>
           </div>
           <q-separator spaced />
+          <q-btn color="red" aria-label="Выйти" label="Выйти" @click="logout" />
         </q-card>
       </div>
     </div>

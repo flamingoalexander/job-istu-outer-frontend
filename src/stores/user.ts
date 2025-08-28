@@ -1,7 +1,7 @@
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import type { Contact, Practice, Theme, UserCompany } from 'src/types';
 import { ThemeTypes } from 'src/types';
-import { StorageStatus } from 'stores';
+import { StorageStatus } from 'stores/index';
 import {
   getUserCompany,
   getUserInfo,
@@ -41,8 +41,13 @@ export const useUserStore = defineStore('user', {
   }),
   actions: {
     async login(credentials: Credentials): Promise<void> {
+      if (this.status === StorageStatus.Ready) return;
       this.status = StorageStatus.Pending;
       await login(credentials);
+      await this.fetch(true);
+    },
+    async fetch(force = false): Promise<void> {
+      if (this.status === StorageStatus.Ready && force) return;
       const [info, company, themes, contacts] = await Promise.all([
         getUserInfo(),
         getUserCompany(),
@@ -79,7 +84,6 @@ export const useUserStore = defineStore('user', {
     },
   },
   getters: {
-    isAuthenticated: (s) => Boolean(s.username || s.email || s.company),
     practiceThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.PR),
     vkrThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.VKR),
     niokrThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.NIOKR),

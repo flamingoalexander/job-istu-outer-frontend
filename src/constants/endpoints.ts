@@ -1,8 +1,8 @@
 const ENDPOINTS = {
   auth: {
     login: () => 'base/auth/',
-    logout: () => 'base/auth/log_out/',
-    refresh: () => 'base/auth/refresh/',
+    logout: () => 'base/auth/log_out',
+    refresh: () => 'base/auth/refresh',
   },
   faculty: {
     getAll: () => 'legacy/faculty',

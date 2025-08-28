@@ -1,5 +1,5 @@
 export enum RequestErrorMessages {
-  WRONG_SERVER_RESPONSE = 'WRONG_SERVER_RESPONSE',
-  WRONG_CREDENTIALS = 'WRONG_CREDENTIALS',
-  AXIOS_ERROR = 'AXIOS_ERROR',
+  WRONG_SERVER_RESPONSE = 'Ошибка сервера',
+  WRONG_CREDENTIALS = 'Неправильный логин или пароль',
+  AXIOS_ERROR = 'Неизвестная ошибка',
 }

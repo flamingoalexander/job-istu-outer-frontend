@@ -5,44 +5,25 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'home',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/MainPage.vue') }],
-  },
-  {
-    path: '/institute',
-    name: 'institute',
-    component: () => import('layouts/MainLayout.vue'),
     children: [
+      { path: '', component: () => import('pages/MainPage.vue') },
       {
-        path: ':instituteId',
-        name: 'institute-detail',
+        path: '/institute/:instituteId',
+        name: 'institute',
+        meta: { requiresAuth: false },
         component: () => import('pages/InstitutePage.vue'),
         props: true,
       },
-    ],
-  },
-  {
-    //TODO разобраться почему нужен редирект
-    path: '/auth',
-    name: 'auth',
-    component: () => import('layouts/MainLayout.vue'),
-    redirect: { name: 'auth.index' },
-    children: [
       {
-        path: '',
-        name: 'auth.index',
+        path: '/auth',
+        name: 'auth',
+        meta: { requiresAuth: false },
         component: () => import('pages/AuthPage.vue'),
       },
-    ],
-  },
-  {
-    path: '/profile',
-    name: 'profile',
-    component: () => import('layouts/MainLayout.vue'),
-    redirect: { name: 'profile.index' },
-    children: [
       {
-        path: '',
-        name: 'profile.index',
+        path: '/profile',
+        name: 'profile',
+        meta: { requiresAuth: true },
         component: () => import('pages/PersonalAccount.vue'),
       },
     ],

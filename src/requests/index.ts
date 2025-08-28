@@ -64,7 +64,7 @@ export type LogoutResponse = {
 
 export const userLogoutRequest = async (): Promise<LogoutResponse | RequestError> => {
   try {
-    const response = await authHttpClient.post(ENDPOINTS.auth.logout());
+    const response = await userHttpClient.post(ENDPOINTS.auth.logout());
     if (response.status === 200) {
       return {
         ok: true,

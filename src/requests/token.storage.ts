@@ -32,7 +32,12 @@ export const tokenStorage = {
     sessionStorage.removeItem(ACCESS_KEY);
     localStorage.removeItem(REMEMBER_KEY);
   },
+  isAuthenticated(): boolean {
+    const rememberMe = localStorage.getItem(REMEMBER_KEY) === '1';
+    const s = rememberMe ? storage('local') : storage('session');
+    return !!s.getItem(ACCESS_KEY);
 
+  },
   isRemembered(): boolean {
     return localStorage.getItem(REMEMBER_KEY) === '1';
   },

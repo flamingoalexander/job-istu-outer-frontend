@@ -4,7 +4,7 @@
       <router-link
         v-for="inst in store.items"
         :key="inst.id"
-        :to="{ name: 'institute-detail', params: { instituteId: inst.id } }"
+        :to="{ name: 'institute', params: { instituteId: inst.id } }"
         class="col-12 col-sm-6 col-md-4 col-lg-3"
         style="text-decoration: none"
       >

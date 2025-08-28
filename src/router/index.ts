@@ -6,6 +6,7 @@ import {
   createWebHistory,
 } from 'vue-router';
 import routes from './routes';
+import { tokenStorage } from 'src/requests/token.storage';
 
 /*
  * If not building with SSR mode, you can
@@ -23,7 +24,7 @@ export default defineRouter(function (/* { store, ssrContext } */) {
       ? createWebHistory
       : createWebHashHistory;
 
-  return createRouter({
+  const router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
     routes,
 
@@ -32,4 +33,14 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
+  router.beforeEach((to) => {
+    if (tokenStorage.isAuthenticated() && to.name === 'auth') {
+      return false;
+    }
+    if (!tokenStorage.isAuthenticated() && to.matched.some((record) => record.meta.requiresAuth)) {
+      return { name: 'auth' };
+    }
+    return true;
+  });
+  return router;
 });
