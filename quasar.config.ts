@@ -1,7 +1,7 @@
 import { defineConfig } from '#q-app/wrappers';
 export default defineConfig((/* ctx */) => {
   return {
-    boot: ['fetch.stores', 'error.handler'],
+    boot: ['init.stores', 'error.handler'],
     css: ['app.scss'],
     extras: ['roboto-font', 'material-icons'],
     build: {

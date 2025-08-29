@@ -25,7 +25,13 @@ export type ApiLoginResponse = {
 };
 export type UserInfoBaseInput = Omit<UserInfo, 'username'>;
 export const login = async (payload: Credentials): Promise<void> => {
-  const { data } = await authHttpClient.post<ApiLoginResponse>(ENDPOINTS.auth.login(), payload);
+  const { data } = await authHttpClient.post<ApiLoginResponse | { error: 'Wrong credentials' }>(
+    ENDPOINTS.auth.login(),
+    payload,
+  );
+  if ('error' in data) {
+    throw new ResponseError(ApiErrorMessages.WRONG_CREDENTIALS);
+  }
   if (!validateObjSchema(data, LoginResponseSchema)) {
     throw new ResponseError(ApiErrorMessages.WRONG_SERVER_RESPONSE);
   }

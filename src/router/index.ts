@@ -6,7 +6,8 @@ import {
   createWebHistory,
 } from 'vue-router';
 import routes from './routes';
-import { isUserAuthenticated } from 'src/api/token.service';
+import { useUserStore } from 'stores/user';
+import { watch } from 'vue';
 
 /*
  * If not building with SSR mode, you can
@@ -33,11 +34,21 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
+  const userStore = useUserStore();
+  userStore.initWatchers();
+  watch(
+    () => userStore.isAuthenticated,
+    async (isAuth) => {
+      if (!isAuth) {
+        await router.push('auth');
+      }
+    },
+  );
   router.beforeEach((to) => {
-    if (isUserAuthenticated() && to.name === 'auth') {
+    if (userStore.isAuthenticated && to.name === 'auth') {
       return false;
     }
-    if (!isUserAuthenticated() && to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!userStore.isAuthenticated && to.matched.some((record) => record.meta.requiresAuth)) {
       return { name: 'auth' };
     }
     return true;

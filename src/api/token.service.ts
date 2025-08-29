@@ -1,6 +1,6 @@
 type StorageKind = 'local' | 'session';
 
-const ACCESS_KEY = 'access_token';
+export const ACCESS_KEY = 'access_token';
 const REMEMBER_KEY = 'remember_me';
 
 function storage(kind: StorageKind): Storage {
@@ -33,11 +33,11 @@ export function clearAccessToken(): void {
   localStorage.removeItem(REMEMBER_KEY);
 }
 
-export function isUserAuthenticated(): boolean {
-  const rememberMe = localStorage.getItem(REMEMBER_KEY) === '1';
-  const s = rememberMe ? storage('local') : storage('session');
-  return !!s.getItem(ACCESS_KEY);
-}
+// export function isUserAuthenticated(): boolean {
+//   const rememberMe = localStorage.getItem(REMEMBER_KEY) === '1';
+//   const s = rememberMe ? storage('local') : storage('session');
+//   return !!s.getItem(ACCESS_KEY);
+// }
 
 export function isRemembered(): boolean {
   return localStorage.getItem(REMEMBER_KEY) === '1';

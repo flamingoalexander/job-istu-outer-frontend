@@ -60,6 +60,7 @@ userHttpClient.interceptors.response.use(
     if (status !== 401 || cfg._retry) {
       return Promise.reject(error);
     }
+    //TODO в случае ошибки при рефреш токена, делать isAuth=false в сторе
     cfg._retry = true;
     const newAccess = await refreshAccessToken();
     updateAccessToken(newAccess);

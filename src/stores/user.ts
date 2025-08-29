@@ -15,6 +15,8 @@ import {
 } from 'src/api/user';
 import type { Credentials } from 'src/types/auth';
 import type { UserInfoBaseInput } from 'src/api/user';
+import { ACCESS_KEY } from 'src/api/token.service';
+import { watch } from 'vue';
 
 type UserState = {
   username: string;
@@ -26,6 +28,7 @@ type UserState = {
   contacts: Contact[];
   practices: Practice[];
   status: StorageStatus;
+  isAuthenticated: boolean;
 };
 
 export const useUserStore = defineStore('user', {
@@ -39,22 +42,42 @@ export const useUserStore = defineStore('user', {
     contacts: [],
     practices: [],
     status: StorageStatus.Idle,
-
+    isAuthenticated: !!(localStorage.getItem(ACCESS_KEY) || sessionStorage.getItem(ACCESS_KEY)),
   }),
   actions: {
     async login(credentials: Credentials): Promise<void> {
       if (this._isStoreBusy()) return;
       if (this.status === StorageStatus.Ready) return;
       this.status = StorageStatus.Pending;
-      await login(credentials);
-      await this.fetch(true);
+      try {
+        await login(credentials);
+        this.isAuthenticated = true;
+        this.status = StorageStatus.Ready;
+      } catch (e) {
+        this.status = StorageStatus.Idle;
+        throw e;
+      }
     },
     _isStoreBusy(): boolean {
       return this.status === StorageStatus.Pending;
     },
+    initWatchers() {
+      watch(
+        () => this.isAuthenticated,
+        async (isAuth) => {
+          if (isAuth) {
+            await this.fetch(true);
+          } else {
+            this.$reset();
+          }
+        },
+        { immediate: true },
+      );
+    },
     async fetch(force = false): Promise<void> {
       if (this._isStoreBusy()) return;
       if (this.status === StorageStatus.Ready && !force) return;
+      this.status = StorageStatus.Pending;
       const [info, company, themes, contacts] = await Promise.all([
         getUserInfo(),
         getUserCompany(),
@@ -75,6 +98,7 @@ export const useUserStore = defineStore('user', {
       this.status = StorageStatus.Pending;
       await logout();
       this.$reset();
+      this.isAuthenticated = false;
       this.status = StorageStatus.Idle;
     },
     async updateUserInfo(payload: UserInfoBaseInput): Promise<void> {
@@ -99,13 +123,13 @@ export const useUserStore = defineStore('user', {
     vkrThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.VKR),
     niokrThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.NIOKR),
     getSafeCompany: (s): UserCompany => {
-      if (s.company === null){
-        throw new TypeError("Company is null")
+      if (s.company === null) {
+        throw new TypeError('Company is null');
       }
-      return s.company
+      return s.company;
     },
-
-}});
+  },
+});
 
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot));
