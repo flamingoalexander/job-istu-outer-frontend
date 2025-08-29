@@ -2,6 +2,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 import type { Contact, Practice, Theme, UserCompany } from 'src/types';
 import { ThemeTypes } from 'src/types';
 import { StorageStatus } from 'stores/index';
+import type { UserCompanyBaseInput } from 'src/api/user';
 import {
   getUserCompany,
   getUserInfo,
@@ -13,7 +14,7 @@ import {
   updateUserInfo,
 } from 'src/api/user';
 import type { Credentials } from 'src/types/auth';
-import type { UserCompanyBaseInput, UserInfoBaseInput } from 'src/requests';
+import type { UserInfoBaseInput } from 'src/api/user';
 
 type UserState = {
   username: string;

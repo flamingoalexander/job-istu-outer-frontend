@@ -6,7 +6,7 @@ import {
   createWebHistory,
 } from 'vue-router';
 import routes from './routes';
-import { tokenStorage } from 'src/requests/token.storage';
+import { isUserAuthenticated } from 'src/api/token.service';
 
 /*
  * If not building with SSR mode, you can
@@ -34,10 +34,10 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
   router.beforeEach((to) => {
-    if (tokenStorage.isAuthenticated() && to.name === 'auth') {
+    if (isUserAuthenticated() && to.name === 'auth') {
       return false;
     }
-    if (!tokenStorage.isAuthenticated() && to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!isUserAuthenticated() && to.matched.some((record) => record.meta.requiresAuth)) {
       return { name: 'auth' };
     }
     return true;

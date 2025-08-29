@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { reactive, watch } from 'vue';
-
-import type { UserInfoBaseInput } from '../requests';
+import type { UserInfoBaseInput } from 'src/api/user';
 
 const props = defineProps<{
   userInfoFormVisible: boolean;

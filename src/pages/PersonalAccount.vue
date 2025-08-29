@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import UserInfoForm from 'src/components/UserInfoForm.vue';
 import { useUserStore } from 'stores/user';
 import { storeToRefs } from 'pinia';
-import type { UserInfoBaseInput } from '../requests';
+import type { UserInfoBaseInput } from 'src/api/user';
 import { useRouter } from 'vue-router';
 
 const userStore = useUserStore();

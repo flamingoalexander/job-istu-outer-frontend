@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive, watch } from 'vue';
-import type { UserCompanyBaseInput } from '../requests';
+import type { UserCompanyBaseInput } from 'src/api/user';
 
 const props = defineProps<{
   userCompanyFormVisible: boolean;

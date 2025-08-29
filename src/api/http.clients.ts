@@ -1,8 +1,8 @@
 import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import axios from 'axios';
-import { tokenStorage } from 'src/requests/token.storage';
 import { TokenRefreshError } from 'src/api/errors';
 import ENDPOINTS from 'src/constants/endpoints';
+import { getAccessToken, updateAccessToken } from 'src/api/token.service';
 
 const API_URL = '/api/out';
 
@@ -35,7 +35,7 @@ const refreshAccessToken = async (): Promise<string> => {
 
 userHttpClient.interceptors.request.use(
   (config) => {
-    const token = tokenStorage.get();
+    const token = getAccessToken();
     if (token) {
       config.headers.Authorization = 'Bearer ' + token;
     }
@@ -62,7 +62,7 @@ userHttpClient.interceptors.response.use(
     }
     cfg._retry = true;
     const newAccess = await refreshAccessToken();
-    tokenStorage.refresh(newAccess);
+    updateAccessToken(newAccess);
     cfg.headers = cfg.headers ?? {};
     cfg.headers.Authorization = `Bearer ${newAccess}`;
     return userHttpClient.request(cfg);

@@ -1,9 +1,9 @@
 import type { JSONSchemaType } from 'ajv';
-import type { LoginResponse } from '../requests';
+import type { ApiLoginResponse } from 'src/api/user';
 import type { UserCompany, UserInfo, Theme, Contact } from 'src/types/index';
 import { ThemeTypes } from 'src/types/index';
 
-export const LoginResponseSchema: JSONSchemaType<LoginResponse> = {
+export const LoginResponseSchema: JSONSchemaType<ApiLoginResponse> = {
   type: 'object',
   properties: {
     rememberMe: { type: 'boolean' },
