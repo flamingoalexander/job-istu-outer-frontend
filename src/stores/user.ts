@@ -39,16 +39,22 @@ export const useUserStore = defineStore('user', {
     contacts: [],
     practices: [],
     status: StorageStatus.Idle,
+
   }),
   actions: {
     async login(credentials: Credentials): Promise<void> {
+      if (this._isStoreBusy()) return;
       if (this.status === StorageStatus.Ready) return;
       this.status = StorageStatus.Pending;
       await login(credentials);
       await this.fetch(true);
     },
+    _isStoreBusy(): boolean {
+      return this.status === StorageStatus.Pending;
+    },
     async fetch(force = false): Promise<void> {
-      if (this.status === StorageStatus.Ready && force) return;
+      if (this._isStoreBusy()) return;
+      if (this.status === StorageStatus.Ready && !force) return;
       const [info, company, themes, contacts] = await Promise.all([
         getUserInfo(),
         getUserCompany(),
@@ -65,11 +71,14 @@ export const useUserStore = defineStore('user', {
       this.status = StorageStatus.Ready;
     },
     async logout() {
+      if (this._isStoreBusy()) return;
       this.status = StorageStatus.Pending;
       await logout();
       this.$reset();
+      this.status = StorageStatus.Idle;
     },
     async updateUserInfo(payload: UserInfoBaseInput): Promise<void> {
+      if (this._isStoreBusy()) return;
       this.status = StorageStatus.Pending;
       const userInfo = await updateUserInfo(payload);
       this.username = userInfo.username;
@@ -79,6 +88,7 @@ export const useUserStore = defineStore('user', {
       this.status = StorageStatus.Ready;
     },
     async updateUserCompany(payload: UserCompanyBaseInput): Promise<void> {
+      if (this._isStoreBusy()) return;
       this.status = StorageStatus.Pending;
       this.company = await updateUserCompany(payload);
       this.status = StorageStatus.Ready;
@@ -88,8 +98,14 @@ export const useUserStore = defineStore('user', {
     practiceThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.PR),
     vkrThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.VKR),
     niokrThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.NIOKR),
-  },
-});
+    getSafeCompany: (s): UserCompany => {
+      if (s.company === null){
+        throw new TypeError("Company is null")
+      }
+      return s.company
+    },
+
+}});
 
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot));

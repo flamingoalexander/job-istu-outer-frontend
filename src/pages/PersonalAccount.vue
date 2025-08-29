@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import UserInfoForm from 'src/components/UserInfoForm.vue';
+import UserInfoForm from 'components/profile/UserInfoForm.vue';
 import { useUserStore } from 'stores/user';
 import { storeToRefs } from 'pinia';
 import type { UserInfoBaseInput } from 'src/api/user';
