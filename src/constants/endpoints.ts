@@ -23,13 +23,13 @@ const ENDPOINTS = {
     getContacts: () => 'base/user/contact',
 
     getPractices: () => 'base/user/practice',
-    postPractices: () => 'base/user/practice',
+    postPractices: () => 'base/user/practice/',
 
     patchInfo: () => 'base/user/info',
     patchCompany: () => 'base/user/company',
 
     postTheme: () => 'base/user/themes/',
-    deleteTheme: () => 'base/user/themes/',
+    deleteTheme: (id:number) => `base/user/themes/${id}`,
 
     postThemeToPractice: (themeId: number, practiceId: number) =>
       `base/user/practice/${practiceId}/themes/${themeId}/`,

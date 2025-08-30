@@ -2,7 +2,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia';
 import type { Contact, Practice, Theme, UserCompany } from 'src/types';
 import { ThemeTypes } from 'src/types';
 import { StorageStatus } from 'stores/index';
-import type { UserCompanyBaseInput } from 'src/api/user';
+import { createUserPractice, getUserPractice, UserCompanyBaseInput } from 'src/api/user';
 import {
   getUserCompany,
   getUserInfo,
@@ -17,6 +17,7 @@ import type { Credentials } from 'src/types/auth';
 import type { UserInfoBaseInput } from 'src/api/user';
 import { ACCESS_KEY } from 'src/api/token.service';
 import { watch } from 'vue';
+import { find } from 'lodash';
 
 type UserState = {
   username: string;
@@ -30,6 +31,9 @@ type UserState = {
   status: StorageStatus;
   isAuthenticated: boolean;
 };
+
+const IITIAD_FACULTY_ID = 38;
+
 
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
@@ -78,12 +82,16 @@ export const useUserStore = defineStore('user', {
       if (this._isStoreBusy()) return;
       if (this.status === StorageStatus.Ready && !force) return;
       this.status = StorageStatus.Pending;
-      const [info, company, themes, contacts] = await Promise.all([
+      const [info, company, themes, contacts, practices] = await Promise.all([
         getUserInfo(),
         getUserCompany(),
         getUserThemes(),
         getUserContacts(),
+        getUserPractice()
       ]);
+      if (!find(practices, (pr) => pr.faculty === IITIAD_FACULTY_ID)){
+        await createUserPractice({faculty:38, company:company.id})
+      }
       this.username = info.username;
       this.first_name = info.first_name;
       this.last_name = info.last_name;
@@ -122,6 +130,12 @@ export const useUserStore = defineStore('user', {
       this.company = await updateUserCompany(payload);
       this.status = StorageStatus.Ready;
     },
+    deleteTheme(themeId: number): Promise<void> {
+
+    },
+    createTheme(themeId: number): Promise<void> {
+
+    }
   },
   getters: {
     practiceThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.PR),
@@ -133,6 +147,7 @@ export const useUserStore = defineStore('user', {
       }
       return s.company;
     },
+
   },
 });
 

@@ -49,7 +49,7 @@ export enum ThemeTypes {
   NIOKR = 'НИОКР',
 }
 export type Theme = {
-  id: 0;
+  id: number;
   title: string;
   type: ThemeTypes;
 };
@@ -60,3 +60,8 @@ export type Practice = {
   themes: Theme[];
   faculty: number;
 };
+
+export type UserPractice = Practice & {
+  company: number;
+  faculty_name: string;
+}
