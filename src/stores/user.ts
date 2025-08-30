@@ -96,10 +96,15 @@ export const useUserStore = defineStore('user', {
     async logout() {
       if (this._isStoreBusy()) return;
       this.status = StorageStatus.Pending;
-      await logout();
-      this.$reset();
-      this.isAuthenticated = false;
-      this.status = StorageStatus.Idle;
+      try {
+        await logout();
+        this.$reset();
+        this.isAuthenticated = false;
+        this.status = StorageStatus.Idle;
+      } catch (e) {
+        this.status = StorageStatus.Ready;
+        throw e;
+      }
     },
     async updateUserInfo(payload: UserInfoBaseInput): Promise<void> {
       if (this._isStoreBusy()) return;
@@ -122,7 +127,7 @@ export const useUserStore = defineStore('user', {
     practiceThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.PR),
     vkrThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.VKR),
     niokrThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.NIOKR),
-    getSafeCompany: (s): UserCompany => {
+    safeCompany: (s): UserCompany => {
       if (s.company === null) {
         throw new TypeError('Company is null');
       }
