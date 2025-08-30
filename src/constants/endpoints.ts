@@ -28,13 +28,13 @@ const ENDPOINTS = {
     patchInfo: () => 'base/user/info',
     patchCompany: () => 'base/user/company',
 
-    postTheme: () => 'base/user/themes/',
-    deleteTheme: (id:number) => `base/user/themes/${id}`,
+    postTheme: () => 'base/user/themes',
+    deleteTheme: (id: number) => `base/user/themes/${id}`,
 
     postThemeToPractice: (themeId: number, practiceId: number) =>
-      `base/user/practice/${practiceId}/themes/${themeId}/`,
+      `base/user/practice/${practiceId}/themes/${themeId}`,
     deleteThemeFromPractice: (themeId: number, practiceId: number) =>
-      `base/user/practice/${practiceId}/themes/${themeId}/`,
+      `base/user/practice/${practiceId}/themes/${themeId}`,
   },
 };
 export default ENDPOINTS;

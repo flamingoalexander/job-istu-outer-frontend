@@ -1,6 +1,6 @@
 import type { JSONSchemaType } from 'ajv';
 import type { ApiLoginResponse } from 'src/api/user';
-import { UserCompany, UserInfo, Theme, Contact, Practice, Company, UserPractice } from 'src/types/index';
+import type { UserCompany, UserInfo, Theme, Contact, UserPractice } from 'src/types/index';
 import { ThemeTypes } from 'src/types/index';
 
 export const LoginResponseSchema: JSONSchemaType<ApiLoginResponse> = {
@@ -84,13 +84,12 @@ export const ContactsResponseSchema: JSONSchemaType<Contact[]> = {
   },
 };
 
-
 export const UserPracticeResponseSchema: JSONSchemaType<UserPractice[]> = {
   type: 'array',
   items: {
     type: 'object',
     additionalProperties: false,
-    required: ['id','company','contacts','themes','faculty'],
+    required: ['id', 'company', 'contacts', 'themes', 'faculty'],
     properties: {
       id: { type: 'number' },
       faculty: { type: 'number' },
@@ -105,27 +104,29 @@ export const UserPracticeResponseSchema: JSONSchemaType<UserPractice[]> = {
         items: {
           type: 'object',
           additionalProperties: false,
-          required: ['id','type','value'],
+          required: ['id', 'type', 'value'],
           properties: {
             id: { type: 'number' },
             type: { type: 'number' },
-            value: { type: 'string' }
-          }
-        }
+            value: { type: 'string' },
+          },
+        },
       },
       themes: {
         type: 'array',
         items: {
           type: 'object',
           additionalProperties: false,
-          required: ['id','title','type'],
+          required: ['id', 'title', 'type'],
           properties: {
             id: { type: 'number' },
             title: { type: 'string' },
-            type: ({ enum: ['ПР','ВКР','НИОКР'] as const } as unknown) as JSONSchemaType<Theme>['properties']['type']
-          }
-        }
-      }
-    }
-  }
+            type: {
+              enum: ['ПР', 'ВКР', 'НИОКР'] as const,
+            } as unknown as JSONSchemaType<Theme>['properties']['type'],
+          },
+        },
+      },
+    },
+  },
 } as const;

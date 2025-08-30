@@ -1,5 +1,5 @@
 import type { Credentials } from 'src/types/auth';
-import type { UserCompany, UserInfo, Contact, Theme, Practice, UserPractice } from 'src/types';
+import type { UserCompany, UserInfo, Contact, Theme, UserPractice } from 'src/types';
 import { ApiErrorMessages } from 'src/constants/request.errors';
 import { authHttpClient, userHttpClient } from 'src/api/http.clients';
 import ENDPOINTS from 'src/constants/endpoints';
@@ -9,7 +9,8 @@ import {
   LoginResponseSchema,
   ThemesResponseSchema,
   UserCompanyResponseSchema,
-  UserInfoResponseSchema, UserPracticeResponseSchema
+  UserInfoResponseSchema,
+  UserPracticeResponseSchema,
 } from 'src/types/api.schemas';
 import { ResponseError } from 'src/api/errors';
 import { clearAccessToken, setAccessToken } from 'src/api/token.service';
@@ -97,11 +98,10 @@ export const updateUserCompany = async (payload: UserCompanyBaseInput): Promise<
   return data;
 };
 
-
 //create
-export type UserThemeBaseInput = Omit<Theme, 'id'>
+export type UserThemeBaseInput = Omit<Theme, 'id'>;
 export const createUserTheme = async (payload: UserThemeBaseInput): Promise<Theme> => {
-  const { data } = await userHttpClient.patch<Theme>(ENDPOINTS.user.patchCompany(), payload);
+  const { data } = await userHttpClient.post<Theme>(ENDPOINTS.user.postTheme(), payload);
   if (!validateObjSchema([data], ThemesResponseSchema)) {
     throw new ResponseError(ApiErrorMessages.WRONG_SERVER_RESPONSE);
   }
@@ -111,10 +111,10 @@ export const createUserTheme = async (payload: UserThemeBaseInput): Promise<Them
 export type UserPracticeBaseInput = {
   faculty: number;
   company: number;
-}
+};
 
 export const createUserPractice = async (payload: UserPracticeBaseInput): Promise<UserPractice> => {
-  const { data } = await userHttpClient.patch<UserPractice>(ENDPOINTS.user.postPractices(), payload);
+  const { data } = await userHttpClient.post<UserPractice>(ENDPOINTS.user.postPractices(), payload);
   // if (!validateObjSchema([data], Prac)) {
   //   throw new ResponseError(ApiErrorMessages.WRONG_SERVER_RESPONSE);
   // }
@@ -127,9 +127,17 @@ export const deleteUserTheme = async (themeId: number): Promise<void> => {
 };
 
 //associate
-export const associateThemeToPractice = async (themeId: number, practiceId: number): Promise<void> => {
+export const associateThemeToPractice = async (
+  themeId: number,
+  practiceId: number,
+): Promise<void> => {
   await userHttpClient.post<UserCompany>(ENDPOINTS.user.postThemeToPractice(themeId, practiceId));
 };
-export const dissociateThemeFromPractice = async (themeId: number, practiceId: number): Promise<void> => {
-  await userHttpClient.delete<UserCompany>(ENDPOINTS.user.deleteThemeFromPractice(themeId, practiceId));
+export const dissociateThemeFromPractice = async (
+  themeId: number,
+  practiceId: number,
+): Promise<void> => {
+  await userHttpClient.delete<UserCompany>(
+    ENDPOINTS.user.deleteThemeFromPractice(themeId, practiceId),
+  );
 };

@@ -1,8 +1,14 @@
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import type { Contact, Practice, Theme, UserCompany } from 'src/types';
+import type { Contact, Theme, UserCompany, UserPractice } from 'src/types';
 import { ThemeTypes } from 'src/types';
 import { StorageStatus } from 'stores/index';
-import { createUserPractice, getUserPractice, UserCompanyBaseInput } from 'src/api/user';
+import {
+  associateThemeToPractice,
+  createUserPractice,
+  createUserTheme,
+  deleteUserTheme,
+  getUserPractice,
+} from 'src/api/user';
 import {
   getUserCompany,
   getUserInfo,
@@ -14,7 +20,7 @@ import {
   updateUserInfo,
 } from 'src/api/user';
 import type { Credentials } from 'src/types/auth';
-import type { UserInfoBaseInput } from 'src/api/user';
+import type { UserInfoBaseInput, UserCompanyBaseInput, UserThemeBaseInput } from 'src/api/user';
 import { ACCESS_KEY } from 'src/api/token.service';
 import { watch } from 'vue';
 import { find } from 'lodash';
@@ -27,13 +33,12 @@ type UserState = {
   company: UserCompany | null;
   themes: Theme[];
   contacts: Contact[];
-  practices: Practice[];
+  practices: UserPractice[];
   status: StorageStatus;
   isAuthenticated: boolean;
 };
 
 const IITIAD_FACULTY_ID = 38;
-
 
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
@@ -87,16 +92,18 @@ export const useUserStore = defineStore('user', {
         getUserCompany(),
         getUserThemes(),
         getUserContacts(),
-        getUserPractice()
+        getUserPractice(),
       ]);
-      if (!find(practices, (pr) => pr.faculty === IITIAD_FACULTY_ID)){
-        await createUserPractice({faculty:38, company:company.id})
+      if (!find(practices, (pr) => pr.faculty === IITIAD_FACULTY_ID)) {
+        const newPractice = await createUserPractice({ faculty: 38, company: company.id });
+        this.practices.push(newPractice);
       }
       this.username = info.username;
       this.first_name = info.first_name;
       this.last_name = info.last_name;
       this.email = info.email;
       this.company = company;
+      this.practices = practices;
       this.themes = themes;
       this.contacts = contacts;
       this.status = StorageStatus.Ready;
@@ -130,12 +137,15 @@ export const useUserStore = defineStore('user', {
       this.company = await updateUserCompany(payload);
       this.status = StorageStatus.Ready;
     },
-    deleteTheme(themeId: number): Promise<void> {
-
+    async deleteTheme(themeId: number): Promise<void> {
+      await deleteUserTheme(themeId);
+      this.themes = await getUserThemes(); //TODO страшный костыль. Исправить это
     },
-    createTheme(themeId: number): Promise<void> {
-
-    }
+    async createTheme(theme: UserThemeBaseInput): Promise<void> {
+      const newTheme = await createUserTheme(theme);
+      await associateThemeToPractice(newTheme.id, this.iitiadPractice?.id);
+      this.themes = await getUserThemes(); //TODO страшный костыль. Исправить это
+    },
   },
   getters: {
     practiceThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.PR),
@@ -147,7 +157,13 @@ export const useUserStore = defineStore('user', {
       }
       return s.company;
     },
-
+    iitiadPractice: (s): UserPractice => {
+      const res = find(s.practices, (pr) => pr.faculty === IITIAD_FACULTY_ID);
+      if (res) {
+        return res;
+      }
+      throw new TypeError('iitiadPractice is null');
+    },
   },
 });
 

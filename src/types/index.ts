@@ -64,4 +64,4 @@ export type Practice = {
 export type UserPractice = Practice & {
   company: number;
   faculty_name: string;
-}
+};

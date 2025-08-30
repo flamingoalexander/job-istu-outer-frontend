@@ -3,6 +3,7 @@ import { useUserStore } from 'stores/user';
 import { useRouter } from 'vue-router';
 import UserInfo from 'components/profile/UserInfo.vue';
 import UserCompany from 'components/profile/UserCompany.vue';
+import UserThemes from 'components/profile/UserThemes.vue';
 
 const userStore = useUserStore();
 
@@ -23,6 +24,7 @@ const logout = async () => {
           <q-separator spaced />
           <UserCompany />
           <q-separator spaced />
+          <UserThemes />
           <q-btn color="red" aria-label="Выйти" label="Выйти" @click="logout" />
         </q-card>
       </div>
