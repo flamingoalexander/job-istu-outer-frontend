@@ -33,12 +33,6 @@ export function clearAccessToken(): void {
   localStorage.removeItem(REMEMBER_KEY);
 }
 
-// export function isUserAuthenticated(): boolean {
-//   const rememberMe = localStorage.getItem(REMEMBER_KEY) === '1';
-//   const s = rememberMe ? storage('local') : storage('session');
-//   return !!s.getItem(ACCESS_KEY);
-// }
-
 export function isRemembered(): boolean {
   return localStorage.getItem(REMEMBER_KEY) === '1';
 }

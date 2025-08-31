@@ -117,7 +117,7 @@ export const createUserPractice = async (payload: UserPracticeBaseInput): Promis
   const { data } = await userHttpClient.post<UserPractice>(ENDPOINTS.user.postPractices(), payload);
   // if (!validateObjSchema([data], Prac)) {
   //   throw new ResponseError(ApiErrorMessages.WRONG_SERVER_RESPONSE);
-  // }
+  // }//TODO разобраться со схемами. Убрать схемы для массивов.
   return data;
 };
 

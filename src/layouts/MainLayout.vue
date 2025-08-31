@@ -3,6 +3,7 @@
     <AppHeader />
     <q-page-container>
       <router-view />
+<!--      TODO сделать анимацию загрузки приложения а не белого экрана-->
     </q-page-container>
     <AppFooter />
   </q-layout>

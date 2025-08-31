@@ -15,7 +15,7 @@ const publicHttpClient = axios.create({
 const authHttpClient = axios.create({
   baseURL: API_URL,
   headers: { 'Content-Type': 'application/json' },
-  withCredentials: false,
+  withCredentials: false,//TODO кринж
 });
 
 const userHttpClient = axios.create({
