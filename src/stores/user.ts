@@ -19,11 +19,11 @@ import {
   updateUserCompany,
   updateUserInfo,
 } from 'src/api/user';
-import type { Credentials } from 'src/types/auth';
+import type { Credentials } from 'src/types';
 import type { UserInfoBaseInput, UserCompanyBaseInput, UserThemeBaseInput } from 'src/api/user';
 import { ACCESS_KEY } from 'src/api/token.service';
 import { watch } from 'vue';
-import { find } from 'lodash';
+import { find, filter } from 'lodash';
 
 type UserState = {
   username: string;
@@ -51,6 +51,8 @@ export const useUserStore = defineStore('user', {
     contacts: [],
     practices: [],
     status: StorageStatus.Idle,
+    //TODO неплохо было бы иметь разделенный статус для полей стора loading: { user: boolean, company: boolean, themes: boolean, practices: boolean },
+    // либо вынести поля стора в отдельные хранилища - themeStore, companyStore и т.д. но тогда возможно будет проблема с организацией параллельного фетча этих хранилищ. Тут надо подумать
     isAuthenticated: !!(localStorage.getItem(ACCESS_KEY) || sessionStorage.getItem(ACCESS_KEY)),
   }),
   actions: {
@@ -87,25 +89,38 @@ export const useUserStore = defineStore('user', {
       if (this._isStoreBusy()) return;
       if (this.status === StorageStatus.Ready && !force) return;
       this.status = StorageStatus.Pending;
-      const [info, company, themes, contacts, practices] = await Promise.all([
-        getUserInfo(),
-        getUserCompany(),
-        getUserThemes(),
-        getUserContacts(),
-        getUserPractice(),
+      const [company, practices] = await Promise.all([
+        getUserCompany().then((company) => {
+          this.company = company;
+          return company;
+        }),
+        getUserPractice().then((practices) => {
+          this.practices = practices;
+          return practices;
+        }),
+        getUserInfo().then((info) => {
+          //TODO довести до ума. Сейчас это не имеет смысла т.к. статус загрузки единый и компонент все равно будет ждать пока все не загрузится
+          this.username = info.username;
+          this.first_name = info.first_name;
+          this.last_name = info.last_name;
+          this.email = info.email;
+          //В теории должно быть что-то вроде this.loading.info = false
+          return info;
+        }),
+        getUserThemes().then((themes) => {
+          this.themes = themes;
+          return themes;
+        }),
+        getUserContacts().then((contacts) => {
+          this.contacts = contacts;
+          return contacts;
+        }),
       ]);
       if (!find(practices, (pr) => pr.faculty === IITIAD_FACULTY_ID)) {
+        //TODO кринж. Надо это убирать
         const newPractice = await createUserPractice({ faculty: 38, company: company.id });
         this.practices.push(newPractice);
       }
-      this.username = info.username;
-      this.first_name = info.first_name;
-      this.last_name = info.last_name;
-      this.email = info.email;
-      this.company = company;
-      this.practices = practices;
-      this.themes = themes;
-      this.contacts = contacts;
       this.status = StorageStatus.Ready;
     },
     async logout() {
@@ -139,18 +154,22 @@ export const useUserStore = defineStore('user', {
     },
     async deleteTheme(themeId: number): Promise<void> {
       await deleteUserTheme(themeId);
-      this.themes = await getUserThemes(); //TODO страшный костыль. Исправить это
+      this.themes = await getUserThemes(); //TODO страшный костыль. Исправить это.
     },
     async createTheme(theme: UserThemeBaseInput): Promise<void> {
+      //TODO страшный костыль. Исправить это.
       const newTheme = await createUserTheme(theme);
       await associateThemeToPractice(newTheme.id, this.iitiadPractice?.id);
-      this.themes = await getUserThemes(); //TODO страшный костыль. Исправить это
+      this.themes = await getUserThemes();
     },
   },
   getters: {
-    practiceThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.PR),
-    vkrThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.VKR),
-    niokrThemes: (s): Theme[] => s.themes.filter((t) => t.type === ThemeTypes.NIOKR),
+    practiceThemes: (s): Theme[] => filter(s.themes, (t) => t.type === ThemeTypes.PR),
+
+    vkrThemes: (s): Theme[] => filter(s.themes, (t) => t.type === ThemeTypes.VKR),
+
+    niokrThemes: (s): Theme[] => filter(s.themes, (t) => t.type === ThemeTypes.NIOKR),
+
     safeCompany: (s): UserCompany => {
       if (s.company === null) {
         throw new TypeError('Company is null');

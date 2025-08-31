@@ -1,7 +1,7 @@
 import { defineConfig } from '#q-app/wrappers';
 export default defineConfig((/* ctx */) => {
   return {
-    boot: ['init.stores', 'error.handler'],
+    boot: ['init', 'error.handler'],
     css: ['app.scss'],
     extras: ['roboto-font', 'material-icons'],
     build: {
@@ -42,7 +42,7 @@ export default defineConfig((/* ctx */) => {
     },
     framework: {
       config: {},
-      plugins: ['Notify'],
+      plugins: ['Notify', 'Loading'],
     },
     prettierSkipFormatting: true,
   };

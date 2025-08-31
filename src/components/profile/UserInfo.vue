@@ -18,7 +18,7 @@ const applyPatch = async (payload: UserInfoBaseInput): Promise<void> => {
 
 <template>
   <q-inner-loading :showing="status === StorageStatus.Pending">
-    <q-spinner-gears size="50px" color="primary" />
+    <q-spinner-gears size="30px" color="primary" />
   </q-inner-loading>
   <template v-if="status === StorageStatus.Ready">
     <div class="row items-center justify-between q-mb-md">

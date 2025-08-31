@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import type { Credentials } from 'src/types/auth';
+import type { Credentials } from 'src/types';
 import authFormImage from '/pics/auth-form-preview.jpg';
 const isDisabled = ref(false);
 const authMessage = ref('');

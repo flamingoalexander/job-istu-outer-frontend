@@ -3,6 +3,7 @@ import axios from 'axios';
 import { TokenRefreshError } from 'src/api/errors';
 import ENDPOINTS from 'src/constants/endpoints';
 import { getAccessToken, updateAccessToken } from 'src/api/token.service';
+import { useUserStore } from 'stores/user';
 
 const API_URL = '/api/out';
 
@@ -10,12 +11,6 @@ const publicHttpClient = axios.create({
   baseURL: API_URL,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: false,
-});
-
-const authHttpClient = axios.create({
-  baseURL: API_URL,
-  headers: { 'Content-Type': 'application/json' },
-  withCredentials: false,//TODO кринж
 });
 
 const userHttpClient = axios.create({
@@ -26,7 +21,7 @@ const userHttpClient = axios.create({
 
 const refreshAccessToken = async (): Promise<string> => {
   try {
-    const { data } = await authHttpClient.post<{ access: string }>(ENDPOINTS.auth.refresh());
+    const { data } = await publicHttpClient.post<{ access: string }>(ENDPOINTS.auth.refresh());
     return data.access;
   } catch {
     throw new TokenRefreshError('Failed to refresh access token');
@@ -58,9 +53,10 @@ userHttpClient.interceptors.response.use(
     const cfg = (error.config ?? {}) as RetryConfig;
 
     if (status !== 401 || cfg._retry) {
+      const userStore = useUserStore(); // не уверен что его можно так использовать.
+      userStore.isAuthenticated = false;
       return Promise.reject(error);
     }
-    //TODO в случае ошибки при рефреш токена, делать isAuth=false в сторе
     cfg._retry = true;
     const newAccess = await refreshAccessToken();
     updateAccessToken(newAccess);
@@ -70,4 +66,4 @@ userHttpClient.interceptors.response.use(
   },
 );
 
-export { userHttpClient, publicHttpClient, authHttpClient };
+export { userHttpClient, publicHttpClient };

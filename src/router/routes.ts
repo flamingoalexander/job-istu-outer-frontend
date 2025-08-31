@@ -3,10 +3,9 @@ import type { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'home',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/MainPage.vue') },
+      { path: '', name: 'home', component: () => import('pages/MainPage.vue') },
       {
         path: '/institute/:instituteId',
         name: 'institute',
@@ -25,6 +24,12 @@ const routes: RouteRecordRaw[] = [
         name: 'profile',
         meta: { requiresAuth: true },
         component: () => import('pages/ProfilePage.vue'),
+      },
+      {
+        path: '/register',
+        name: 'register',
+        meta: { requiresAuth: false },
+        component: () => import('pages/RegisterPage.vue'),
       },
     ],
   },

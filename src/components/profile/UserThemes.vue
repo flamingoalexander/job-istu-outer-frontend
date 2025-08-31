@@ -1,11 +1,15 @@
 <template>
-  <div>
+  <q-inner-loading v-if="isLoading">
+    <q-spinner-gears size="30px" color="primary" />
+  </q-inner-loading>
+  <div v-else>
+    <!--    TODO вынести список с темами в универсальный компонент-->
     <h4>Взаимодействие с ИИТИАД:</h4>
-
     <div class="themes-container practice-themes q-mb-md">
       <h5>Темы производственной практики</h5>
-      <q-skeleton v-if="isLoading" type="text" />
-      <div v-else class="row items-center q-gutter-sm">
+      <!--      TODO переделать загрузку на скелетоны -->
+
+      <div class="row items-center q-gutter-sm">
         <q-chip
           v-for="theme in practiceThemes"
           :key="theme.id"
@@ -19,7 +23,7 @@
           color="primary"
           size="sm"
           outline
-          @click="showPracticeThemeDialog"
+          @click="showCreateThemeDialog(ThemeTypes.PR)"
           label="Добавить новую тему"
         />
       </div>
@@ -27,8 +31,8 @@
 
     <div class="themes-container vkr-themes q-mb-md">
       <h5>Темы ВКР</h5>
-      <q-skeleton v-if="isLoading" type="text" />
-      <div v-else class="row items-center q-gutter-sm">
+
+      <div class="row items-center q-gutter-sm">
         <q-chip
           v-for="theme in vkrThemes"
           :key="theme.id"
@@ -44,16 +48,16 @@
           color="orange"
           size="sm"
           outline
-          @click="showVkrThemeDialog"
+          @click="showCreateThemeDialog(ThemeTypes.VKR)"
           label="Добавить новую тему"
         />
       </div>
     </div>
-<!--    TODO вынести список с темами в универсальный компонент-->
+
     <div class="themes-container niokr-themes">
       <h5>Темы НИОКР</h5>
-      <q-skeleton v-if="isLoading" type="text" />
-      <div v-else class="row items-center q-gutter-sm">
+
+      <div class="row items-center q-gutter-sm">
         <q-chip
           v-for="theme in niokrThemes"
           :key="theme.id"
@@ -69,18 +73,21 @@
           color="red"
           size="sm"
           outline
-          @click="showNiokrThemeDialog"
+          @click="showCreateThemeDialog(ThemeTypes.NIOKR)"
           label="Добавить новую тему"
         />
       </div>
     </div>
-
-<!--   TODO Вынести диалогт в отдельные компоненты. -->
-
-
-
-
-
+    <CreateThemeDialog
+      v-if="currentThemeType"
+      v-model:visible="createDialogVisible"
+      :themeType="currentThemeType"
+    />
+    <DeleteThemeDialog
+      v-if="themeIdToDelete"
+      v-model:visible="deleteDialogVisible"
+      :themeId="themeIdToDelete"
+    />
     <q-separator spaced />
   </div>
 </template>
@@ -91,41 +98,28 @@ import { useUserStore } from 'stores/user';
 import { storeToRefs } from 'pinia';
 import type { Theme } from 'src/types';
 import { ThemeTypes } from 'src/types';
+import CreateThemeDialog from 'components/profile/CreateThemeDialog.vue';
+import DeleteThemeDialog from 'components/profile/DeleteThemeDialog.vue';
 
 const userStore = useUserStore();
 const { niokrThemes, practiceThemes, vkrThemes } = storeToRefs(userStore);
 
 const isLoading = ref(false);
-const inputThemeValue = ref('');
-const dialogVisible = ref(false);
-const confirmationDialogVisible = ref(false);
-const themeToDelete = ref<Theme | null>(null); // Тема для удаления
-const currentThemeType = ref<ThemeTypes | null>(null); // Хранит тип темы для добавления
+const createDialogVisible = ref(false);
+const deleteDialogVisible = ref(false);
+const themeIdToDelete = ref<number | null>(null);
+const currentThemeType = ref<ThemeTypes | null>(null);
 
-const showPracticeThemeDialog = () => {
-  currentThemeType.value = ThemeTypes.PR;
-  dialogVisible.value = true;
+const showCreateThemeDialog = (themeType: ThemeTypes) => {
+  currentThemeType.value = themeType;
+
+  createDialogVisible.value = true;
 };
-
-const showVkrThemeDialog = () => {
-  currentThemeType.value = ThemeTypes.VKR;
-  dialogVisible.value = true;
-};
-
-const showNiokrThemeDialog = () => {
-  currentThemeType.value = ThemeTypes.NIOKR;
-  dialogVisible.value = true;
-};
-
-
-
 
 const confirmDeleteTheme = (theme: Theme) => {
-  themeToDelete.value = theme; //TODO хранить ID
-  confirmationDialogVisible.value = true;
+  themeIdToDelete.value = theme.id;
+  deleteDialogVisible.value = true;
 };
-
-
 </script>
 
 <style scoped>

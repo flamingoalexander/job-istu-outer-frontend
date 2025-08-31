@@ -53,78 +53,69 @@ export const UserCompanyResponseSchema: JSONSchemaType<UserCompany> = {
   additionalProperties: false,
 };
 
-export const ThemesResponseSchema: JSONSchemaType<Theme[]> = {
-  type: 'array',
-  items: {
-    type: 'object',
-    properties: {
-      id: { type: 'number' },
-      title: { type: 'string' },
-      type: {
-        type: 'string',
-        enum: [ThemeTypes.PR, ThemeTypes.VKR, ThemeTypes.NIOKR],
-      },
+export const ThemesResponseSchema: JSONSchemaType<Theme> = {
+  type: 'object',
+  properties: {
+    id: { type: 'number' },
+    title: { type: 'string' },
+    type: {
+      type: 'string',
+      enum: [ThemeTypes.PR, ThemeTypes.VKR, ThemeTypes.NIOKR],
     },
-    required: ['id', 'title', 'type'],
-    additionalProperties: false,
   },
+  required: ['id', 'title', 'type'],
+  additionalProperties: false,
 };
 
-export const ContactsResponseSchema: JSONSchemaType<Contact[]> = {
-  type: 'array',
-  items: {
-    type: 'object',
-    properties: {
-      id: { type: 'number' },
-      type: { type: 'number' },
-      value: { type: 'string' },
-    },
-    required: ['id', 'type', 'value'],
-    additionalProperties: false,
+export const ContactsResponseSchema: JSONSchemaType<Contact> = {
+  type: 'object',
+  properties: {
+    id: { type: 'number' },
+    type: { type: 'number' },
+    value: { type: 'string' },
   },
+  required: ['id', 'type', 'value'],
+  additionalProperties: false,
 };
 
-export const UserPracticeResponseSchema: JSONSchemaType<UserPractice[]> = {
-  type: 'array',
-  items: {
-    type: 'object',
-    additionalProperties: false,
-    required: ['id', 'company', 'contacts', 'themes', 'faculty'],
-    properties: {
-      id: { type: 'number' },
-      faculty: { type: 'number' },
-      company: {
-        type: 'number',
-      },
-      faculty_name: {
-        type: 'string',
-      },
-      contacts: {
-        type: 'array',
-        items: {
-          type: 'object',
-          additionalProperties: false,
-          required: ['id', 'type', 'value'],
-          properties: {
-            id: { type: 'number' },
-            type: { type: 'number' },
-            value: { type: 'string' },
-          },
+export const UserPracticeResponseSchema: JSONSchemaType<UserPractice> = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['id', 'company', 'contacts', 'themes', 'faculty'],
+  properties: {
+    id: { type: 'number' },
+    faculty: { type: 'number' },
+    company: {
+      type: 'number',
+    },
+    faculty_name: {
+      type: 'string',
+    },
+    contacts: {
+      type: 'array',
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['id', 'type', 'value'],
+        properties: {
+          id: { type: 'number' },
+          type: { type: 'number' },
+          value: { type: 'string' },
         },
       },
-      themes: {
-        type: 'array',
-        items: {
-          type: 'object',
-          additionalProperties: false,
-          required: ['id', 'title', 'type'],
-          properties: {
-            id: { type: 'number' },
-            title: { type: 'string' },
-            type: {
-              enum: ['ПР', 'ВКР', 'НИОКР'] as const,
-            } as unknown as JSONSchemaType<Theme>['properties']['type'],
-          },
+    },
+    themes: {
+      type: 'array',
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['id', 'title', 'type'],
+        properties: {
+          id: { type: 'number' },
+          title: { type: 'string' },
+          type: {
+            enum: ['ПР', 'ВКР', 'НИОКР'] as const,
+          } as unknown as JSONSchemaType<Theme>['properties']['type'],
         },
       },
     },

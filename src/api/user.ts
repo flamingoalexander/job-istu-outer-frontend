@@ -1,7 +1,7 @@
-import type { Credentials } from 'src/types/auth';
+import type { Credentials } from 'src/types';
 import type { UserCompany, UserInfo, Contact, Theme, UserPractice } from 'src/types';
 import { ApiErrorMessages } from 'src/constants/request.errors';
-import { authHttpClient, userHttpClient } from 'src/api/http.clients';
+import { publicHttpClient, userHttpClient } from 'src/api/http.clients';
 import ENDPOINTS from 'src/constants/endpoints';
 import { validateObjSchema } from 'src/api/utils';
 import {
@@ -14,7 +14,7 @@ import {
 } from 'src/types/api.schemas';
 import { ResponseError } from 'src/api/errors';
 import { clearAccessToken, setAccessToken } from 'src/api/token.service';
-
+import { every } from 'lodash';
 export type UserCompanyBaseInput = Pick<
   UserCompany,
   'image_url' | 'name' | 'area_of_activity' | 'head_full_name' | 'hire_count'
@@ -26,7 +26,7 @@ export type ApiLoginResponse = {
 };
 export type UserInfoBaseInput = Omit<UserInfo, 'username'>;
 export const login = async (payload: Credentials): Promise<void> => {
-  const { data } = await authHttpClient.post<ApiLoginResponse | { error: 'Wrong credentials' }>(
+  const { data } = await publicHttpClient.post<ApiLoginResponse | { error: 'Wrong credentials' }>(
     ENDPOINTS.auth.login(),
     payload,
   );
@@ -61,14 +61,14 @@ export const getUserCompany = async (): Promise<UserCompany> => {
 };
 export const getUserThemes = async (): Promise<Theme[]> => {
   const { data } = await userHttpClient.get<Theme[]>(ENDPOINTS.user.getThemes());
-  if (!validateObjSchema(data, ThemesResponseSchema)) {
+  if (!every(data, (theme) => validateObjSchema(theme, ThemesResponseSchema))) {
     throw new ResponseError(ApiErrorMessages.WRONG_SERVER_RESPONSE);
   }
   return data;
 };
 export const getUserContacts = async (): Promise<Contact[]> => {
   const { data } = await userHttpClient.get<Contact[]>(ENDPOINTS.user.getContacts());
-  if (!validateObjSchema(data, ContactsResponseSchema)) {
+  if (!every(data, (theme) => validateObjSchema(theme, ContactsResponseSchema))) {
     throw new ResponseError(ApiErrorMessages.WRONG_SERVER_RESPONSE);
   }
   return data;
@@ -76,7 +76,7 @@ export const getUserContacts = async (): Promise<Contact[]> => {
 
 export const getUserPractice = async (): Promise<UserPractice[]> => {
   const { data } = await userHttpClient.get<UserPractice[]>(ENDPOINTS.user.getPractices());
-  if (!validateObjSchema(data, UserPracticeResponseSchema)) {
+  if (!every(data, (theme) => validateObjSchema(theme, UserPracticeResponseSchema))) {
     throw new ResponseError(ApiErrorMessages.WRONG_SERVER_RESPONSE);
   }
   return data;
@@ -102,7 +102,7 @@ export const updateUserCompany = async (payload: UserCompanyBaseInput): Promise<
 export type UserThemeBaseInput = Omit<Theme, 'id'>;
 export const createUserTheme = async (payload: UserThemeBaseInput): Promise<Theme> => {
   const { data } = await userHttpClient.post<Theme>(ENDPOINTS.user.postTheme(), payload);
-  if (!validateObjSchema([data], ThemesResponseSchema)) {
+  if (!validateObjSchema(data, ThemesResponseSchema)) {
     throw new ResponseError(ApiErrorMessages.WRONG_SERVER_RESPONSE);
   }
   return data;
@@ -115,9 +115,9 @@ export type UserPracticeBaseInput = {
 
 export const createUserPractice = async (payload: UserPracticeBaseInput): Promise<UserPractice> => {
   const { data } = await userHttpClient.post<UserPractice>(ENDPOINTS.user.postPractices(), payload);
-  // if (!validateObjSchema([data], Prac)) {
-  //   throw new ResponseError(ApiErrorMessages.WRONG_SERVER_RESPONSE);
-  // }//TODO разобраться со схемами. Убрать схемы для массивов.
+  if (!validateObjSchema(data, UserPracticeResponseSchema)) {
+    throw new ResponseError(ApiErrorMessages.WRONG_SERVER_RESPONSE);
+  }
   return data;
 };
 

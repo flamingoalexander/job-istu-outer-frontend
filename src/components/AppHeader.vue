@@ -23,7 +23,7 @@
         unelevated
         no-caps
         class="q-mr-sm"
-        :to="{ name: 'SendLetter' }"
+        :to="{ name: 'register' }"
         label="Договор"
       />
       <q-btn
