@@ -1,7 +1,5 @@
-name: workflow-fullcheck.yml
+name: fullcheck
 on:
-  push:
-    branches: [ master ]
   pull_request:
 
 jobs:

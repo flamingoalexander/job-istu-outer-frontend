@@ -1,0 +1,50 @@
+name: deploy
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-master
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+      - name: Enable Corepack (Yarn)
+        run: |
+          corepack enable
+          corepack prepare --activate
+      - name: Cache Yarn Berry artifacts
+        uses: actions/cache@v4
+        with:
+          path: .yarn/cache
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-${{ runner.os }}-
+      - name: install deps
+        run: yarn install --immutable
+      - name: fullcheck
+        run: yarn fullcheck
+      - name: build
+        run: yarn build
+
+      - name: deployment
+        uses: appleboy/scp-action@v1.0.0
+        with:
+          host: ${{ secrets.SFTP_HOST }}
+          port: ${{ secrets.SFTP_PORT }}
+          username: ${{ secrets.SFTP_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          rm: true
+          strip_components: 1
+          source: "./build/*"
+          target: "/var/www/html/outer/"
+          overwrite: true

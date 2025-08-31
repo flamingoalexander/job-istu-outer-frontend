@@ -5,6 +5,8 @@ export default defineConfig((/* ctx */) => {
     css: ['app.scss'],
     extras: ['roboto-font', 'material-icons'],
     build: {
+      publicPath: process.env.NODE_ENV === 'production' ? '/outer/' : '/',
+      distDir: 'build',
       target: {
         browser: ['es2022', 'firefox115', 'chrome115', 'safari14'],
         node: 'node20',
@@ -27,9 +29,6 @@ export default defineConfig((/* ctx */) => {
           { server: false },
         ],
       ],
-    },
-    viteOptions: {
-      base: process.env.NODE_ENV === 'production' ? '/out/' : '/',
     },
     devServer: {
       open: true,
