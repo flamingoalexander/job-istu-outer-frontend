@@ -31,8 +31,8 @@ defineProps<{
 }
 
 .inst-image {
-  width: 100px; /* ширина картинки */
-  height: 100px; /* квадрат */
+  width: 100px;
+  height: 100px;
   object-fit: contain;
 }
 
