@@ -4,7 +4,7 @@
       <div class="col-12 col-md-auto">
         <q-img
           :src="currentInstitute?.image_url"
-          alt="Логотип института"
+          alt="Логотип ИРНИТУ"
           ratio="1"
           style="width: 12rem; max-width: 100%"
           :placeholder-src="fallbackImg"
