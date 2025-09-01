@@ -13,7 +13,7 @@ import {
   UserPracticeResponseSchema,
 } from 'src/types/api.schemas';
 import { ResponseError } from 'src/api/errors';
-import { clearAccessToken, setAccessToken } from 'src/api/token.service';
+import { clearAccessToken, setAccessToken, isRemembered } from 'src/api/token.service';
 import { every } from 'lodash';
 export type UserCompanyBaseInput = Pick<
   UserCompany,
@@ -40,7 +40,9 @@ export const login = async (payload: Credentials): Promise<void> => {
 };
 
 export const logout = async (): Promise<void> => {
-  await userHttpClient.post<void>(ENDPOINTS.auth.logout());
+  if (isRemembered()) {
+    await userHttpClient.post<void>(ENDPOINTS.auth.logout());
+  }
   clearAccessToken();
 };
 

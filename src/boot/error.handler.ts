@@ -3,10 +3,9 @@ import { Notify } from 'quasar';
 
 export default defineBoot(() => {
   const errorHandler = (event: ErrorEvent): void => {
-    const { error } = event;
     Notify.create({
       type: 'negative',
-      message: error.message,
+      message: event.message || 'Неизвестная ошибка',
       position: 'top',
       timeout: 5000,
       multiLine: true,
@@ -17,7 +16,7 @@ export default defineBoot(() => {
     const { reason } = event;
     Notify.create({
       type: 'negative',
-      message: reason.message,
+      message: reason.message || 'Неизвестная ошибка',
       position: 'top',
       timeout: 5000,
       multiLine: true,
