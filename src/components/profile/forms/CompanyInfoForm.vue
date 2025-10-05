@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, watch } from 'vue';
+import { reactive, watch, ref } from 'vue';
 import type { UserCompanyBaseInput } from 'src/api/user';
 
 const props = defineProps<{
@@ -47,6 +47,11 @@ function onConfirm() {
     hire_count: Number(form.hire_count ?? 0),
   });
   emit('update:userCompanyFormVisible', false);
+}
+const imageLoading = ref(false);
+
+function onImageLoad() {
+  imageLoading.value = false;
 }
 </script>
 
@@ -97,10 +102,12 @@ function onConfirm() {
             <q-img
               v-if="form.image_url"
               :src="form.image_url"
-              ratio="16/9"
               class="q-rounded-md bordered"
+              style="max-height: 30%; max-width: 30%; object-fit: contain"
               :alt="'Логотип компании'"
               :error-src="''"
+              @load="onImageLoad"
+              @loadstart="imageLoading = true"
             />
             <div v-else class="bg-grey-3 q-pa-md q-rounded-md text-grey-7">
               Предпросмотр логотипа
@@ -108,8 +115,6 @@ function onConfirm() {
           </div>
         </div>
       </q-card-section>
-
-      <q-separator />
 
       <q-card-actions align="right" class="q-pa-md">
         <q-btn flat label="Отмена" @click="onCancel" />
