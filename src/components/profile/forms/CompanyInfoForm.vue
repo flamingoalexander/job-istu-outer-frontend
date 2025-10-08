@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, watch } from 'vue';
+import { reactive, watch, ref } from 'vue';
 import type { UserCompanyBaseInput } from 'src/api/user';
 
 const props = defineProps<{
@@ -48,6 +48,11 @@ function onConfirm() {
   });
   emit('update:userCompanyFormVisible', false);
 }
+const imageLoading = ref(false);
+
+function onImageLoad() {
+  imageLoading.value = false;
+}
 </script>
 
 <template>
@@ -56,65 +61,62 @@ function onConfirm() {
     @update:model-value="(v) => emit('update:userCompanyFormVisible', !!v)"
   >
     <q-card style="min-width: 460px; max-width: 640px">
-      <q-card-section class="text-h6"> Редактирование данных о компании </q-card-section>
+      <q-card-section class="text-h6 q-pa-md"> Редактирование данных о компании </q-card-section>
 
       <q-separator />
 
-      <q-card-section class="q-gutter-md">
-        <div class="row q-col-gutter-md">
-          <div class="col-12 col-md-7">
-            <q-input
-              v-model="form.name"
-              label="Название компании"
-              outlined
-              dense
-              :rules="[(val) => !!val || 'Название обязательно']"
-            />
-            <q-input
-              v-model="form.area_of_activity"
-              label="Направление деятельности"
-              outlined
-              dense
-            />
-            <q-input v-model="form.head_full_name" label="ФИО главы компании" outlined dense />
-            <q-input
-              v-model.number="form.hire_count"
-              type="number"
-              label="Количество студентов"
-              outlined
-              dense
-              :min="0"
-            />
-          </div>
+      <q-card-section>
+        <div class="column q-gutter-y-md">
+          <q-input
+            v-model="form.name"
+            label="Название компании"
+            outlined
+            dense
+            style="padding-bottom: 0px"
+            :rules="[(val) => !!val || 'Название обязательно']"
+          />
+          <q-input
+            v-model="form.area_of_activity"
+            label="Направление деятельности"
+            outlined
+            dense
+          />
+          <q-input v-model="form.head_full_name" label="ФИО главы компании" outlined dense />
+          <q-input
+            v-model.number="form.hire_count"
+            type="number"
+            label="Количество студентов"
+            outlined
+            dense
+            :min="0"
+          />
+          <q-input
+            v-model="form.image_url"
+            label="URL логотипа"
+            outlined
+            dense
+            hint="Вставьте ссылку на изображение"
+          />
 
-          <div class="col-12 col-md-5">
-            <q-input
-              v-model="form.image_url"
-              label="URL логотипа"
-              outlined
-              dense
-              hint="Вставьте ссылку на изображение"
+          <div class="q-mt-sm">
+            <q-img
+              v-if="form.image_url"
+              :src="form.image_url"
+              class="q-rounded-md bordered"
+              style="max-height: 30%; max-width: 30%; object-fit: contain"
+              :alt="'Логотип компании'"
+              :error-src="''"
+              @load="onImageLoad"
+              @loadstart="imageLoading = true"
             />
-            <div class="q-mt-sm">
-              <q-img
-                v-if="form.image_url"
-                :src="form.image_url"
-                ratio="16/9"
-                class="q-rounded-md"
-                :alt="'Логотип компании'"
-                :error-src="''"
-              />
-              <div v-else class="bg-grey-3 q-pa-md q-rounded-md text-grey-7">
-                Предпросмотр логотипа
-              </div>
+            <div v-else class="bg-grey-3 q-pa-md q-rounded-md text-grey-7">
+              Предпросмотр логотипа
             </div>
           </div>
         </div>
       </q-card-section>
 
-      <q-separator />
-
-      <q-card-actions align="right">
+      <q-card-actions align="right" class="q-pa-md">
         <q-btn flat label="Отмена" @click="onCancel" />
         <q-btn color="primary" label="Сохранить" @click="onConfirm" />
       </q-card-actions>
@@ -122,4 +124,8 @@ function onConfirm() {
   </q-dialog>
 </template>
 
-<style scoped></style>
+<style scoped>
+.bordered {
+  border: 1px solid #e0e0e0;
+}
+</style>
