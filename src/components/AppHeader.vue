@@ -24,8 +24,41 @@
         no-caps
         class="q-mr-sm"
         :to="{ name: 'register' }"
+        label="Практики (Student-Screen-1)"
+      />
+      <q-btn
+        color="primary"
+        unelevated
+        no-caps
+        class="q-mr-sm"
+        :to="{ name: 'register' }"
+        label="Конкретная практика (Student-Screen-1.1)"
+      />
+      <q-btn
+        color="primary"
+        unelevated
+        no-caps
+        class="q-mr-sm"
+        :to="{ name: 'register' }"
+        label="Компании (Student-Screen-2)"
+      />
+      <q-btn
+        color="primary"
+        unelevated
+        no-caps
+        class="q-mr-sm"
+        :to="{ name: 'register' }"
+        label="Форма создания практики (Company-Screen-1.1)"
+      />
+      <q-btn
+        color="primary"
+        unelevated
+        no-caps
+        class="q-mr-sm"
+        :to="{ name: 'register' }"
         label="Договор"
       />
+
       <q-btn
         round
         flat
@@ -61,7 +94,4 @@
 <script setup lang="ts"></script>
 
 <style scoped>
-:deep(.q-toolbar) {
-  min-height: 56px;
-}
 </style>
