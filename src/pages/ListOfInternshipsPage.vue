@@ -183,7 +183,7 @@ const internships = ref<Internship[]>([
     company: 'ООО “Рога и копыта”',
     specialities: ['ИСиС', 'АСУ', 'ЭВМБ'],
     skills: ['Fast API', 'Python', 'Веб-программирование'],
-  }
+  },
 ]);
 
 const filteredInternships = computed(() =>
