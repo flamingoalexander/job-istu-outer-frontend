@@ -2,13 +2,8 @@
   <q-page class="q-pa-md bg-grey-2">
     <div class="row q-col-gutter-md">
       <div class="col-12 col-md-3">
-        <q-card
-          flat
-          bordered
-          class="text-white q-pa-md primary-background-card-color"
-          style="border-radius: 10px"
-        >
-          <div class="q-mb-sm" style="font-size: 20px; font-weight: 700">Фильтры</div>
+        <q-card flat bordered class="q-pa-md text-white primary-background border-radius-md">
+          <div class="q-mb-sm text-h6 text-weight-bold">Фильтры</div>
 
           <div class="q-mb-md">
             <div class="text-subtitle2 q-mb-xs">Компания</div>
@@ -69,8 +64,7 @@
             color="primary"
             text-color="white"
             unelevated
-            class="q-pa-sm"
-            style="font-weight: 700; border-radius: 10px"
+            class="q-pa-sm text-weight-bold border-radius-md"
           />
         </div>
 
@@ -78,18 +72,17 @@
           v-for="internship in filteredInternships"
           :key="internship.title"
           flat
-          class="q-mb-sm row items-center justify-between text-white primary-background-card-color"
-          style="border-radius: 10px"
+          class="q-mb-sm row items-center justify-between text-white primary-background border-radius-md"
         >
           <q-card-section class="col-12 col-md-8">
-            <div style="font-size: 20px; font-weight: 700">{{ internship.title }}</div>
-            <div class="q-mt-xs">
-              <strong>Специальности: </strong>
+            <div class="text-h6 text-weight-bold">{{ internship.title }}</div>
+            <div class="q-mt-xs row flex-wrap q-gutter-xs">
+              <div class="subtitle-1 text-weight-bold">Специальности:</div>
               <span>{{ internship.specialities.join(', ') }}</span>
             </div>
 
             <div class="q-mt-xs row items-center">
-              <strong class="q-mr-sm">Навыки:</strong>
+              <div class="q-mr-sm subtitle-1 text-weight-bold">Навыки:</div>
               <div class="q-mt-auto q-gutter-xs flex-wrap">
                 <q-chip v-for="skill in internship.skills" :key="skill" outline color="white" dense>
                   {{ skill }}
@@ -100,7 +93,7 @@
 
           <q-card-section class="col-12 col-md-3 text-right">
             <div class="row items-center justify-end q-gutter-xs">
-              <div style="font-size: 16px; font-weight: 700">{{ internship.company }}</div>
+              <div class="text-h6 text-weight-bold">{{ internship.company }}</div>
               <q-avatar size="40px" color="white"></q-avatar>
             </div>
 
@@ -110,7 +103,7 @@
                 color="white"
                 text-color="primary"
                 unelevated
-                style="font-weight: 700"
+                class="text-weight-bold"
               />
             </div>
           </q-card-section>
@@ -183,8 +176,4 @@ const filteredInternships = computed(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-.primary-background-card-color {
-  background-color: $primary;
-}
-</style>
+<style scoped></style>
