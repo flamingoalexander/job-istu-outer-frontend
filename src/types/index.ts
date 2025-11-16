@@ -71,3 +71,10 @@ export type UserPractice = Practice & {
   company: number;
   faculty_name: string;
 };
+
+export type Internship = {
+  title: string;
+  company: string;
+  specialities: string[];
+  skills: string[];
+};

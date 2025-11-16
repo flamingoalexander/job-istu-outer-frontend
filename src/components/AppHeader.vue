@@ -23,7 +23,7 @@
         unelevated
         no-caps
         class="q-mr-sm"
-        :to="{ name: 'register' }"
+        :to="{ name: 'internships' }"
         label="Практики (Student-Screen-1)"
       />
       <q-btn
