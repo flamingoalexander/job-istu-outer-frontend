@@ -99,7 +99,7 @@ const onConfirm = () => {
                 map-options
                 use-chips
                 label="Cпециальности"
-                hint="Выберете специальности"
+                hint="Выберите специальности"
                 hide-bottom-space
               />
               <q-select
@@ -112,15 +112,15 @@ const onConfirm = () => {
                 map-options
                 use-chips
                 label="Навыки"
-                hint="Выберете навыки"
+                hint="Выберите навыки"
                 hide-bottom-space
               />
               <q-toggle v-model="formState.isActive" label="Набор открыт" />
             </div>
           </div>
           <div class="q-mt-lg">
-            <q-btn label="Submit" type="submit" color="primary" />
-            <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+            <q-btn label="Подтвердить" type="submit" color="primary" />
+            <q-btn label="Отмена" type="reset" color="primary" flat class="q-ml-sm" />
           </div>
         </q-form>
       </q-card-section>
