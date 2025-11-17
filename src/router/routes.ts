@@ -43,6 +43,12 @@ const routes: RouteRecordRaw[] = [
         meta: { requiresAuth: false },
         component: () => import('pages/InternshipsPage.vue'),
       },
+      {
+        path: '/companies',
+        name: 'companies',
+        meta: { requiresAuth: false },
+        component: () => import('pages/CompaniesPage.vue'),
+      },
     ],
   },
   {

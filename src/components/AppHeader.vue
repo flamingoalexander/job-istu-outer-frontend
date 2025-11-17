@@ -39,7 +39,7 @@
         unelevated
         no-caps
         class="q-mr-sm"
-        :to="{ name: 'register' }"
+        :to="{ name: 'companies' }"
         label="Компании (Student-Screen-2)"
       />
       <q-btn
