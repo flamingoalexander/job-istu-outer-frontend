@@ -5,7 +5,6 @@
         <q-card
           bordered
           class="q-pa-md flex-center column primary-background border-radius-md cursor-pointer hover-card"
-          @click="onCardClick"
         >
           <q-avatar size="100px">
             <q-icon name="circle" size="100px" color="white" />
@@ -48,8 +47,6 @@ const companies = reactive<CompanyList[]>([
   { id: 7, name: 'ООО “Рожки да ножки”', internships: 3, location: 'Иркутск' },
   { id: 8, name: 'ООО “Рожки да ножки”', internships: 3, location: 'Иркутск' },
 ]);
-
-function onCardClick() {}
 </script>
 
 <style>
