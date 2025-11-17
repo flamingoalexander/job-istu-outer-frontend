@@ -1,19 +1,12 @@
 <template>
   <q-page class="q-pa-xl">
-
     <div class="row q-col-gutter-lg">
-
-      <div
-        v-for="company in companies"
-        :key="company.id"
-        class="col-12 col-sm-6 col-md-3 col-lg-2"
-      >
+      <div v-for="company in companies" :key="company.id" class="col-12 col-sm-6 col-md-3 col-lg-2">
         <q-card
           bordered
           class="q-pa-md flex-center column primary-background border-radius-md cursor-pointer hover-card"
           @click="onCardClick"
         >
-
           <q-avatar size="100px">
             <q-icon name="circle" size="100px" color="white" />
           </q-avatar>
@@ -29,12 +22,9 @@
           <div class="text-body2 q-mt-xs text-center text-white text-weight-bold">
             Положение: {{ company.location }}
           </div>
-
         </q-card>
       </div>
-
     </div>
-
   </q-page>
 </template>
 
@@ -59,9 +49,7 @@ const companies = reactive<CompanyList[]>([
   { id: 8, name: 'ООО “Рожки да ножки”', internships: 3, location: 'Иркутск' },
 ]);
 
-function onCardClick() {
-    
-}
+function onCardClick() {}
 </script>
 
 <style>
