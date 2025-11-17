@@ -47,7 +47,7 @@
         unelevated
         no-caps
         class="q-mr-sm"
-        :to="{ name: 'register' }"
+        :to="{ name: 'practice-form' }"
         label="Форма создания практики (Company-Screen-1.1)"
       />
       <q-btn

@@ -32,6 +32,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/RegisterPage.vue'),
       },
       {
+        path: '/practice-form',
+        name: 'practice-form',
+        meta: { requiresAuth: false },
+        component: () => import('pages/PracticeFormPage.vue'),
+      },
+      {
         path: '/internships',
         name: 'internships',
         meta: { requiresAuth: false },
