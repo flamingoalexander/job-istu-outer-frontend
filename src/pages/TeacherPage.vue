@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-md bg-grey-2">
     <div class="q-mb-md">
-      <div class="text-h4 text-weight-bold text-primary">Заявки бакалавриат</div>
+      <div class="text-h4 text-weight-bold">Заявки бакалавриат</div>
     </div>
 
     <div class="row q-col-gutter-md q-mb-md" style="max-width: 800px">
