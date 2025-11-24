@@ -100,7 +100,7 @@ const filters = reactive({
 const groupOptions = [
   { label: 'Все группы', value: '' },
   { label: 'ИСИ6-22-1', value: 'ИСИ6-22-1' },
-  { label: 'ИСИ6-22-2', value: 'ИСИ6-22-2' },
+  { label: 'АСУ6-22-2', value: 'АСУ6-22-2' },
   { label: 'АСУ6-22-1', value: 'АСУ6-22-1' },
 ];
 
@@ -201,7 +201,7 @@ const applications = reactive<Application[]>([
     id: 4,
     studentName: 'Ходалицкий Павел Юрьевич',
     email: 'dreamsobenatic00@mail.ru',
-    group: 'ИСИ6-22-2',
+    group: 'АСУ6-22-2',
     company: 'ООО "Рога и копыта"',
     practice: 'Разработка API',
     status: 'Одобрено',
@@ -227,13 +227,3 @@ const filteredApplications = computed(() => {
   });
 });
 </script>
-
-<style scoped>
-.border-radius-md {
-  border-radius: 8px;
-}
-
-.text-primary {
-  color: #1976d2;
-}
-</style>
