@@ -15,18 +15,32 @@
 
         <div class="row q-gutter-xs q-mt-sm">
           <q-btn
-            v-for="btn in [
-              'Скачать индивидуальное задание',
-              'Скачать характеристику',
-              'Скачать дневник',
-              'Скачать отчёт',
-            ]"
-            :key="btn"
             color="white"
             text-color="primary"
             unelevated
             class="text-weight-bold"
-            :label="btn"
+            label="Загрузить индивидуальное задание"
+          />
+          <q-btn
+            color="white"
+            text-color="primary"
+            unelevated
+            class="text-weight-bold"
+            label="Загрузить характеристику"
+          />
+          <q-btn
+            color="white"
+            text-color="primary"
+            unelevated
+            class="text-weight-bold"
+            label="Загрузить дневник"
+          />
+          <q-btn
+            color="white"
+            text-color="primary"
+            unelevated
+            class="text-weight-bold"
+            label="Загрузить отчёт"
           />
         </div>
       </q-card-section>

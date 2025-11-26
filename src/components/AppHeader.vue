@@ -55,6 +55,14 @@
         unelevated
         no-caps
         class="q-mr-sm"
+        :to="{ name: 'teacher' }"
+        label="Кабинет преподавателя (Teacher-Screen-1)"
+      />
+      <q-btn
+        color="primary"
+        unelevated
+        no-caps
+        class="q-mr-sm"
         :to="{ name: 'student-internships' }"
         label="Кабинет студента (Student-Screen-3)"
       />
