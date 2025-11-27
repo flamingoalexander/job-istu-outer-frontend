@@ -1,92 +1,91 @@
 <template>
-  <q-page class="q-pa-lg bg-grey-2">
-    <div class="row q-col-gutter-xl">
-      <!-- Левый столбец (70%) -->
+  <q-page class="q-pa-xl bg-grey-2 q-pt-none">
+    <div class="row">
       <div class="col-12 col-md-8">
-        <!-- Заголовок -->
-        <div class="text-h3 text-weight-bold q-mb-lg text-black">
-          {{ practiceData.title }}
-        </div>
-
-        <!-- Кнопки О практике и Участники -->
-        <div class="row q-pa-md">
-          <div class="col-12">
-            <div class="row items-center">
-              <q-btn
-                color="blue"
-                unelevated
-                no-caps
-                label="О практике"
-                class="text-weight-bold bg-white text-primary q-mr-md"
-              />
-              <q-btn
-                color="blue"
-                unelevated
-                no-caps
-                label="Участники"
-                class="text-weight-bold bg-white text-primary"
-              />
-            </div>
+        <div class="bg-grey-8 q-pa-xl text-black">
+          <div class="text-h3 text-weight-bold q-mb-xl">
+            {{ practiceData.title }}
           </div>
-        </div>
 
-        <!-- Общий блок для кнопки, описания и навыков -->
-        <div class="primary-background rounded-borders shadow-1">
-          <!-- Кнопка Подать заявку -->
-          <div class="row q-px-md q-pb-md">
+          <div class="row q-mb-xl bg-grey-1">
             <div class="col-12">
-              <q-btn
-                color="black"
-                unelevated
-                no-caps
-                label="Подать заявку"
-                class="text-weight-bold bg-white text-primary"
-                size="1.1em"
-              />
-            </div>
-          </div>
-
-          <!-- Описание -->
-          <div class="q-pa-lg q-pt-none">
-            <div class="text-h6 q-mb-md text-weight-medium text-white">Описание:</div>
-            <p class="text-body1 line-height-2 text-white">
-              {{ practiceData.description }}
-            </p>
-          </div>
-
-          <!-- Специальности и навыки В СИНЕМ БЛОКЕ -->
-          <div class="row q-col-gutter-lg q-pa-lg q-pt-none">
-            <div class="col-12 col-md-6">
-              <div class="text-h6 q-mb-md text-weight-medium text-white">Специальности:</div>
-              <!-- СЕРЫЙ ФОН ДО КОНЦА БЛОКА -->
-              <div class="bg-grey-5 q-pa-md rounded-borders" style="min-height: 120px">
-                <div class="q-gutter-sm">
-                  <q-chip
-                    v-for="specialty in practiceData.specialties"
-                    :key="specialty"
-                    color="white"
-                    text-color="primary"
-                    class="text-weight-medium"
-                  >
-                    {{ specialty }}
-                  </q-chip>
-                </div>
+              <div class="row no-wrap">
+                <q-btn
+                  color="grey-9"
+                  unelevated
+                  no-caps
+                  label="О практике"
+                  text-color="white"
+                  class="text-weight-bold"
+                  style="min-height: 60px; border-radius: 0"
+                />
+                <q-btn
+                  color="grey-4"
+                  unelevated
+                  no-caps
+                  label="Участники"
+                  text-color="black"
+                  class="text-weight-bold"
+                  style="min-height: 60px; border-radius: 0"
+                />
               </div>
             </div>
-            <div class="col-12 col-md-6">
-              <div class="text-h6 q-mb-md text-weight-medium text-white">Навыки:</div>
-              <!-- СЕРЫЙ ФОН ДО КОНЦА БЛОКА -->
-              <div class="bg-grey-5 q-pa-md rounded-borders" style="min-height: 120px">
-                <div class="q-gutter-sm">
-                  <q-chip
-                    v-for="skill in practiceData.skills"
-                    :key="skill"
-                    color="white"
-                    text-color="primary"
-                    class="text-weight-medium"
-                  >
-                    {{ skill }}
-                  </q-chip>
+          </div>
+
+          <div class="bg-grey-8 q-pa-xl">
+            <div class="row q-mb-lg">
+              <div class="col-12">
+                <q-btn
+                  color="grey-3"
+                  unelevated
+                  no-caps
+                  label="Подать заявку"
+                  text-color="black"
+                  class="text-weight-bold"
+                  size="1.1em"
+                  padding="12px 32px"
+                />
+              </div>
+            </div>
+
+            <div class="q-mb-xl">
+              <div class="text-h5 q-mb-lg text-weight-medium text-white">Описание:</div>
+              <p class="text-body1 text-white">
+                {{ practiceData.description }}
+              </p>
+            </div>
+
+            <div class="row q-col-gutter-xl">
+              <div class="col-12 col-md-6">
+                <div class="text-h5 q-mb-lg text-weight-medium text-white">Специальности:</div>
+                <div class="bg-grey-4 q-pa-lg">
+                  <div class="q-gutter-sm">
+                    <q-chip
+                      v-for="specialty in practiceData.specialties"
+                      :key="specialty"
+                      color="grey-8"
+                      text-color="white"
+                      class="text-weight-medium"
+                    >
+                      {{ specialty }}
+                    </q-chip>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="text-h5 q-mb-lg text-weight-medium text-white">Навыки:</div>
+                <div class="bg-grey-4 q-pa-lg">
+                  <div class="q-gutter-sm">
+                    <q-chip
+                      v-for="skill in practiceData.skills"
+                      :key="skill"
+                      color="grey-8"
+                      text-color="white"
+                      class="text-weight-medium"
+                    >
+                      {{ skill }}
+                    </q-chip>
+                  </div>
                 </div>
               </div>
             </div>
@@ -94,34 +93,32 @@
         </div>
       </div>
 
-      <!-- Правый столбец (30%) -->
-      <div class="col-12 col-md-4">
-        <!-- Компания с лого -->
-        <div class="primary-background q-pa-lg rounded-borders shadow-1 q-mb-lg">
-          <div class="column items-center text-center">
-            <q-avatar size="80px" class="bg-white q-mb-md">
-              <q-icon size="40px" color="primary" />
-            </q-avatar>
-            <div class="text-h5 text-weight-bold text-white">{{ practiceData.company }}</div>
+      <div class="col-12 col-md-4 q-pt-none no-top-padding">
+        <div class="bg-grey-3 q-pa-xl q-pt-none no-top-padding">
+          <div class="bg-grey-8 text-white q-pa-xl q-pt-none no-top-padding">
+            <div class="column items-center text-center q-pt-lg">
+              <q-avatar size="100px" class="bg-white q-mb-lg">
+                <q-icon size="50px" color="grey-8" />
+              </q-avatar>
+              <div class="text-h4 text-weight-bold">{{ practiceData.company }}</div>
+            </div>
           </div>
-        </div>
 
-        <!-- Заголовок Контакты -->
-        <div class="text-h6 text-weight-medium text-black q-mb-md">Контакты:</div>
+          <div class="text-h5 text-weight-medium q-mb-lg text-grey-9">Контакты:</div>
 
-        <!-- Блок контактов -->
-        <div class="primary-background q-pa-lg rounded-borders shadow-1">
-          <div class="q-gutter-y-lg">
-            <div
-              v-for="(contact, index) in practiceData.contacts"
-              :key="index"
-              class="contact-item"
-            >
-              <div class="text-weight-bold text-subtitle1 text-white">{{ contact.name }}</div>
-              <div class="text-white q-mb-xs">{{ contact.position }}</div>
-              <div class="text-white">
-                <div>Telegram: {{ contact.telegram }}</div>
-                <div>Почта: {{ contact.email }}</div>
+          <div class="bg-grey-8 text-white q-pa-xl">
+            <div class="q-gutter-y-xl">
+              <div
+                v-for="(contact, index) in practiceData.contacts"
+                :key="index"
+                class="contact-item"
+              >
+                <div class="text-weight-bold text-h6">{{ contact.name }}</div>
+                <div class="text-caption text-grey-3 q-mb-sm">{{ contact.position }}</div>
+                <div class="text-caption text-grey-3">
+                  <div>Telegram: {{ contact.telegram }}</div>
+                  <div>Почта: {{ contact.email }}</div>
+                </div>
               </div>
             </div>
           </div>
@@ -132,7 +129,6 @@
 </template>
 
 <script setup lang="ts">
-// Заглушки данных (в будущем будут приходить с бэкенда)
 const practiceData = {
   title: 'Разработка микросервиса на Fast API',
   description:
@@ -158,20 +154,8 @@ const practiceData = {
 </script>
 
 <style scoped>
-.line-height-2 {
-  line-height: 1.6;
-}
-
-.contact-item {
-  border-left: 3px solid white;
-  padding-left: 16px;
-}
-
-.primary-background {
-  background: linear-gradient(135deg, #1976d2, #1565c0);
-}
-
-.bg-grey-2 {
-  background-color: #f5f5f5;
+.no-top-padding {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
 }
 </style>
