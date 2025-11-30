@@ -18,8 +18,18 @@
       </q-banner>
     </template>
 
-    <div class="text-h4 q-mb-sm text-weight-bold">Прошлые</div>
-    <PreviousInternship v-for="item in previousInternships" :key="item.id" :internship="item" />
+    <template v-if="previousInternships && previousInternships.length">
+      <div class="text-h4 q-mb-sm text-weight-bold">Прошлые</div>
+      <PreviousInternship v-for="item in previousInternships" :key="item.id" :internship="item" />
+    </template>
+
+    <template v-else>
+      <q-banner class="primary-background q-pa-md q-my-md rounded-borders">
+        <div class="text-h5 text-weight-bold text-white text-center">
+          Сейчас у вас нет прошлых практик
+        </div>
+      </q-banner>
+    </template>
   </q-page>
 </template>
 
