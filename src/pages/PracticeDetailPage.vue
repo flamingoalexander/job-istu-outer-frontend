@@ -11,28 +11,30 @@
             <div class="col-12">
               <div class="row no-wrap">
                 <q-btn
-                  color="grey-9"
                   unelevated
                   no-caps
                   label="О практике"
-                  text-color="white"
                   class="text-weight-bold"
                   style="min-height: 60px; border-radius: 0"
+                  :color="activeTab === 'about' ? 'grey-9' : 'grey-4'"
+                  :text-color="activeTab === 'about' ? 'white' : 'black'"
+                  @click="activeTab = 'about'"
                 />
                 <q-btn
-                  color="grey-4"
                   unelevated
                   no-caps
                   label="Участники"
-                  text-color="black"
                   class="text-weight-bold"
                   style="min-height: 60px; border-radius: 0"
+                  :color="activeTab === 'participants' ? 'grey-9' : 'grey-4'"
+                  :text-color="activeTab === 'participants' ? 'white' : 'black'"
+                  @click="activeTab = 'participants'"
                 />
               </div>
             </div>
           </div>
 
-          <div class="bg-grey-8 q-pa-xl">
+          <div v-if="activeTab === 'about'" class="bg-grey-8 q-pa-xl">
             <div class="row q-mb-lg">
               <div class="col-12">
                 <q-btn
@@ -90,6 +92,23 @@
               </div>
             </div>
           </div>
+
+          <div v-if="activeTab === 'participants'" class="bg-grey-8 q-pa-xl">
+            <div v-if="participants.length === 0" class="text-center q-pa-xl">
+              <div class="text-h5 text-white q-mb-md">Участников пока нет</div>
+            </div>
+
+            <div v-else>
+              <div class="text-h5 text-white q-mb-md">Участники: {{ participants.length }}</div>
+              <div
+                v-for="participant in participants"
+                :key="participant.id"
+                class="bg-grey-4 q-pa-md q-mb-sm text-h6 text-black"
+              >
+                {{ participant.studentName }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -129,6 +148,15 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
+const activeTab = ref('about');
+
+interface Participant {
+  id: number;
+  studentName: string;
+}
+
 const practiceData = {
   title: 'Разработка микросервиса на Fast API',
   description:
@@ -151,6 +179,29 @@ const practiceData = {
     },
   ],
 };
+
+const participants = ref<Participant[]>([
+  {
+    id: 1,
+    studentName: 'Иванов Иван Иванович',
+  },
+  {
+    id: 2,
+    studentName: 'Иванов Иван Иванович',
+  },
+  {
+    id: 3,
+    studentName: 'Иванов Иван Иванович',
+  },
+  {
+    id: 4,
+    studentName: 'Иванов Иван Иванович',
+  },
+  {
+    id: 5,
+    studentName: 'Иванов Иван Иванович',
+  },
+]);
 </script>
 
 <style scoped>
