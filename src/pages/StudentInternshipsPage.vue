@@ -18,17 +18,16 @@
       </q-banner>
     </template>
 
-    <template v-if="previousInternships && previousInternships.length">
-      <div class="text-h4 q-mb-sm text-weight-bold">Прошлые</div>
-      <PreviousInternship v-for="item in previousInternships" :key="item.id" :internship="item" />
-    </template>
-
-    <template v-else>
+    <template v-if="isEmpty(previousInternships)">
       <q-banner class="primary-background q-pa-md q-my-md rounded-borders">
         <div class="text-h5 text-weight-bold text-white text-center">
           Сейчас у вас нет прошлых практик
         </div>
       </q-banner>
+    </template>
+    <template v-else>
+      <div class="text-h4 q-mb-sm text-weight-bold">Прошлые</div>
+      <PreviousInternship v-for="item in previousInternships" :key="item.id" :internship="item" />
     </template>
   </q-page>
 </template>
@@ -38,6 +37,7 @@ import { reactive } from 'vue';
 import CurrentInternship from 'src/components/student/CurrentInternship.vue';
 import PreviousInternship from 'src/components/student/PreviousInternship.vue';
 import type { StudentInternship } from 'src/types';
+import { isEmpty } from 'lodash';
 
 const currentInternship = reactive<StudentInternship>({
   id: 1,
