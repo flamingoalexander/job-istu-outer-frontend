@@ -78,3 +78,26 @@ export type Internship = {
   specialities: string[];
   skills: string[];
 };
+
+export type InternshipStatus = {
+  approvedCompany: boolean;
+  approvedTeacher: boolean;
+  grade: number | null;
+  reportUrl?: string;
+};
+
+export type StudentInternship = {
+  id: number;
+  title: string;
+  company: string;
+  image: string;
+  type: string;
+  teacher: string;
+  specialities: string[];
+  skills: string[];
+  status: InternshipStatus;
+  dates: {
+    start: string;
+    end: string;
+  };
+};
