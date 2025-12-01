@@ -46,5 +46,5 @@ jobs:
           rm: true
           strip_components: 1
           source: "./build/*"
-          target: "/var/www/html/outer/"
+          target: "/var/www/html/"
           overwrite: true
