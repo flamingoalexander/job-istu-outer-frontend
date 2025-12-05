@@ -116,7 +116,36 @@
 <script lang="ts" setup>
 import { reactive, computed } from 'vue';
 import { filter, some, includes, toLower } from 'lodash';
-import type { Internship } from 'src/types';
+import { InternshipService } from 'src/api/generated';
+import { Internship } from 'src/api/generated/models/Internship';
+
+import { useQueryClient, useQuery, useMutation } from '@tanstack/vue-query';
+
+// Access QueryClient instance
+const queryClient = useQueryClient();
+
+// Query
+const { isPending, isError, data, error } = useQuery({
+  queryKey: ['internships'],
+  queryFn: InternshipService.internshipApiInternshipsList(),
+});
+console.log(data);
+
+// Mutation
+// const mutation = useMutation({
+//   mutationFn: postTodo,
+//   onSuccess: () => {
+//     // Invalidate and refetch
+//     queryClient.invalidateQueries({ queryKey: ['todos'] })
+//   },
+// })
+//
+// function onButtonClick() {
+//   mutation.mutate({
+//     id: Date.now(),
+//     title: 'Do Laundry',
+//   })
+// }
 
 const filters = reactive({
   company: '',

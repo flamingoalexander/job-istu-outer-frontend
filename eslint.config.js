@@ -17,7 +17,9 @@ export default defineConfigWithVueTs(
      */
     // ignores: []
   },
-
+  {
+    ignores: ['_deprecated/**'],
+  },
   pluginQuasar.configs.recommended(),
   js.configs.recommended,
 
@@ -34,30 +36,22 @@ export default defineConfigWithVueTs(
    *   -> Above, plus rules to enforce subjective community defaults to ensure consistency.
    */
   pluginVue.configs['flat/essential'],
-
   {
     files: ['**/*.ts', '**/*.vue'],
     rules: {
       '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
     },
   },
-  // {
-  //   files: ['**/*.vue'],
-  //   rules: {
-  //     'no-restricted-imports': [
-  //       'error',
-  //       {
-  //         patterns: [
-  //           {
-  //             group: ['@/api/**', 'src/api/**'],
-  //             message:
-  //               '🚫 В компонентах нельзя импортировать напрямую из api. Используй store/composables/сервисы.',
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
-  // },
+  {
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: ['_deprecated/*', './_deprecated/*', '../_deprecated/*'],
+        },
+      ],
+    },
+  },
   // https://github.com/vuejs/eslint-config-typescript
   vueTsConfigs.recommendedTypeChecked,
 
