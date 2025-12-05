@@ -36,10 +36,9 @@
 import { reactive } from 'vue';
 import CurrentInternship from 'src/components/student/CurrentInternship.vue';
 import PreviousInternship from 'src/components/student/PreviousInternship.vue';
-import type { StudentInternship } from 'src/types';
 import { isEmpty } from 'lodash';
 
-const currentInternship = reactive<StudentInternship>({
+const currentInternship = reactive({
   id: 1,
   title: 'Разработка микросервиса на FastAPI',
   company: 'Рога и Копыта',
@@ -60,7 +59,7 @@ const currentInternship = reactive<StudentInternship>({
   },
 });
 
-const previousInternships = reactive<StudentInternship[]>([
+const previousInternships = reactive([
   {
     id: 2,
     title: 'Учебная практика',

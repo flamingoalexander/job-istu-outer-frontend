@@ -116,36 +116,6 @@
 <script lang="ts" setup>
 import { reactive, computed } from 'vue';
 import { filter, some, includes, toLower } from 'lodash';
-import { InternshipService } from 'src/api/generated';
-import { Internship } from 'src/api/generated/models/Internship';
-
-import { useQueryClient, useQuery, useMutation } from '@tanstack/vue-query';
-
-// Access QueryClient instance
-const queryClient = useQueryClient();
-
-// Query
-const { isPending, isError, data, error } = useQuery({
-  queryKey: ['internships'],
-  queryFn: InternshipService.internshipApiInternshipsList(),
-});
-console.log(data);
-
-// Mutation
-// const mutation = useMutation({
-//   mutationFn: postTodo,
-//   onSuccess: () => {
-//     // Invalidate and refetch
-//     queryClient.invalidateQueries({ queryKey: ['todos'] })
-//   },
-// })
-//
-// function onButtonClick() {
-//   mutation.mutate({
-//     id: Date.now(),
-//     title: 'Do Laundry',
-//   })
-// }
 
 const filters = reactive({
   company: '',
@@ -166,7 +136,7 @@ const skills = reactive([
   { label: 'Веб-программирование', value: 'Веб-программирование' },
 ]);
 
-const internships = reactive<Internship[]>([
+const internships = reactive([
   {
     title: 'Разработка микросервиса на Fast API',
     company: 'Какая-то компания',
@@ -188,7 +158,7 @@ const internships = reactive<Internship[]>([
 ]);
 
 const filteredInternships = computed(() => {
-  return filter(internships, (internship: Internship) => {
+  return filter(internships, (internship) => {
     const matchCompany =
       !filters.company || includes(toLower(internship.company), toLower(filters.company));
 

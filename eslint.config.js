@@ -15,10 +15,10 @@ export default defineConfigWithVueTs(
      *
      * ESLint requires "ignores" key to be the only one in this object
      */
-    // ignores: []
+    ignores: ['src/_deprecated/**', './src/_deprecated/**'],
   },
   {
-    ignores: ['_deprecated/**'],
+    ignores: ['src/_deprecated/**', './src/_deprecated/**'],
   },
   pluginQuasar.configs.recommended(),
   js.configs.recommended,
@@ -47,7 +47,7 @@ export default defineConfigWithVueTs(
       'no-restricted-imports': [
         'error',
         {
-          patterns: ['_deprecated/*', './_deprecated/*', '../_deprecated/*'],
+          patterns: ['src/_deprecated/*', '@/_deprecated/*', '../_deprecated/*', './_deprecated/*'],
         },
       ],
     },
