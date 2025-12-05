@@ -34,7 +34,12 @@ import { useQuery } from '@tanstack/vue-query';
 import { getCompanies } from 'src/api/companies';
 import { type Company } from 'src/api';
 
-const { isPending, isError, data: companies, error } = useQuery<Company[]>({
+const {
+  isPending,
+  isError,
+  data: companies,
+  error,
+} = useQuery<Company[]>({
   queryKey: ['companies'],
   queryFn: getCompanies,
 });
