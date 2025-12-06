@@ -1,38 +1,7 @@
-<script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
-
-const isFooterVisible = ref(false);
-
-const handleScroll = () => {
-  const scrollTop = window.scrollY;
-  const windowHeight = window.innerHeight;
-  const documentHeight = document.documentElement.scrollHeight;
-  const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
-  if (scrollPercent > 90) {
-    isFooterVisible.value = true;
-  } else {
-    isFooterVisible.value = false;
-  }
-};
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-  handleScroll();
-});
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <q-footer
-    v-show="isFooterVisible"
-    reveal
-    elevated
-    class="bg-blue-8 text-white footer-animated"
-    :class="{ 'footer-hidden': !isFooterVisible }"
-  >
+  <q-footer elevated class="bg-blue-8 text-white footer-animated">
     <div class="row">
       <div class="col-3">
         <q-toolbar>
