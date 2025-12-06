@@ -1,25 +1,25 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import type { Credentials } from 'src/types';
+import type { Credentials } from 'src/api/models/Credentials';
 import authFormImage from '/pics/auth-form-preview.jpg';
 const isDisabled = ref(false);
 const authMessage = ref('');
-import { useUserStore } from 'stores/user';
 import { useRouter } from 'vue-router';
+import { login } from 'src/api/auth';
 
 const credentials: Credentials = reactive({
   username: '',
   password: '',
-  rememberMe: false,
 });
 const router = useRouter();
 const loading = ref(false);
-const userStore = useUserStore();
+// const userStore = useUserStore();
 const handleAuth = async () => {
   loading.value = true;
   try {
-    await userStore.login(credentials);
-    await router.push('/profile');
+    // await userStore.login(credentials);
+    // await router.push('/profile');
+    await login(credentials);
   } finally {
     loading.value = false;
   }
@@ -81,18 +81,6 @@ const handleAuth = async () => {
                 :disable="loading"
                 prepend-inner-icon="lock"
               />
-
-              <div class="row items-center">
-                <div class="col">
-                  <q-checkbox
-                    v-model="credentials.rememberMe"
-                    :disable="isDisabled || loading"
-                    label="Запомнить меня"
-                    dense
-                  />
-                </div>
-              </div>
-
               <div class="row items-center q-mt-lg">
                 <q-btn
                   type="submit"

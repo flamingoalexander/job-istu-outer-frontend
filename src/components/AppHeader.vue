@@ -45,7 +45,7 @@
           />
         </q-avatar>
       </q-btn>
-      <q-btn round flat :to="{ name: 'profile' }" aria-label="Войти">
+      <q-btn round flat :to="{ name: 'login' }" aria-label="Войти">
         <q-avatar size="36px">
           <q-img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALBplMxySL51Y_dJZ5FTrLpa1rpD72FebJA&usqp=CAU"

@@ -6,11 +6,7 @@ export type Institute = {
   directions: Direction[];
 };
 
-export type Credentials = {
-  username: string;
-  password: string;
-  rememberMe: boolean;
-};
+
 
 export type UserInfo = {
   username: string;
