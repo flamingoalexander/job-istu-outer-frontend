@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
+import { UserRoles } from 'src/constants';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -34,11 +35,12 @@ const routes: RouteRecordRaw[] = [
         path: '/teacher',
         name: 'teacher',
         component: () => import('pages/TeacherPage.vue'),
+        meta: { requiresAuth: false, role: UserRoles.Student },
       },
       {
         path: '/student-internships',
         name: 'student-internships',
-        meta: { requiresAuth: false },
+        meta: { requiresAuth: true, role: UserRoles.Student },
         component: () => import('pages/StudentInternshipsPage.vue'),
       },
     ],

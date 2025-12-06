@@ -7,7 +7,6 @@ export const login = async (payload: Credentials): Promise<void> => {
   console.log('login', data);
 };
 
-export const logout = async (): Promise<Company[]> => {
-  const { data } = await publicAxiosClient.get<Company[]>(ENDPOINTS.companies.companies());
-  return data;
+export const logout = async (): Promise<void> => {
+///
 };
