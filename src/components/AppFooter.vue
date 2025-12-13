@@ -7,8 +7,13 @@
         <div class="q-ma-sm">
           <q-btn flat round dense :to="{ path: '/' }" aria-label="На главную" class="q-mr-sm">
             <q-avatar size="150px">
-              <q-img src="https://www.istu.edu/upload/iblock/f55/logo_1.png" alt="ИРНИТУ" ratio="1"
-                spinner-color="primary" loading="lazy" />
+              <q-img
+                src="https://www.istu.edu/upload/iblock/f55/logo_1.png"
+                alt="ИРНИТУ"
+                ratio="1"
+                spinner-color="primary"
+                loading="lazy"
+              />
             </q-avatar>
           </q-btn>
         </div>
@@ -22,10 +27,14 @@
 
       <div class="col-3">
         <div class="q-ma-md">
-          <router-link :to="{ name: 'companies' }" class="text-white text-h5"> Компании </router-link>
+          <router-link :to="{ name: 'companies' }" class="text-white text-h5">
+            Компании
+          </router-link>
         </div>
         <div class="q-ma-md">
-          <router-link :to="{ name: 'internships' }" class="text-white text-h5"> Практики </router-link>
+          <router-link :to="{ name: 'internships' }" class="text-white text-h5">
+            Практики
+          </router-link>
         </div>
       </div>
 
@@ -42,8 +51,10 @@
         <div class="q-ml-md text-h5">Техническая поддержка:</div>
         <div class="q-ml-md">
           Telegram: <a href="https://t.me/alvkn0" style="color: white !important">@alvkn0</a><br />
-          Telegram: <a href="https://t.me/pleiada01" style="color: white !important">@pleiada01</a><br />
-          Telegram: <a href="https://t.me/a_anoshko" style="color: white !important">@a_anoshko</a><br />
+          Telegram: <a href="https://t.me/pleiada01" style="color: white !important">@pleiada01</a
+          ><br />
+          Telegram: <a href="https://t.me/a_anoshko" style="color: white !important">@a_anoshko</a
+          ><br />
         </div>
       </div>
 
