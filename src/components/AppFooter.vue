@@ -4,7 +4,7 @@
   <q-footer elevated class="bg-blue-8 text-white footer-animated">
     <div class="row">
       <div class="col-3">
-        <div class="q-ma-sm">
+        <div class="q-ma-md">
           <q-btn flat round dense :to="{ path: '/' }" aria-label="На главную" class="q-mr-sm">
             <q-avatar size="150px">
               <q-img
@@ -39,8 +39,8 @@
       </div>
 
       <div class="col-3">
-        <div class="q-ml-md text-h5">Центр карьеры:</div>
-        <div class="q-ml-md">
+        <div class="q-ma-md text-h5">Центр карьеры:</div>
+        <div class="q-ma-md">
           Режим работы: понедельник – пятница<br />
           Часы приема: 8:30-17:00, перерыв на обед: 12:00-12:30<br />
           Расположение: г. Иркутск, ул. Лермонтова, 83, главный корпус ИРНИТУ, ауд.: Д-217, И-217,
@@ -48,8 +48,8 @@
           Телефон: (3952) 40-50-57, 40-56-90, 40-52-13<br />
           E-mail: <a href="mailto:job@istu.edu" style="color: white !important">job@istu.edu</a>
         </div>
-        <div class="q-ml-md text-h5">Техническая поддержка:</div>
-        <div class="q-ml-md">
+        <div class="q-ma-md text-h5">Техническая поддержка:</div>
+        <div class="q-ma-md">
           Telegram: <a href="https://t.me/alvkn0" style="color: white !important">@alvkn0</a><br />
           Telegram: <a href="https://t.me/pleiada01" style="color: white !important">@pleiada01</a
           ><br />
@@ -59,8 +59,8 @@
       </div>
 
       <div class="col-3">
-        <div class="q-ml-md text-h5">Организация:</div>
-        <div class="q-ml-md">
+        <div class="q-ma-md text-h5">Организация:</div>
+        <div class="q-ma-md">
           664074, г. Иркутск ул. Лермонтова 83<br />
           Телефон: +7 (3952) 405-000<br />
           Справочная: +7 (3952) 405-009<br />
