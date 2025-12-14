@@ -5,7 +5,7 @@ export default defineConfig((/* ctx */) => {
     css: ['app.scss'],
     extras: ['roboto-font', 'material-icons'],
     build: {
-      publicPath: process.env.NODE_ENV === 'production' ? '/outer/' : '/',
+      publicPath: '/',
       distDir: 'build',
       target: {
         browser: ['es2022', 'firefox115', 'chrome115', 'safari14'],
