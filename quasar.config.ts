@@ -1,7 +1,7 @@
 import { defineConfig } from '#q-app/wrappers';
 export default defineConfig((/* ctx */) => {
   return {
-    boot: ['init', 'error.handler'],
+    boot: ['init', 'error.handler', 'vue-query'],
     css: ['app.scss'],
     extras: ['roboto-font', 'material-icons'],
     build: {

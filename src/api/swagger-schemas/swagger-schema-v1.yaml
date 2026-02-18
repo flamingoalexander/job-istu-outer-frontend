@@ -1,0 +1,3276 @@
+openapi: 3.0.3
+info:
+  title: This is Swagger
+  version: 2.0.0
+  description: свага тут
+paths:
+  /api/administration/career-center/:
+    get:
+      operationId: administration_career_center_retrieve
+      description: Получение данных для страницы центра карьеры
+      tags:
+      - administration
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/administration/directorate/:
+    get:
+      operationId: administration_directorate_retrieve
+      description: Получение данных для страницы дирекции
+      tags:
+      - administration
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/administration/export/group/{group_id}/:
+    get:
+      operationId: administration_export_group_retrieve
+      description: Выгрузка excel файла с информацией по группе
+      parameters:
+      - in: path
+        name: group_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - administration
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/auths/company-representative/profile/:
+    get:
+      operationId: auths_company_representative_profile_retrieve
+      description: API для работы с профилем представителя компании
+      tags:
+      - auths
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyRepresentative'
+          description: ''
+    post:
+      operationId: auths_company_representative_profile_create
+      description: Создать профиль представителя компании
+      tags:
+      - auths
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyRepresentativeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CompanyRepresentativeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CompanyRepresentativeRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyRepresentative'
+          description: ''
+    put:
+      operationId: auths_company_representative_profile_update
+      description: API для работы с профилем представителя компании
+      tags:
+      - auths
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyRepresentativeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CompanyRepresentativeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CompanyRepresentativeRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyRepresentative'
+          description: ''
+    patch:
+      operationId: auths_company_representative_profile_partial_update
+      description: API для работы с профилем представителя компании
+      tags:
+      - auths
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCompanyRepresentativeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCompanyRepresentativeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCompanyRepresentativeRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyRepresentative'
+          description: ''
+    delete:
+      operationId: auths_company_representative_profile_destroy
+      description: API для работы с профилем представителя компании
+      tags:
+      - auths
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/auths/student/profile/:
+    get:
+      operationId: auths_student_profile_retrieve
+      description: API для работы с профилем студента
+      tags:
+      - auths
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: ''
+    put:
+      operationId: auths_student_profile_update
+      description: API для работы с профилем студента
+      tags:
+      - auths
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: ''
+    patch:
+      operationId: auths_student_profile_partial_update
+      description: API для работы с профилем студента
+      tags:
+      - auths
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: ''
+  /api/auths/teacher/profile/:
+    get:
+      operationId: auths_teacher_profile_retrieve
+      description: API для работы с профилем преподавателя
+      tags:
+      - auths
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+          description: ''
+    put:
+      operationId: auths_teacher_profile_update
+      description: API для работы с профилем преподавателя
+      tags:
+      - auths
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+          description: ''
+    patch:
+      operationId: auths_teacher_profile_partial_update
+      description: API для работы с профилем преподавателя
+      tags:
+      - auths
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+          description: ''
+  /api/companies/companies/:
+    get:
+      operationId: companies_companies_list
+      description: API для получения списка компаний с фильтрацией по имени
+      parameters:
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - companies
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+          description: ''
+  /api/internship/api/internships/:
+    get:
+      operationId: internship_api_internships_list
+      description: ViewSet для модели Internship (Практика)
+      parameters:
+      - in: query
+        name: company
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: skills
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+        style: form
+      - in: query
+        name: specialities
+        schema:
+          type: array
+          items:
+            type: integer
+        explode: true
+        style: form
+      - in: query
+        name: year
+        schema:
+          type: integer
+      tags:
+      - internship
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Internship'
+          description: ''
+    post:
+      operationId: internship_api_internships_create
+      description: ViewSet для модели Internship (Практика)
+      tags:
+      - internship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InternshipRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InternshipRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InternshipRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Internship'
+          description: ''
+  /api/internship/api/internships/{id}/:
+    get:
+      operationId: internship_api_internships_retrieve
+      description: ViewSet для модели Internship (Практика)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Internship'
+          description: ''
+    put:
+      operationId: internship_api_internships_update
+      description: ViewSet для модели Internship (Практика)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InternshipRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InternshipRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InternshipRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Internship'
+          description: ''
+    patch:
+      operationId: internship_api_internships_partial_update
+      description: ViewSet для модели Internship (Практика)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedInternshipRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedInternshipRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedInternshipRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Internship'
+          description: ''
+    delete:
+      operationId: internship_api_internships_destroy
+      description: ViewSet для модели Internship (Практика)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/internship/api/reports/:
+    get:
+      operationId: internship_api_reports_list
+      description: ViewSet для модели StudentsInternshipReport (Отчет по практике)
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: integer
+          title: Статус
+          enum:
+          - 0
+          - 1
+          - 2
+        description: |-
+          * `0` - Не проверен
+          * `1` - Одобрен
+          * `2` - Отклонен
+      tags:
+      - internship
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentsInternshipReport'
+          description: ''
+    post:
+      operationId: internship_api_reports_create
+      description: ViewSet для модели StudentsInternshipReport (Отчет по практике)
+      tags:
+      - internship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentsInternshipReportRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentsInternshipReportRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentsInternshipReportRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentsInternshipReport'
+          description: ''
+  /api/internship/api/reports/{id}/:
+    get:
+      operationId: internship_api_reports_retrieve
+      description: ViewSet для модели StudentsInternshipReport (Отчет по практике)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentsInternshipReport'
+          description: ''
+    put:
+      operationId: internship_api_reports_update
+      description: ViewSet для модели StudentsInternshipReport (Отчет по практике)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentsInternshipReportRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentsInternshipReportRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentsInternshipReportRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentsInternshipReport'
+          description: ''
+    patch:
+      operationId: internship_api_reports_partial_update
+      description: ViewSet для модели StudentsInternshipReport (Отчет по практике)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentsInternshipReportRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentsInternshipReportRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentsInternshipReportRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentsInternshipReport'
+          description: ''
+    delete:
+      operationId: internship_api_reports_destroy
+      description: ViewSet для модели StudentsInternshipReport (Отчет по практике)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/internship/api/skills/:
+    get:
+      operationId: internship_api_skills_list
+      description: ViewSet для модели Skill (Навык)
+      parameters:
+      - in: query
+        name: is_public
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - internship
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Skill'
+          description: ''
+    post:
+      operationId: internship_api_skills_create
+      description: ViewSet для модели Skill (Навык)
+      tags:
+      - internship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SkillRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SkillRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+          description: ''
+  /api/internship/api/skills/{id}/:
+    get:
+      operationId: internship_api_skills_retrieve
+      description: ViewSet для модели Skill (Навык)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+          description: ''
+    put:
+      operationId: internship_api_skills_update
+      description: ViewSet для модели Skill (Навык)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SkillRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SkillRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+          description: ''
+    patch:
+      operationId: internship_api_skills_partial_update
+      description: ViewSet для модели Skill (Навык)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSkillRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSkillRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSkillRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+          description: ''
+    delete:
+      operationId: internship_api_skills_destroy
+      description: ViewSet для модели Skill (Навык)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/internship/api/students-internships/:
+    get:
+      operationId: internship_api_students_internships_list
+      description: ViewSet для модели StudentsInternship (Практика студента)
+      parameters:
+      - in: query
+        name: internship
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: status
+        schema:
+          type: integer
+          title: Статус
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+        description: |-
+          * `0` - Новая
+          * `1` - Одобрена преподавателем
+          * `2` - Отклонена преподавателем
+          * `3` - Завершена
+      - in: query
+        name: student
+        schema:
+          type: integer
+      - in: query
+        name: teacher
+        schema:
+          type: integer
+      tags:
+      - internship
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentsInternship'
+          description: ''
+    post:
+      operationId: internship_api_students_internships_create
+      description: ViewSet для модели StudentsInternship (Практика студента)
+      tags:
+      - internship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentsInternshipRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentsInternshipRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentsInternshipRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentsInternship'
+          description: ''
+  /api/internship/api/students-internships/{id}/:
+    get:
+      operationId: internship_api_students_internships_retrieve
+      description: ViewSet для модели StudentsInternship (Практика студента)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentsInternship'
+          description: ''
+    put:
+      operationId: internship_api_students_internships_update
+      description: ViewSet для модели StudentsInternship (Практика студента)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentsInternshipRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentsInternshipRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentsInternshipRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentsInternship'
+          description: ''
+    patch:
+      operationId: internship_api_students_internships_partial_update
+      description: ViewSet для модели StudentsInternship (Практика студента)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentsInternshipRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentsInternshipRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentsInternshipRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentsInternship'
+          description: ''
+    delete:
+      operationId: internship_api_students_internships_destroy
+      description: ViewSet для модели StudentsInternship (Практика студента)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - internship
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/university/api/directions/:
+    get:
+      operationId: university_api_directions_list
+      description: ViewSet для модели Direction (Направление)
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Direction'
+          description: ''
+    post:
+      operationId: university_api_directions_create
+      description: ViewSet для модели Direction (Направление)
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DirectionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DirectionRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Direction'
+          description: ''
+  /api/university/api/directions/{id}/:
+    get:
+      operationId: university_api_directions_retrieve
+      description: ViewSet для модели Direction (Направление)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Direction'
+          description: ''
+    put:
+      operationId: university_api_directions_update
+      description: ViewSet для модели Direction (Направление)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DirectionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DirectionRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Direction'
+          description: ''
+    patch:
+      operationId: university_api_directions_partial_update
+      description: ViewSet для модели Direction (Направление)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDirectionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDirectionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDirectionRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Direction'
+          description: ''
+    delete:
+      operationId: university_api_directions_destroy
+      description: ViewSet для модели Direction (Направление)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/university/api/divisions/:
+    get:
+      operationId: university_api_divisions_list
+      description: ViewSet для модели InrtuDivision (Подразделение ИрНИТУ)
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InrtuDivision'
+          description: ''
+    post:
+      operationId: university_api_divisions_create
+      description: ViewSet для модели InrtuDivision (Подразделение ИрНИТУ)
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InrtuDivisionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InrtuDivisionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InrtuDivisionRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InrtuDivision'
+          description: ''
+  /api/university/api/divisions/{id}/:
+    get:
+      operationId: university_api_divisions_retrieve
+      description: ViewSet для модели InrtuDivision (Подразделение ИрНИТУ)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InrtuDivision'
+          description: ''
+    put:
+      operationId: university_api_divisions_update
+      description: ViewSet для модели InrtuDivision (Подразделение ИрНИТУ)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InrtuDivisionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InrtuDivisionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InrtuDivisionRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InrtuDivision'
+          description: ''
+    patch:
+      operationId: university_api_divisions_partial_update
+      description: ViewSet для модели InrtuDivision (Подразделение ИрНИТУ)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedInrtuDivisionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedInrtuDivisionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedInrtuDivisionRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InrtuDivision'
+          description: ''
+    delete:
+      operationId: university_api_divisions_destroy
+      description: ViewSet для модели InrtuDivision (Подразделение ИрНИТУ)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/university/api/faculties/:
+    get:
+      operationId: university_api_faculties_list
+      description: ViewSet для модели Faculty (Институт)
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Faculty'
+          description: ''
+    post:
+      operationId: university_api_faculties_create
+      description: ViewSet для модели Faculty (Институт)
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FacultyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FacultyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FacultyRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faculty'
+          description: ''
+  /api/university/api/faculties/{id}/:
+    get:
+      operationId: university_api_faculties_retrieve
+      description: ViewSet для модели Faculty (Институт)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faculty'
+          description: ''
+    put:
+      operationId: university_api_faculties_update
+      description: ViewSet для модели Faculty (Институт)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FacultyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FacultyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FacultyRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faculty'
+          description: ''
+    patch:
+      operationId: university_api_faculties_partial_update
+      description: ViewSet для модели Faculty (Институт)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFacultyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFacultyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFacultyRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faculty'
+          description: ''
+    delete:
+      operationId: university_api_faculties_destroy
+      description: ViewSet для модели Faculty (Институт)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/university/api/specialities/:
+    get:
+      operationId: university_api_specialities_list
+      description: ViewSet для модели Speciality (Специальность)
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Speciality'
+          description: ''
+    post:
+      operationId: university_api_specialities_create
+      description: ViewSet для модели Speciality (Специальность)
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpecialityRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SpecialityRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SpecialityRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Speciality'
+          description: ''
+  /api/university/api/specialities/{id}/:
+    get:
+      operationId: university_api_specialities_retrieve
+      description: ViewSet для модели Speciality (Специальность)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Speciality'
+          description: ''
+    put:
+      operationId: university_api_specialities_update
+      description: ViewSet для модели Speciality (Специальность)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpecialityRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SpecialityRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SpecialityRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Speciality'
+          description: ''
+    patch:
+      operationId: university_api_specialities_partial_update
+      description: ViewSet для модели Speciality (Специальность)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSpecialityRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSpecialityRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSpecialityRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Speciality'
+          description: ''
+    delete:
+      operationId: university_api_specialities_destroy
+      description: ViewSet для модели Speciality (Специальность)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/university/api/streams/:
+    get:
+      operationId: university_api_streams_list
+      description: ViewSet для модели Stream (Поток)
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stream'
+          description: ''
+    post:
+      operationId: university_api_streams_create
+      description: ViewSet для модели Stream (Поток)
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StreamRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StreamRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stream'
+          description: ''
+  /api/university/api/streams/{id}/:
+    get:
+      operationId: university_api_streams_retrieve
+      description: ViewSet для модели Stream (Поток)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stream'
+          description: ''
+    put:
+      operationId: university_api_streams_update
+      description: ViewSet для модели Stream (Поток)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StreamRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StreamRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stream'
+          description: ''
+    patch:
+      operationId: university_api_streams_partial_update
+      description: ViewSet для модели Stream (Поток)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStreamRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStreamRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStreamRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stream'
+          description: ''
+    delete:
+      operationId: university_api_streams_destroy
+      description: ViewSet для модели Stream (Поток)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/university/api/student-group-metas/:
+    get:
+      operationId: university_api_student_group_metas_list
+      description: ViewSet для модели StudentGroupYearMeta (Мета-информация для группы)
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentGroupYearMeta'
+          description: ''
+    post:
+      operationId: university_api_student_group_metas_create
+      description: ViewSet для модели StudentGroupYearMeta (Мета-информация для группы)
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentGroupYearMetaRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentGroupYearMetaRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentGroupYearMetaRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentGroupYearMeta'
+          description: ''
+  /api/university/api/student-group-metas/{id}/:
+    get:
+      operationId: university_api_student_group_metas_retrieve
+      description: ViewSet для модели StudentGroupYearMeta (Мета-информация для группы)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentGroupYearMeta'
+          description: ''
+    put:
+      operationId: university_api_student_group_metas_update
+      description: ViewSet для модели StudentGroupYearMeta (Мета-информация для группы)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentGroupYearMetaRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentGroupYearMetaRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentGroupYearMetaRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentGroupYearMeta'
+          description: ''
+    patch:
+      operationId: university_api_student_group_metas_partial_update
+      description: ViewSet для модели StudentGroupYearMeta (Мета-информация для группы)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentGroupYearMetaRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentGroupYearMetaRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentGroupYearMetaRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentGroupYearMeta'
+          description: ''
+    delete:
+      operationId: university_api_student_group_metas_destroy
+      description: ViewSet для модели StudentGroupYearMeta (Мета-информация для группы)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/university/api/student-groups/:
+    get:
+      operationId: university_api_student_groups_list
+      description: ViewSet для модели StudentGroup (Группа)
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StudentGroup'
+          description: ''
+    post:
+      operationId: university_api_student_groups_create
+      description: ViewSet для модели StudentGroup (Группа)
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentGroupRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentGroupRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentGroupRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentGroup'
+          description: ''
+  /api/university/api/student-groups/{id}/:
+    get:
+      operationId: university_api_student_groups_retrieve
+      description: ViewSet для модели StudentGroup (Группа)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentGroup'
+          description: ''
+    put:
+      operationId: university_api_student_groups_update
+      description: ViewSet для модели StudentGroup (Группа)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentGroupRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentGroupRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentGroupRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentGroup'
+          description: ''
+    patch:
+      operationId: university_api_student_groups_partial_update
+      description: ViewSet для модели StudentGroup (Группа)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentGroupRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentGroupRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentGroupRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentGroup'
+          description: ''
+    delete:
+      operationId: university_api_student_groups_destroy
+      description: ViewSet для модели StudentGroup (Группа)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - university
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Company:
+      type: object
+      description: Сериализатор для модели Company
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Название компании
+          maxLength: 256
+        image_url:
+          type: string
+          nullable: true
+          title: Ссылка на логотип
+          maxLength: 1024
+        area_of_activity:
+          type: string
+          nullable: true
+          title: Область деятельности
+          maxLength: 2000
+        head_full_name:
+          type: string
+          nullable: true
+          title: ФИО руководителя
+          maxLength: 128
+        head_job_title:
+          type: string
+          nullable: true
+          title: Должность руководителя
+          maxLength: 512
+      required:
+      - id
+      - name
+    CompanyRepresentative:
+      type: object
+      description: Сериализатор для профиля представителя компании
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/ExtendedUser'
+          readOnly: true
+        job_title:
+          type: string
+          nullable: true
+          title: Должность
+          maxLength: 512
+        messenger:
+          type: string
+          nullable: true
+          title: Уникальное имя в мессенджере
+          maxLength: 128
+        email:
+          type: string
+          format: email
+      required:
+      - email
+      - id
+      - user
+    CompanyRepresentativeRequest:
+      type: object
+      description: Сериализатор для профиля представителя компании
+      properties:
+        job_title:
+          type: string
+          nullable: true
+          title: Должность
+          maxLength: 512
+        messenger:
+          type: string
+          nullable: true
+          title: Уникальное имя в мессенджере
+          maxLength: 128
+        email:
+          type: string
+          format: email
+          minLength: 1
+      required:
+      - email
+    Direction:
+      type: object
+      description: Сериализатор для модели Direction (Направление)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        short_name:
+          type: string
+          title: Cоркащенное название
+          maxLength: 256
+        full_name:
+          type: string
+          nullable: true
+          title: Полное название направления
+          maxLength: 256
+        speciality:
+          type: integer
+          nullable: true
+          title: Спецаильность
+        speciality_name:
+          type: string
+          readOnly: true
+        image_url:
+          type: string
+          nullable: true
+          title: Ссылка на логотип
+          maxLength: 1024
+      required:
+      - id
+      - short_name
+      - speciality_name
+    DirectionRequest:
+      type: object
+      description: Сериализатор для модели Direction (Направление)
+      properties:
+        short_name:
+          type: string
+          minLength: 1
+          title: Cоркащенное название
+          maxLength: 256
+        full_name:
+          type: string
+          nullable: true
+          minLength: 1
+          title: Полное название направления
+          maxLength: 256
+        speciality:
+          type: integer
+          nullable: true
+          title: Спецаильность
+        image_url:
+          type: string
+          nullable: true
+          title: Ссылка на логотип
+          maxLength: 1024
+      required:
+      - short_name
+    EducationLevelEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: |-
+        * `0` - Бакалавриат
+        * `1` - Специалитет
+        * `2` - Магистратура
+        * `3` - Аспирантура
+        * `4` - Среднее профессиональное образование
+    ExtendedUser:
+      type: object
+      description: Сериализатор для базовой информации о пользователе
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+        email:
+          type: string
+          format: email
+          nullable: true
+          title: Электронная почта
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        patronymic:
+          type: string
+          nullable: true
+          title: Отчество
+          maxLength: 256
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RoleEnum'
+          readOnly: true
+          title: Роль
+      required:
+      - id
+      - role
+      - username
+    ExtendedUserRequest:
+      type: object
+      description: Сериализатор для базовой информации о пользователе
+      properties:
+        email:
+          type: string
+          format: email
+          nullable: true
+          title: Электронная почта
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        patronymic:
+          type: string
+          nullable: true
+          title: Отчество
+          maxLength: 256
+    Faculty:
+      type: object
+      description: Сериализатор для модели Faculty (Институт)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Название института
+          maxLength: 256
+        image_url:
+          type: string
+          nullable: true
+          title: Ссылка на логотип
+          maxLength: 1024
+        ais_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: ID в АИС
+      required:
+      - id
+      - name
+    FacultyRequest:
+      type: object
+      description: Сериализатор для модели Faculty (Институт)
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Название института
+          maxLength: 256
+        image_url:
+          type: string
+          nullable: true
+          title: Ссылка на логотип
+          maxLength: 1024
+        ais_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: ID в АИС
+      required:
+      - name
+    InrtuDivision:
+      type: object
+      description: Сериализатор для модели InrtuDivision (Подразделение ИрНИТУ)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Название подразделения
+          maxLength: 256
+        faculty:
+          type: integer
+          nullable: true
+          title: Факультет
+        faculty_name:
+          type: string
+          readOnly: true
+      required:
+      - faculty_name
+      - id
+      - name
+    InrtuDivisionRequest:
+      type: object
+      description: Сериализатор для модели InrtuDivision (Подразделение ИрНИТУ)
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Название подразделения
+          maxLength: 256
+        faculty:
+          type: integer
+          nullable: true
+          title: Факультет
+      required:
+      - name
+    Internship:
+      type: object
+      description: Сериализатор для модели Internship (Практика)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        theme:
+          type: string
+          title: Темы практики
+          maxLength: 256
+        description:
+          type: string
+          nullable: true
+          title: Описание
+          maxLength: 5096
+        year:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Год
+        hire_count:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Набор (кол-во студентов)
+        company:
+          type: integer
+          nullable: true
+          title: Компания
+        company_name:
+          type: string
+          readOnly: true
+        contacts:
+          type: array
+          items:
+            type: integer
+            title: Контакты
+          title: Контакты
+        contacts_list:
+          type: string
+          readOnly: true
+        skills:
+          type: array
+          items:
+            type: integer
+            title: Навыки
+          title: Навыки
+        skills_list:
+          type: string
+          readOnly: true
+        specialities:
+          type: array
+          items:
+            type: integer
+            title: Специальности
+          title: Специальности
+        specialities_list:
+          type: string
+          readOnly: true
+      required:
+      - company_name
+      - contacts
+      - contacts_list
+      - id
+      - skills
+      - skills_list
+      - specialities
+      - specialities_list
+      - theme
+      - year
+    InternshipRequest:
+      type: object
+      description: Сериализатор для модели Internship (Практика)
+      properties:
+        theme:
+          type: string
+          minLength: 1
+          title: Темы практики
+          maxLength: 256
+        description:
+          type: string
+          nullable: true
+          title: Описание
+          maxLength: 5096
+        year:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Год
+        hire_count:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Набор (кол-во студентов)
+        company:
+          type: integer
+          nullable: true
+          title: Компания
+        contacts:
+          type: array
+          items:
+            type: integer
+            title: Контакты
+          title: Контакты
+        skills:
+          type: array
+          items:
+            type: integer
+            title: Навыки
+          title: Навыки
+        specialities:
+          type: array
+          items:
+            type: integer
+            title: Специальности
+          title: Специальности
+      required:
+      - contacts
+      - skills
+      - specialities
+      - theme
+      - year
+    InternshipTypeEnum:
+      enum:
+      - ВКР
+      - ПР
+      - НИОКР
+      type: string
+      description: |-
+        * `ВКР` - Выпускная квалификационная работа
+        * `ПР` - Производственная практика
+        * `НИОКР` - Научно-исследовательские и опытно-конструкторские работы
+    NullEnum:
+      enum:
+      - null
+    PatchedCompanyRepresentativeRequest:
+      type: object
+      description: Сериализатор для профиля представителя компании
+      properties:
+        job_title:
+          type: string
+          nullable: true
+          title: Должность
+          maxLength: 512
+        messenger:
+          type: string
+          nullable: true
+          title: Уникальное имя в мессенджере
+          maxLength: 128
+        email:
+          type: string
+          format: email
+          minLength: 1
+    PatchedDirectionRequest:
+      type: object
+      description: Сериализатор для модели Direction (Направление)
+      properties:
+        short_name:
+          type: string
+          minLength: 1
+          title: Cоркащенное название
+          maxLength: 256
+        full_name:
+          type: string
+          nullable: true
+          minLength: 1
+          title: Полное название направления
+          maxLength: 256
+        speciality:
+          type: integer
+          nullable: true
+          title: Спецаильность
+        image_url:
+          type: string
+          nullable: true
+          title: Ссылка на логотип
+          maxLength: 1024
+    PatchedFacultyRequest:
+      type: object
+      description: Сериализатор для модели Faculty (Институт)
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Название института
+          maxLength: 256
+        image_url:
+          type: string
+          nullable: true
+          title: Ссылка на логотип
+          maxLength: 1024
+        ais_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: ID в АИС
+    PatchedInrtuDivisionRequest:
+      type: object
+      description: Сериализатор для модели InrtuDivision (Подразделение ИрНИТУ)
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Название подразделения
+          maxLength: 256
+        faculty:
+          type: integer
+          nullable: true
+          title: Факультет
+    PatchedInternshipRequest:
+      type: object
+      description: Сериализатор для модели Internship (Практика)
+      properties:
+        theme:
+          type: string
+          minLength: 1
+          title: Темы практики
+          maxLength: 256
+        description:
+          type: string
+          nullable: true
+          title: Описание
+          maxLength: 5096
+        year:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Год
+        hire_count:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          title: Набор (кол-во студентов)
+        company:
+          type: integer
+          nullable: true
+          title: Компания
+        contacts:
+          type: array
+          items:
+            type: integer
+            title: Контакты
+          title: Контакты
+        skills:
+          type: array
+          items:
+            type: integer
+            title: Навыки
+          title: Навыки
+        specialities:
+          type: array
+          items:
+            type: integer
+            title: Специальности
+          title: Специальности
+    PatchedSkillRequest:
+      type: object
+      description: Сериализатор для модели Skill (Навык)
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Название
+          maxLength: 256
+        is_public:
+          type: boolean
+          title: Публичный
+    PatchedSpecialityRequest:
+      type: object
+      description: Сериализатор для модели Speciality (Специальность)
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Название специальности
+          maxLength: 256
+        ais_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: ID в АИС
+        code:
+          type: string
+          minLength: 1
+          title: Код специальности
+          maxLength: 256
+        faculty:
+          type: integer
+          nullable: true
+          title: Факультет
+        education_level:
+          nullable: true
+          title: Уровень образования
+          minimum: -2147483648
+          maximum: 2147483647
+          oneOf:
+          - $ref: '#/components/schemas/EducationLevelEnum'
+          - $ref: '#/components/schemas/NullEnum'
+    PatchedStreamRequest:
+      type: object
+      description: Сериализатор для модели Stream (Поток)
+      properties:
+        year:
+          type: string
+          title: Год поступления
+          maxLength: 256
+        direction:
+          type: integer
+          nullable: true
+          title: Направление
+    PatchedStudentGroupRequest:
+      type: object
+      description: Сериализатор для модели StudentGroup (Группа)
+      properties:
+        group_number:
+          type: string
+          minLength: 1
+          title: Номер группы
+          maxLength: 256
+        stream:
+          type: integer
+          nullable: true
+          title: Поток
+    PatchedStudentGroupYearMetaRequest:
+      type: object
+      description: Сериализатор для модели StudentGroupYearMeta (Мета-информация для
+        группы)
+      properties:
+        internship_start_date:
+          type: string
+          format: date
+          title: Дата начала практики
+        report_ready:
+          type: boolean
+          title: Отчет готов
+        year:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Год
+    PatchedStudentRequest:
+      type: object
+      description: Сериализатор для профиля студента
+      properties:
+        group:
+          type: integer
+          nullable: true
+          title: Группа
+    PatchedStudentsInternshipReportRequest:
+      type: object
+      description: Сериализатор для модели StudentsInternshipReport (Отчет по практике)
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StudentsInternshipReportStatusEnum'
+          title: Статус
+          minimum: -2147483648
+          maximum: 2147483647
+        link:
+          type: string
+          nullable: true
+          minLength: 1
+          title: Ссылка на отчет
+          maxLength: 1024
+    PatchedStudentsInternshipRequest:
+      type: object
+      description: Сериализатор для модели StudentsInternship (Практика студента)
+      properties:
+        student:
+          type: integer
+          nullable: true
+          title: Студент
+        internship:
+          type: integer
+          nullable: true
+          title: Компания
+        teacher:
+          type: integer
+          nullable: true
+          title: Преподаватель
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StudentsInternshipStatusEnum'
+          title: Статус
+          minimum: -2147483648
+          maximum: 2147483647
+        internship_type:
+          allOf:
+          - $ref: '#/components/schemas/InternshipTypeEnum'
+          title: Тип практики
+    RoleEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: |-
+        * `0` - Студент
+        * `1` - Преподаватель
+        * `2` - Представитель компании
+        * `3` - Центр карьеры
+        * `4` - Дирекция
+    Skill:
+      type: object
+      description: Сериализатор для модели Skill (Навык)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Название
+          maxLength: 256
+        is_public:
+          type: boolean
+          title: Публичный
+      required:
+      - id
+      - name
+    SkillRequest:
+      type: object
+      description: Сериализатор для модели Skill (Навык)
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Название
+          maxLength: 256
+        is_public:
+          type: boolean
+          title: Публичный
+      required:
+      - name
+    Speciality:
+      type: object
+      description: Сериализатор для модели Speciality (Специальность)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Название специальности
+          maxLength: 256
+        ais_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: ID в АИС
+        code:
+          type: string
+          title: Код специальности
+          maxLength: 256
+        faculty:
+          type: integer
+          nullable: true
+          title: Факультет
+        faculty_name:
+          type: string
+          readOnly: true
+        education_level:
+          nullable: true
+          title: Уровень образования
+          minimum: -2147483648
+          maximum: 2147483647
+          oneOf:
+          - $ref: '#/components/schemas/EducationLevelEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        education_level_display:
+          type: string
+          readOnly: true
+      required:
+      - code
+      - education_level_display
+      - faculty_name
+      - id
+      - name
+    SpecialityRequest:
+      type: object
+      description: Сериализатор для модели Speciality (Специальность)
+      properties:
+        name:
+          type: string
+          minLength: 1
+          title: Название специальности
+          maxLength: 256
+        ais_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: ID в АИС
+        code:
+          type: string
+          minLength: 1
+          title: Код специальности
+          maxLength: 256
+        faculty:
+          type: integer
+          nullable: true
+          title: Факультет
+        education_level:
+          nullable: true
+          title: Уровень образования
+          minimum: -2147483648
+          maximum: 2147483647
+          oneOf:
+          - $ref: '#/components/schemas/EducationLevelEnum'
+          - $ref: '#/components/schemas/NullEnum'
+      required:
+      - code
+      - name
+    Stream:
+      type: object
+      description: Сериализатор для модели Stream (Поток)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        year:
+          type: string
+          title: Год поступления
+          maxLength: 256
+        direction:
+          type: integer
+          nullable: true
+          title: Направление
+        direction_name:
+          type: string
+          readOnly: true
+        direction_full_name:
+          type: string
+          readOnly: true
+      required:
+      - direction_full_name
+      - direction_name
+      - id
+    StreamRequest:
+      type: object
+      description: Сериализатор для модели Stream (Поток)
+      properties:
+        year:
+          type: string
+          title: Год поступления
+          maxLength: 256
+        direction:
+          type: integer
+          nullable: true
+          title: Направление
+    Student:
+      type: object
+      description: Сериализатор для профиля студента
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/ExtendedUser'
+          readOnly: true
+        group:
+          type: integer
+          nullable: true
+          title: Группа
+        group_name:
+          type: string
+          readOnly: true
+      required:
+      - group_name
+      - id
+      - user
+    StudentGroup:
+      type: object
+      description: Сериализатор для модели StudentGroup (Группа)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        group_number:
+          type: string
+          title: Номер группы
+          maxLength: 256
+        stream:
+          type: integer
+          nullable: true
+          title: Поток
+        stream_info:
+          allOf:
+          - $ref: '#/components/schemas/Stream'
+          readOnly: true
+        full_name:
+          type: string
+          readOnly: true
+      required:
+      - full_name
+      - group_number
+      - id
+      - stream_info
+    StudentGroupRequest:
+      type: object
+      description: Сериализатор для модели StudentGroup (Группа)
+      properties:
+        group_number:
+          type: string
+          minLength: 1
+          title: Номер группы
+          maxLength: 256
+        stream:
+          type: integer
+          nullable: true
+          title: Поток
+      required:
+      - group_number
+    StudentGroupYearMeta:
+      type: object
+      description: Сериализатор для модели StudentGroupYearMeta (Мета-информация для
+        группы)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        internship_start_date:
+          type: string
+          format: date
+          title: Дата начала практики
+        report_ready:
+          type: boolean
+          title: Отчет готов
+        year:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Год
+      required:
+      - id
+      - internship_start_date
+      - year
+    StudentGroupYearMetaRequest:
+      type: object
+      description: Сериализатор для модели StudentGroupYearMeta (Мета-информация для
+        группы)
+      properties:
+        internship_start_date:
+          type: string
+          format: date
+          title: Дата начала практики
+        report_ready:
+          type: boolean
+          title: Отчет готов
+        year:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Год
+      required:
+      - internship_start_date
+      - year
+    StudentRequest:
+      type: object
+      description: Сериализатор для профиля студента
+      properties:
+        group:
+          type: integer
+          nullable: true
+          title: Группа
+    StudentsInternship:
+      type: object
+      description: Сериализатор для модели StudentsInternship (Практика студента)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        student:
+          type: integer
+          nullable: true
+          title: Студент
+        student_name:
+          type: string
+          readOnly: true
+        internship:
+          type: integer
+          nullable: true
+          title: Компания
+        internship_theme:
+          type: string
+          readOnly: true
+        teacher:
+          type: integer
+          nullable: true
+          title: Преподаватель
+        teacher_name:
+          type: string
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StudentsInternshipStatusEnum'
+          title: Статус
+          minimum: -2147483648
+          maximum: 2147483647
+        status_display:
+          type: string
+          readOnly: true
+        internship_type:
+          allOf:
+          - $ref: '#/components/schemas/InternshipTypeEnum'
+          title: Тип практики
+        internship_type_display:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Создан
+      required:
+      - created_at
+      - id
+      - internship_theme
+      - internship_type_display
+      - status_display
+      - student_name
+      - teacher_name
+    StudentsInternshipReport:
+      type: object
+      description: Сериализатор для модели StudentsInternshipReport (Отчет по практике)
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StudentsInternshipReportStatusEnum'
+          title: Статус
+          minimum: -2147483648
+          maximum: 2147483647
+        status_display:
+          type: string
+          readOnly: true
+        link:
+          type: string
+          nullable: true
+          title: Ссылка на отчет
+          maxLength: 1024
+      required:
+      - id
+      - status_display
+    StudentsInternshipReportRequest:
+      type: object
+      description: Сериализатор для модели StudentsInternshipReport (Отчет по практике)
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StudentsInternshipReportStatusEnum'
+          title: Статус
+          minimum: -2147483648
+          maximum: 2147483647
+        link:
+          type: string
+          nullable: true
+          minLength: 1
+          title: Ссылка на отчет
+          maxLength: 1024
+    StudentsInternshipReportStatusEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `0` - Не проверен
+        * `1` - Одобрен
+        * `2` - Отклонен
+    StudentsInternshipRequest:
+      type: object
+      description: Сериализатор для модели StudentsInternship (Практика студента)
+      properties:
+        student:
+          type: integer
+          nullable: true
+          title: Студент
+        internship:
+          type: integer
+          nullable: true
+          title: Компания
+        teacher:
+          type: integer
+          nullable: true
+          title: Преподаватель
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StudentsInternshipStatusEnum'
+          title: Статус
+          minimum: -2147483648
+          maximum: 2147483647
+        internship_type:
+          allOf:
+          - $ref: '#/components/schemas/InternshipTypeEnum'
+          title: Тип практики
+    StudentsInternshipStatusEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      description: |-
+        * `0` - Новая
+        * `1` - Одобрена преподавателем
+        * `2` - Отклонена преподавателем
+        * `3` - Завершена
+    Teacher:
+      type: object
+      description: Сериализатор для профиля преподавателя
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/ExtendedUser'
+          readOnly: true
+        post:
+          type: string
+          readOnly: true
+          nullable: true
+          title: Должность
+        faculty:
+          type: integer
+          readOnly: true
+          nullable: true
+          title: Институт
+        faculty_name:
+          type: string
+          readOnly: true
+      required:
+      - faculty
+      - faculty_name
+      - id
+      - post
+      - user
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

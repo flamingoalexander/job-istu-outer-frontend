@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
+import { UserRoles } from 'src/constants';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -7,62 +8,45 @@ const routes: RouteRecordRaw[] = [
     children: [
       { path: '', name: 'home', component: () => import('pages/MainPage.vue') },
       {
-        path: '/institute/:instituteId',
-        name: 'institute',
-        meta: { requiresAuth: false },
-        component: () => import('pages/InstitutePage.vue'),
-        props: true,
+        path: '/practice-form',
+        name: 'practice-form',
+        meta: { roles: [UserRoles.Company], requiresAuth: true },
+        component: () => import('pages/PracticeFormPage.vue'),
       },
       {
-        path: '/auth',
-        name: 'auth',
+        path: '/login',
+        name: 'login',
         meta: { requiresAuth: false },
         component: () => import('pages/AuthPage.vue'),
       },
       {
-        path: '/profile',
-        name: 'profile',
-        meta: { requiresAuth: true },
-        component: () => import('pages/ProfilePage.vue'),
-      },
-      {
-        path: '/register',
-        name: 'register',
-        meta: { requiresAuth: false },
-        component: () => import('pages/RegisterPage.vue'),
-      },
-      {
-        path: '/practice-form',
-        name: 'practice-form',
-        meta: { requiresAuth: false },
-        component: () => import('pages/PracticeFormPage.vue'),
-      },
-      {
         path: '/internships',
         name: 'internships',
-        meta: { requiresAuth: false },
+        meta: { roles: [UserRoles.Student], requiresAuth: true },
         component: () => import('pages/InternshipsPage.vue'),
       },
       {
         path: '/companies',
         name: 'companies',
-        meta: { requiresAuth: false },
+        meta: { roles: [UserRoles.Student], requiresAuth: true },
         component: () => import('pages/CompaniesPage.vue'),
       },
       {
         path: '/practice',
         name: 'practice-detail',
+        meta: { roles: [UserRoles.Student], requiresAuth: true },
         component: () => import('pages/InternshipDetailPage.vue'),
       },
       {
         path: '/teacher',
         name: 'teacher',
         component: () => import('pages/TeacherPage.vue'),
+        meta: { roles: [UserRoles.Teacher], requiresAuth: true },
       },
       {
         path: '/student-internships',
         name: 'student-internships',
-        meta: { requiresAuth: false },
+        meta: { roles: [UserRoles.Student], requiresAuth: true },
         component: () => import('pages/StudentInternshipsPage.vue'),
       },
     ],

@@ -8,7 +8,8 @@ import {
 import routes from './routes';
 import { useUserStore } from 'stores/user';
 import { watch } from 'vue';
-
+import { isEmpty, includes } from 'lodash';
+import type { UserRoles } from 'src/constants';
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;
@@ -35,21 +36,28 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
   const userStore = useUserStore();
-  userStore.initWatchers();
   watch(
     () => userStore.isAuthenticated,
     async (isAuth) => {
       if (!isAuth) {
-        await router.push('auth');
+        await router.push('login');
       }
     },
   );
   router.beforeEach((to) => {
-    if (userStore.isAuthenticated && to.name === 'auth') {
+    if (userStore.isAuthenticated && to.name === 'login') {
       return false;
     }
-    if (!userStore.isAuthenticated && to.matched.some((record) => record.meta.requiresAuth)) {
-      return { name: 'auth' };
+    if (!userStore.isAuthenticated && to.meta.requiresAuth) {
+      return { name: 'login' };
+    }
+
+    const pageRoles = to.meta.roles as UserRoles[];
+    if (!isEmpty(pageRoles)) {
+      const userRole = userStore.role;
+      if (!includes(pageRoles, userRole)) {
+        return false;
+      }
     }
     return true;
   });

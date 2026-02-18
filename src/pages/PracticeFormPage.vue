@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import PracticeForm from 'components/profile/forms/PracticeForm.vue';
+import PracticeForm from 'components/forms/PracticeForm.vue';
 
 const formVisible = ref(false);
 </script>

@@ -159,7 +159,27 @@
 </template>
 
 <script setup lang="ts">
-import type { StudentInternship } from 'src/types';
+export type InternshipStatus = {
+  approvedCompany: boolean;
+  approvedTeacher: boolean;
+  grade: number | null;
+  reportUrl?: string;
+};
+export type StudentInternship = {
+  id: number;
+  title: string;
+  company: string;
+  image: string;
+  type: string;
+  teacher: string;
+  specialities: string[];
+  skills: string[];
+  status: InternshipStatus;
+  dates: {
+    start: string;
+    end: string;
+  };
+};
 
 const props = defineProps<{
   internship: StudentInternship;

@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import type { StudentInternship } from 'src/types';
+import { type StudentInternship } from 'components/student/CurrentInternship.vue';
 
 defineProps<{
   internship: StudentInternship;

@@ -58,16 +58,6 @@
       </div>
 
       <div class="col-12 col-md-9">
-        <div class="q-mb-sm">
-          <q-btn
-            label="Я сам нашел компанию"
-            color="primary"
-            text-color="white"
-            unelevated
-            class="q-pa-sm text-weight-bold border-radius-md"
-          />
-        </div>
-
         <q-card
           v-for="internship in filteredInternships"
           :key="internship.title"
@@ -116,7 +106,6 @@
 <script lang="ts" setup>
 import { reactive, computed } from 'vue';
 import { filter, some, includes, toLower } from 'lodash';
-import type { Internship } from 'src/types';
 
 const filters = reactive({
   company: '',
@@ -137,7 +126,7 @@ const skills = reactive([
   { label: 'Веб-программирование', value: 'Веб-программирование' },
 ]);
 
-const internships = reactive<Internship[]>([
+const internships = reactive([
   {
     title: 'Разработка микросервиса на Fast API',
     company: 'Какая-то компания',
@@ -159,7 +148,7 @@ const internships = reactive<Internship[]>([
 ]);
 
 const filteredInternships = computed(() => {
-  return filter(internships, (internship: Internship) => {
+  return filter(internships, (internship) => {
     const matchCompany =
       !filters.company || includes(toLower(internship.company), toLower(filters.company));
 
