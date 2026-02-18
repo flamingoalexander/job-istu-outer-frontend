@@ -9,7 +9,7 @@ import routes from './routes';
 import { useUserStore } from 'stores/user';
 import { watch } from 'vue';
 import { isEmpty, includes } from 'lodash';
-import { UserRoles } from 'src/constants';
+import type { UserRoles } from 'src/constants';
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;

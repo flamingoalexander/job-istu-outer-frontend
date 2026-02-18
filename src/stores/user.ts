@@ -1,5 +1,5 @@
 import { acceptHMRUpdate, defineStore } from 'pinia';
-import { UserRoles } from 'src/constants';
+import type { UserRoles } from 'src/constants';
 import { type Credentials } from 'src/api/models/Credentials';
 import { login as loginApi, logout as logoutApi } from 'src/api/auth';
 type UserState = {
