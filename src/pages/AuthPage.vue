@@ -2,24 +2,25 @@
 import { ref, reactive } from 'vue';
 import type { Credentials } from 'src/api/models/Credentials';
 import authFormImage from '/pics/auth-form-preview.jpg';
-const isDisabled = ref(false);
 const authMessage = ref('');
-import { useRouter } from 'vue-router';
-import { login } from 'src/api/auth';
+// import { useRouter } from 'vue-router';
+import { useUserStore } from 'stores/user';
+const store = useUserStore();
 
 const credentials: Credentials = reactive({
   username: '',
   password: '',
 });
-const router = useRouter();
+// const router = useRouter();
 const loading = ref(false);
-// const userStore = useUserStore();
 const handleAuth = async () => {
   loading.value = true;
   try {
-    // await userStore.login(credentials);
+    await store.login(credentials);
+    alert('Вы успешно залогинились');
     // await router.push('/profile');
-    await login(credentials);
+  } catch {
+    alert('ошибка');
   } finally {
     loading.value = false;
   }

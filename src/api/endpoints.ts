@@ -4,7 +4,7 @@ const ENDPOINTS = {
   },
   auth: {
     login: () => 'auths/dev-auth/login/',
-    logout: () => 'auths/dev-auth/logout/'
-  }
+    logout: () => 'auths/dev-auth/logout/',
+  },
 };
 export default ENDPOINTS;

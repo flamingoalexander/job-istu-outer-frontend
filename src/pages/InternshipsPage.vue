@@ -58,16 +58,6 @@
       </div>
 
       <div class="col-12 col-md-9">
-        <div class="q-mb-sm">
-          <q-btn
-            label="Я сам нашел компанию"
-            color="primary"
-            text-color="white"
-            unelevated
-            class="q-pa-sm text-weight-bold border-radius-md"
-          />
-        </div>
-
         <q-card
           v-for="internship in filteredInternships"
           :key="internship.title"

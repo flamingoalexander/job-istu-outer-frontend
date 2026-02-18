@@ -6,7 +6,10 @@ import {
   createWebHistory,
 } from 'vue-router';
 import routes from './routes';
-
+import { useUserStore } from 'stores/user';
+import { watch } from 'vue';
+import { isEmpty, includes } from 'lodash';
+import { UserRoles } from 'src/constants';
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;
@@ -32,24 +35,31 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
-  // const userStore = useUserStore();
-  // userStore.initWatchers();
-  // watch(
-  //   () => userStore.isAuthenticated,
-  //   async (isAuth) => {
-  //     if (!isAuth) {
-  //       await router.push('auth');
-  //     }
-  //   },
-  // );
-  // router.beforeEach((to) => {
-  //   if (userStore.isAuthenticated && to.name === 'auth') {
-  //     return false;
-  //   }
-  //   if (!userStore.isAuthenticated && to.matched.some((record) => record.meta.requiresAuth)) {
-  //     return { name: 'auth' };
-  //   }
-  //   return true;
-  // });
+  const userStore = useUserStore();
+  watch(
+    () => userStore.isAuthenticated,
+    async (isAuth) => {
+      if (!isAuth) {
+        await router.push('login');
+      }
+    },
+  );
+  router.beforeEach((to) => {
+    if (userStore.isAuthenticated && to.name === 'login') {
+      return false;
+    }
+    if (!userStore.isAuthenticated && to.meta.requiresAuth) {
+      return { name: 'login' };
+    }
+
+    const pageRoles = to.meta.roles as UserRoles[];
+    if (!isEmpty(pageRoles)) {
+      const userRole = userStore.role;
+      if (!includes(pageRoles, userRole)) {
+        return false;
+      }
+    }
+    return true;
+  });
   return router;
 });

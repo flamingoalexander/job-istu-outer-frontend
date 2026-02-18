@@ -16,7 +16,14 @@
         Производственные партнёры<br class="lt-md" />
         институтов ИРНИТУ
       </div>
-
+      <div class="flex q-ml-xs q-gutter-lg">
+        <div class="text-subtitle1 text-weight-medium ellipsis text-red-4">
+          Ваша роль: {{ store.role === null ? 'Роль отсутсвует' : store.role }}
+        </div>
+        <div class="text-subtitle1 text-weight-medium ellipsis text-yellow-4">
+          Статус авторизации: {{ store.isAuthenticated ? 'Авторизован' : 'Не авторизован' }}
+        </div>
+      </div>
       <q-space />
       <q-btn
         color="primary"
@@ -59,6 +66,10 @@
   </q-header>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from 'stores/user';
+
+const store = useUserStore();
+</script>
 
 <style scoped></style>

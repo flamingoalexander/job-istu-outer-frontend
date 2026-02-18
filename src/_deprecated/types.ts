@@ -6,8 +6,6 @@ export type Institute = {
   directions: Direction[];
 };
 
-
-
 export type UserInfo = {
   username: string;
   first_name: string;

@@ -23,7 +23,7 @@
         unelevated
         no-caps
         class="q-mr-sm"
-        :to="{ name: 'register' }"
+        :to="{ name: 'practice' }"
         label="Конкретная практика (Student-Screen-1.1)"
       />
       <q-btn
