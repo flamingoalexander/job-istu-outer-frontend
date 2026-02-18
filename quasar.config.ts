@@ -33,7 +33,7 @@ export default defineConfig((/* ctx */) => {
     devServer: {
       open: true,
       proxy: {
-        '/api': {
+        '/backend/api': {
           target: 'http://localhost:8000',
           changeOrigin: true,
         },

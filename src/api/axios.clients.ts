@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Cookies } from 'quasar';
-const API_URL = '/api';
+const API_URL = '/backend/api';
 
 const publicAxiosClient = axios.create({
   baseURL: API_URL,

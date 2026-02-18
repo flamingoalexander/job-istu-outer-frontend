@@ -1,6 +1,6 @@
 export enum UserRoles {
-  Student = 'Student',
-  CareerCenter = 'CareerCenter',
-  Company = 'Company',
-  Teacher = 'Teacher',
+  Student = 0,
+  Teacher = 1,
+  Company = 2,
+  CareerCenter = 3,
 }
