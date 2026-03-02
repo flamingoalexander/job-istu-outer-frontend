@@ -8,7 +8,7 @@ import {
 import routes from './routes';
 import { useUserStore } from 'stores/user';
 import { watch } from 'vue';
-import { isEmpty, includes } from 'lodash';
+import { isEmpty, includes, some } from 'lodash';
 import type { UserRoles } from 'src/constants';
 /*
  * If not building with SSR mode, you can
@@ -54,8 +54,9 @@ export default defineRouter(function (/* { store, ssrContext } */) {
 
     const pageRoles = to.meta.roles as UserRoles[];
     if (!isEmpty(pageRoles)) {
-      const userRole = userStore.role;
-      if (!includes(pageRoles, userRole)) {
+      const userRoles = userStore.roles;
+      const hasAnyRole = some(pageRoles, (role) => includes(userRoles, role));
+      if (!hasAnyRole) {
         return false;
       }
     }

@@ -18,7 +18,7 @@
       </div>
       <div class="flex q-ml-xs q-gutter-lg">
         <div class="text-subtitle1 text-weight-medium ellipsis text-red-4">
-          Ваша роль: {{ store.role === null ? 'Роль отсутсвует' : store.role }}
+          Ваша роль: {{ isEmpty(store.roles) ? 'Роли отсутствуют' : store.roles }}
         </div>
         <div class="text-subtitle1 text-weight-medium ellipsis text-yellow-4">
           Статус авторизации: {{ store.isAuthenticated ? 'Авторизован' : 'Не авторизован' }}
@@ -68,7 +68,7 @@
 
 <script setup lang="ts">
 import { useUserStore } from 'stores/user';
-
+import { isEmpty } from 'lodash';
 const store = useUserStore();
 </script>
 

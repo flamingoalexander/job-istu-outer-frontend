@@ -13,10 +13,15 @@ const credentials: Credentials = reactive({
 });
 // const router = useRouter();
 const loading = ref(false);
-const handleAuth = async () => {
+const handleAuth = async (isEsia: boolean) => {
   loading.value = true;
   try {
-    await store.login(credentials);
+    if (isEsia) {
+      await store.loginEsia();
+    } else {
+      await store.login(credentials);
+    }
+
     alert('Вы успешно залогинились');
     // await router.push('/profile');
   } catch {
@@ -60,7 +65,7 @@ const handleAuth = async () => {
               {{ authMessage }}
             </q-banner>
 
-            <q-form @submit.prevent="handleAuth" class="q-gutter-md">
+            <q-form @submit.prevent="handleAuth(false)" class="q-gutter-md">
               <q-input
                 v-model="credentials.username"
                 label="Логин"
@@ -93,7 +98,7 @@ const handleAuth = async () => {
                   <div class="text-center">Производственный<br />партнер</div>
                 </q-btn>
                 <q-btn
-                  href="https://job.istu.edu/inner"
+                  @click="handleAuth(true)"
                   target="_blank"
                   unelevated
                   class="full-width q-py-sm radius-md"

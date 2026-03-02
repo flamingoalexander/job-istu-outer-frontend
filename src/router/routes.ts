@@ -10,7 +10,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/practice-form',
         name: 'practice-form',
-        meta: { roles: [UserRoles.Company], requiresAuth: true },
+        meta: { roles: [UserRoles.CompanyRepresentative], requiresAuth: true },
         component: () => import('pages/PracticeFormPage.vue'),
       },
       {
