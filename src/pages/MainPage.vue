@@ -58,6 +58,14 @@
         :to="{ name: 'student-internships' }"
         label="Кабинет студента (Student-Screen-3)"
       />
+      <q-btn
+        color="primary"
+        unelevated
+        no-caps
+        class="q-mr-sm"
+        :to="{ name: 'company-profile' }"
+        label="Кабинет компании (Company-Screen-1)"
+      />
     </div>
   </q-page>
 </template>

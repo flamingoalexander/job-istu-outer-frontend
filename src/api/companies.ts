@@ -6,3 +6,10 @@ export const getCompanies = async (): Promise<Company[]> => {
   const { data } = await publicAxiosClient.get<Company[]>(ENDPOINTS.companies.companies());
   return data;
 };
+
+export const getCompanyById = async (id: number): Promise<Company> => {
+  const { data } = await publicAxiosClient.get<Company>(
+    ENDPOINTS.companies.byId(id)
+  );
+  return data;
+};

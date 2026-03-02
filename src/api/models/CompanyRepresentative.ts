@@ -6,6 +6,7 @@ import type { ExtendedUser } from './ExtendedUser';
 export type CompanyRepresentative = {
   readonly id: number;
   readonly user: ExtendedUser;
+  company: number;
   job_title?: string | null;
   messenger?: string | null;
   email: string;
