@@ -49,6 +49,11 @@ const routes: RouteRecordRaw[] = [
         meta: { roles: [UserRoles.Student], requiresAuth: true },
         component: () => import('pages/StudentInternshipsPage.vue'),
       },
+      {
+        path: '/company-practices',
+        name: 'company-practices',
+        component: () => import('pages/CompanyPractice.vue'),
+      },
     ],
   },
   {
