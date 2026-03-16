@@ -14,18 +14,17 @@ const credentials: Credentials = reactive({
 // const router = useRouter();
 const loading = ref(false);
 const handleAuth = async (isEsia: boolean) => {
-  loading.value = true;
   try {
     if (isEsia) {
-      await store.loginEsia();
+      store.loginEsia();
     } else {
+      loading.value = true;
       await store.login(credentials);
+      alert('Вы успешно залогинились');
     }
-
-    alert('Вы успешно залогинились');
     // await router.push('/profile');
   } catch {
-    alert('ошибка');
+    alert('Error');
   } finally {
     loading.value = false;
   }

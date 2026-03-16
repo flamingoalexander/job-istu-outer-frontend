@@ -29,6 +29,14 @@ export const useUserStore = defineStore('user', {
     isAuthenticated: false,
   }),
   actions: {
+    async _initAuth(): Promise<void> {
+      try {
+        await this.fetchMe();
+        this.isAuthenticated = true;
+      } catch {
+        this.isAuthenticated = false;
+      }
+    },
     async login(credentials: Credentials): Promise<void> {
       await loginApi(credentials);
       await this.fetchMe();
@@ -44,10 +52,8 @@ export const useUserStore = defineStore('user', {
       this.roles = [];
       this.isAuthenticated = false;
     },
-    async loginEsia(): Promise<void> {
-      await loginEsiaApi();
-      await this.fetchMe();
-      this.isAuthenticated = true;
+    loginEsia(): void {
+      loginEsiaApi();
     },
     async fetchMe(): Promise<void> {
       const data = await getMe();
