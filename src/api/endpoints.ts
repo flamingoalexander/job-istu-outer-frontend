@@ -8,5 +8,15 @@ const ENDPOINTS = {
     esia: () => 'auths/login/',
     me: () => 'auths/me/',
   },
+  internships: {
+    list: () => '/internship/',
+  },
+  skills: {
+    list: () => '/internship/skills/',
+  },
+  specialities: {
+    list: () => '/university/specialities/',
+  },
 };
+
 export default ENDPOINTS;
