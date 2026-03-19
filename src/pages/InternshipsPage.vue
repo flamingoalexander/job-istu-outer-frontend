@@ -83,7 +83,17 @@
 
             <div class="q-mt-xs row flex-wrap q-gutter-xs">
               <div class="subtitle-1 text-weight-bold">Специальности:</div>
-              <span>{{ getSpecialitiesNames(internship) }}</span>
+              <div class="q-mt-auto q-gutter-xs flex-wrap">
+                <q-chip
+                  v-for="speciality in getSpecialitiesNames(internship)"
+                  :key="speciality"
+                  outline
+                  color="white"
+                  dense
+                >
+                  {{ speciality }}
+                </q-chip>
+              </div>
             </div>
 
             <div class="q-mt-xs row items-center">
@@ -191,12 +201,12 @@ const specialityOptions = computed(() => {
   );
 });
 
-const getSpecialitiesNames = (internship: Internship): string => {
+const getSpecialitiesNames = (internship: Internship): string[] => {
   const list = internship.specialities_list;
   if (Array.isArray(list)) {
-    return list.map((s) => s.name).join(', ');
+    return list.map((s) => `${s.name} (${s.code})`);
   }
-  return '';
+  return [];
 };
 
 const getSkillsNames = (internship: Internship): string[] => {
