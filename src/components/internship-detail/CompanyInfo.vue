@@ -18,8 +18,7 @@
             <div class="text-weight-bold text-h6">{{ contact.name }}</div>
             <div class="text-caption text-grey-3 q-mb-sm">{{ contact.position }}</div>
             <div class="text-caption text-grey-3">
-              <div>Telegram: {{ contact.telegram }}</div>
-              <div>Почта: {{ contact.email }}</div>
+              <div>{{ contact.type }}: {{ contact.value }}</div>
             </div>
           </div>
         </div>
@@ -34,8 +33,8 @@ defineProps<{
   contacts: Array<{
     name: string;
     position: string;
-    telegram: string;
-    email: string;
+    type: string;
+    value: string;
   }>;
 }>();
 </script>
