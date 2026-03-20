@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-mb-lg primary-background border-radius-md" flat bordered>
+  <q-card class="q-mb-lg primary-background border-radius-md" flat bordered @click="goToDetail">
     <div class="row justify-between">
       <q-card-section class="col-12 col-md-8">
         <div class="text-h6 text-weight-bold text-white">
@@ -159,12 +159,15 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+
 export type InternshipStatus = {
   approvedCompany: boolean;
   approvedTeacher: boolean;
   grade: number | null;
   reportUrl?: string;
 };
+
 export type StudentInternship = {
   id: number;
   title: string;
@@ -181,11 +184,18 @@ export type StudentInternship = {
   };
 };
 
+const router = useRouter();
 const props = defineProps<{
   internship: StudentInternship;
 }>();
 
 const emit = defineEmits(['update:internship']);
+
+const goToDetail = () => {
+  if (props.internship?.id) {
+    void router.push(`/practice/${props.internship.id}`);
+  }
+};
 
 const updateField = (
   field: keyof StudentInternship['status'],
