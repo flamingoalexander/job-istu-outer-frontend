@@ -3,7 +3,7 @@ import { ref, reactive } from 'vue';
 import type { Credentials } from 'src/api/models/Credentials';
 import authFormImage from '/pics/auth-form-preview.jpg';
 const authMessage = ref('');
-// import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useUserStore } from 'stores/user';
 const store = useUserStore();
 
@@ -11,7 +11,7 @@ const credentials: Credentials = reactive({
   username: '',
   password: '',
 });
-// const router = useRouter();
+const router = useRouter();
 const loading = ref(false);
 const handleAuth = async (isEsia: boolean) => {
   try {
@@ -20,11 +20,10 @@ const handleAuth = async (isEsia: boolean) => {
     } else {
       loading.value = true;
       await store.login(credentials);
-      alert('Вы успешно залогинились');
     }
-    // await router.push('/profile');
+    await router.push('/');
   } catch {
-    alert('Error');
+    alert('Неизвестная ошибка');
   } finally {
     loading.value = false;
   }
