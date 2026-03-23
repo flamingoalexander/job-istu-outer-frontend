@@ -34,7 +34,7 @@ export default defineConfig((/* ctx */) => {
       open: true,
       proxy: {
         '/backend/api': {
-          target: 'http://localhost:8000',
+          target: 'https://job.istu.edu',
           changeOrigin: true,
         },
       },
