@@ -1,5 +1,10 @@
 <template>
-  <q-card flat bordered class="border-radius-md q-mb-sm primary-background text-white">
+  <q-card
+    flat
+    bordered
+    class="border-radius-md q-mb-sm primary-background text-white"
+    @click="goToDetail"
+  >
     <div class="row justify-between">
       <q-card-section class="col-12 col-md-8">
         <div class="text-h6 text-weight-bold">{{ internship.title }}</div>
@@ -59,9 +64,17 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { type StudentInternship } from 'components/student/CurrentInternship.vue';
 
-defineProps<{
+const router = useRouter();
+const props = defineProps<{
   internship: StudentInternship;
 }>();
+
+const goToDetail = () => {
+  if (props.internship?.id) {
+    void router.push(`/practice/${props.internship.id}`);
+  }
+};
 </script>
