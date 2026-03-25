@@ -1,26 +1,28 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-const activeTab = ref('about')
-import { getContacts, getInternshipData, getCandidates, approveRequest, declineRequest, closeInternship } from '../api/companies/index'
-import type { Contact, Internship, Candidate } from '../api/companies/index'
+import { ref, onMounted } from 'vue';
+const activeTab = ref('about');
+import {
+  getContacts,
+  getInternshipData,
+  getCandidates,
+  approveRequest,
+  declineRequest,
+  closeInternship,
+} from '../api/companies/index';
+import type { Contact, Internship, Candidate } from '../api/companies/index';
 
-
-
-const candidates = ref<Candidate[]>([])
-const contacts = ref<Contact[]>([])
-const internship_data = ref<Internship>()
-
-
-
+const candidates = ref<Candidate[]>([]);
+const contacts = ref<Contact[]>([]);
+const internship_data = ref<Internship>();
 
 onMounted(async () => {
-  const contactsResponse = await getContacts()
-  contacts.value = contactsResponse.value
-  const candidatesResponse = await getCandidates()
-  candidates.value = candidatesResponse.value
-  const internshipResponse = await getInternshipData()
-  internship_data.value = internshipResponse.value
-})
+  const contactsResponse = await getContacts();
+  contacts.value = contactsResponse.value;
+  const candidatesResponse = await getCandidates();
+  candidates.value = candidatesResponse.value;
+  const internshipResponse = await getInternshipData();
+  internship_data.value = internshipResponse.value;
+});
 </script>
 
 <template>
@@ -30,8 +32,15 @@ onMounted(async () => {
         <q-card flat bordered>
           <q-card-section>
             <div class="text-h5 q-mb-md text-center">{{ internship_data?.title }}</div>
-            <q-tabs v-model="activeTab" dense class="text-grey" active-color="primary" indicator-color="primary"
-              align="justify" narrow-indicator>
+            <q-tabs
+              v-model="activeTab"
+              dense
+              class="text-grey"
+              active-color="primary"
+              indicator-color="primary"
+              align="justify"
+              narrow-indicator
+            >
               <q-tab name="about" label="О практике" />
               <q-tab name="participants" label="Участники" />
               <q-tab name="applications" label="Заявки" />
@@ -68,12 +77,8 @@ onMounted(async () => {
                       </q-item-section>
                       <q-item-section side>
                         <div class="row q-gutter-sm">
-                          <q-btn @click="approveRequest(candidate_item.id)">
-                            Принять
-                          </q-btn>
-                          <q-btn @click="declineRequest(candidate_item.id)">
-                            Отклонить
-                          </q-btn>
+                          <q-btn @click="approveRequest(candidate_item.id)"> Принять </q-btn>
+                          <q-btn @click="declineRequest(candidate_item.id)"> Отклонить </q-btn>
                         </div>
                       </q-item-section>
                     </q-item>
@@ -83,8 +88,13 @@ onMounted(async () => {
             </q-tab-panels>
 
             <div class="row items-center justify-between q-mt-md">
-              <q-btn @click="closeInternship(internship_data?.id)" label="Закрыть набор" color="red" class="q-px-lg"
-                unelevated />
+              <q-btn
+                @click="closeInternship(internship_data?.id)"
+                label="Закрыть набор"
+                color="red"
+                class="q-px-lg"
+                unelevated
+              />
               <q-btn label="Пригласить" color="primary" class="q-px-lg" unelevated />
             </div>
           </q-card-section>
