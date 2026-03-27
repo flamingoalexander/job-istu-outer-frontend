@@ -7,8 +7,8 @@ export const login = async (payload: Credentials): Promise<void> => {
   await userAxiosClient.post(ENDPOINTS.auth.login(), payload);
 };
 
-export const loginEsia = async (): Promise<void> => {
-  await userAxiosClient.get(ENDPOINTS.auth.esia());
+export const loginEsia = (): void => {
+  window.location.replace('https://job.istu.edu/backend/api/auths/login');
 };
 
 export const logout = async (): Promise<void> => {
