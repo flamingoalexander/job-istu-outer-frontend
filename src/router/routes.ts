@@ -34,7 +34,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/company-profile',
         name: 'company-profile',
-        meta: { roles: [UserRoles.Company], requiresAuth: true },
+        meta: { roles: [UserRoles.CompanyRepresentative], requiresAuth: true },
         component: () => import('pages/CompanyProfilePage.vue'),
       },
       {

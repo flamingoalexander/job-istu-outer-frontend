@@ -4,8 +4,7 @@ const ENDPOINTS = {
     byId: (id: number) => `companies/companies/${id}/`,
   },
   internships: {
-    byCompany: (companyId: number) =>
-      `internship/?company=${companyId}`,
+    base: () => 'internship/',
   },
   auth: {
     login: () => 'auths/dev-auth/login/',

@@ -1,7 +1,6 @@
 /* generated using openapi-typescript-codegen -- do not edit */
 export type { Company } from './models/Company';
 export type { CompanyRepresentative } from './models/CompanyRepresentative';
-export type { CompanyRepresentativeRequest } from './models/CompanyRepresentativeRequest';
 export type { Direction } from './models/Direction';
 export type { DirectionRequest } from './models/DirectionRequest';
 export { EducationLevelEnum } from './models/EducationLevelEnum';
