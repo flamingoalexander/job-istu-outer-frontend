@@ -30,6 +30,15 @@
         unelevated
         no-caps
         class="q-mr-sm"
+        label="Выйти"
+        @click="store.logout"
+      />
+
+      <q-btn
+        color="primary"
+        unelevated
+        no-caps
+        class="q-mr-sm"
         :to="{ name: 'register' }"
         label="Договор"
       />
