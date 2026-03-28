@@ -60,11 +60,11 @@ export const approveRequest = async (requestId: number): Promise<void> => {
 };
 
 export const declineRequest = async (requestId: number): Promise<void> => {
-  await userAxiosClient.delete(`/internship/requests/${requestId}`);
+  await userAxiosClient.delete(`/internship/requests/${requestId}/`);
   console.warn('Заявка отклонена');
 };
 
 export const closeInternship = async (internshipId: number): Promise<void> => {
-  await userAxiosClient.delete(`/internship/${internshipId}`);
+  await userAxiosClient.delete(`/internship/${internshipId}/`);
   console.warn('Практика закрыта');
 };
