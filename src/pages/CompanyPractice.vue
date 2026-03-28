@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref} from 'vue';
 const activeTab = ref('about');
+import { useQuery } from '@tanstack/vue-query';
+import { useQuasar } from 'quasar';
 import {
   getContacts,
   getInternshipData,
@@ -11,18 +13,81 @@ import {
 } from '../api/companies/index';
 import type { Contact, Internship, Candidate } from '../api/companies/index';
 
-const candidates = ref<Candidate[]>([]);
-const contacts = ref<Contact[]>([]);
-const internship_data = ref<Internship>();
-
-onMounted(async () => {
-  const contactsResponse = await getContacts();
-  contacts.value = contactsResponse.value;
-  const candidatesResponse = await getCandidates();
-  candidates.value = candidatesResponse.value;
-  const internshipResponse = await getInternshipData();
-  internship_data.value = internshipResponse.value;
+const {
+  data: contacts,
+} = useQuery<Contact[]>({
+  queryKey: ['contacts'],
+  queryFn: getContacts,
 });
+
+const {
+  data: candidates,
+} = useQuery<Candidate[]>({
+  queryKey: ['candidates'],
+  queryFn: getCandidates,
+});
+
+const {
+  data: internship_data,
+} = useQuery<Internship | null>({
+  queryKey: ['internship'],
+  queryFn: getInternshipData,
+});
+const $q = useQuasar();
+const handleApprove = async (id: number) => {
+  try {
+    await approveRequest(id);
+    $q.notify({
+      type: 'positive',
+      message: 'Заявка принята',
+      position: 'bottom',
+    });
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: 'Ошибка при принятии заявки',
+      position: 'bottom',
+    });
+    console.warn(error)
+  }
+};
+
+const handleDecline = async (id: number) => {
+  try {
+    await declineRequest(id);
+    $q.notify({
+      type: 'warning',
+      message: 'Заявка отклонена',
+      position: 'bottom',
+    });
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: 'Ошибка при отклонении заявки',
+      position: 'bottom',
+    });
+    console.warn(error)
+  }
+};
+
+const handleClosing = async (id: number) => {
+  try {
+    await closeInternship(id);
+    $q.notify({
+      type: 'warning',
+      message: 'Практика закрыта',
+      position: 'bottom',
+    });
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: 'Практика закрыта с ошибкой',
+      position: 'bottom',
+    });
+    console.warn(error)
+  }
+};
+
 </script>
 
 <template>
@@ -77,8 +142,8 @@ onMounted(async () => {
                       </q-item-section>
                       <q-item-section side>
                         <div class="row q-gutter-sm">
-                          <q-btn @click="approveRequest(candidate_item.id)"> Принять </q-btn>
-                          <q-btn @click="declineRequest(candidate_item.id)"> Отклонить </q-btn>
+                          <q-btn @click="handleApprove(candidate_item.id)"> Принять </q-btn>
+                          <q-btn @click="handleDecline(candidate_item.id)"> Отклонить </q-btn>
                         </div>
                       </q-item-section>
                     </q-item>
@@ -89,7 +154,8 @@ onMounted(async () => {
 
             <div class="row items-center justify-between q-mt-md">
               <q-btn
-                @click="closeInternship(internship_data?.id)"
+                v-if="internship_data?.id"
+                @click="handleClosing(internship_data.id)"
                 label="Закрыть набор"
                 color="red"
                 class="q-px-lg"
