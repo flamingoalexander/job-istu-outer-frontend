@@ -95,12 +95,13 @@ onMounted(async () => {
                 class="q-px-lg"
                 unelevated
               />
-              <q-btn label="Пригласить" color="primary" class="q-px-lg" unelevated />
             </div>
           </q-card-section>
         </q-card>
       </div>
-      <div v-for="contactItem in contacts" :key="contactItem.id" class="col-3">
+      <div class="col-3">
+      <div class="text-h5 q-mt-md text-center">Контакты:</div>
+      <div v-for="contactItem in contacts" :key="contactItem.id" >
         <q-card>
           <q-card-section>
             <div class="flex justify-center">
@@ -108,12 +109,12 @@ onMounted(async () => {
                 <q-icon name="person" size="40px" />
               </q-avatar>
             </div>
-            <div class="text-h5 q-mt-md text-center">Контакты:</div>
             <div class="text-h5 q-mt-md text-center">{{ contactItem.full_name }}</div>
             <div class="text-h5 q-mt-md text-center">Телеграм:{{ contactItem.value }}</div>
             <div class="text-h5 q-mt-md text-center">Почта:{{ contactItem.value }}</div>
           </q-card-section>
         </q-card>
+      </div>
       </div>
     </div>
   </div>
