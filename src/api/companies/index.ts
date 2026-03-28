@@ -1,5 +1,5 @@
-import { ref, computed } from 'vue';
-import axios from 'axios';
+import {userAxiosClient} from '../axios.clients'
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
@@ -31,52 +31,41 @@ const internshipId = computed(() => {
   return Array.isArray(id) ? id[0] : id;
 });
 
-export const getContacts = async () => {
-  const contacts = ref<Contact[]>([]);
-
-  try {
-    const response = await axios.get('/backend/api/companies/contacts/');
-    contacts.value = response.data;
-    console.warn(contacts.value);
-  } catch (error) {
-    console.error(error, 'Что-то пошло не так');
-  }
-
-  return contacts;
+export const getContacts = async (): Promise<Contact[]> => {
+  const response = await userAxiosClient.get('/companies/contacts/');
+  console.warn(response.data);
+  return response.data;
 };
 
-export const getInternshipData = async () => {
-  const internshipData = ref<Internship>();
-
+export const getInternshipData = async (): Promise<Internship | null> => {
   const internship_id = internshipId.value;
-  const response = await axios.get(`/backend/api/internship/${internship_id}/`);
-  internshipData.value = response.data;
-  console.warn(internshipData.value);
-  return internshipData;
+  if (!internship_id) {
+    console.warn('ID стажировки не найден');
+    return null;
+  }
+  const response = await userAxiosClient.get(`/internship/${internship_id}/`);
+  console.warn(response.data);
+  return response.data;
 };
 
-export const getCandidates = async () => {
-  const candidates = ref<Candidate[]>([]);
-  const response = await axios.get(`/backend/api/internship/requests/`);
-  candidates.value = response.data;
-  console.warn(candidates.value);
-  return candidates;
+export const getCandidates = async (): Promise<Candidate[]> => {
+  const response = await userAxiosClient.get(`/internship/requests/`);
+  console.warn(response.data);
+  return response.data;
 };
 
-export const approveRequest = async (requestId: number) => {
- 
-    const response = await axios.post(`/backend/api/internship/requests/${requestId}/approve/`);
-    console.warn('Заявка принята');
-    return response.data;
-};
-export const declineRequest = async (requestId: number) => {
-    const response = await axios.delete(`/backend/api/internship/requests/${requestId}`);
-    console.warn('Заявка отклонена');
-    return response.data;
+export const approveRequest = async (requestId: number): Promise<void> => {
+  await userAxiosClient.post(`/internship/requests/${requestId}/approve/`);
+  console.warn('Заявка принята');
 };
 
-export const closeInternship = async (internshipId?: number) => {
-    const response = await axios.delete(`/backend/api/internship/${internshipId}`);
-    console.warn('Практика закрыта');
-    return response.data;
+export const declineRequest = async (requestId: number): Promise<void> => {
+  await userAxiosClient.delete(`/internship/requests/${requestId}`);
+  console.warn('Заявка отклонена');
+};
+
+export const closeInternship = async (internshipId: number): Promise<void> => {
+  await userAxiosClient.delete(`/internship/${internshipId}`);
+  console.warn('Практика закрыта');
+
 };
