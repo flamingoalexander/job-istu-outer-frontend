@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref} from 'vue';
+import { ref } from 'vue';
 const activeTab = ref('about');
 import { useQuery } from '@tanstack/vue-query';
 import { useQuasar } from 'quasar';
@@ -13,23 +13,17 @@ import {
 } from '../api/companies/index';
 import type { Contact, Internship, Candidate } from '../api/companies/index';
 
-const {
-  data: contacts,
-} = useQuery<Contact[]>({
+const { data: contacts } = useQuery<Contact[]>({
   queryKey: ['contacts'],
   queryFn: getContacts,
 });
 
-const {
-  data: candidates,
-} = useQuery<Candidate[]>({
+const { data: candidates } = useQuery<Candidate[]>({
   queryKey: ['candidates'],
   queryFn: getCandidates,
 });
 
-const {
-  data: internship_data,
-} = useQuery<Internship | null>({
+const { data: internship_data } = useQuery<Internship | null>({
   queryKey: ['internship'],
   queryFn: getInternshipData,
 });
@@ -48,7 +42,7 @@ const handleApprove = async (id: number) => {
       message: 'Ошибка при принятии заявки',
       position: 'bottom',
     });
-    console.warn(error)
+    console.warn(error);
   }
 };
 
@@ -66,7 +60,7 @@ const handleDecline = async (id: number) => {
       message: 'Ошибка при отклонении заявки',
       position: 'bottom',
     });
-    console.warn(error)
+    console.warn(error);
   }
 };
 
@@ -84,10 +78,9 @@ const handleClosing = async (id: number) => {
       message: 'Практика закрыта с ошибкой',
       position: 'bottom',
     });
-    console.warn(error)
+    console.warn(error);
   }
 };
-
 </script>
 
 <template>
@@ -166,21 +159,21 @@ const handleClosing = async (id: number) => {
         </q-card>
       </div>
       <div class="col-3">
-      <div class="text-h5 q-mt-md text-center">Контакты:</div>
-      <div v-for="contactItem in contacts" :key="contactItem.id" >
-        <q-card>
-          <q-card-section>
-            <div class="flex justify-center">
-              <q-avatar size="100px" color="primary" text-color="white">
-                <q-icon name="person" size="40px" />
-              </q-avatar>
-            </div>
-            <div class="text-h5 q-mt-md text-center">{{ contactItem.full_name }}</div>
-            <div class="text-h5 q-mt-md text-center">Телеграм:{{ contactItem.value }}</div>
-            <div class="text-h5 q-mt-md text-center">Почта:{{ contactItem.value }}</div>
-          </q-card-section>
-        </q-card>
-      </div>
+        <div class="text-h5 q-mt-md text-center">Контакты:</div>
+        <div v-for="contactItem in contacts" :key="contactItem.id">
+          <q-card>
+            <q-card-section>
+              <div class="flex justify-center">
+                <q-avatar size="100px" color="primary" text-color="white">
+                  <q-icon name="person" size="40px" />
+                </q-avatar>
+              </div>
+              <div class="text-h5 q-mt-md text-center">{{ contactItem.full_name }}</div>
+              <div class="text-h5 q-mt-md text-center">Телеграм:{{ contactItem.value }}</div>
+              <div class="text-h5 q-mt-md text-center">Почта:{{ contactItem.value }}</div>
+            </q-card-section>
+          </q-card>
+        </div>
       </div>
     </div>
   </div>

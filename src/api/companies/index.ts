@@ -1,4 +1,4 @@
-import {userAxiosClient} from '../axios.clients'
+import { userAxiosClient } from '../axios.clients';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -67,5 +67,4 @@ export const declineRequest = async (requestId: number): Promise<void> => {
 export const closeInternship = async (internshipId: number): Promise<void> => {
   await userAxiosClient.delete(`/internship/${internshipId}`);
   console.warn('Практика закрыта');
-
 };
