@@ -2,16 +2,16 @@ const ENDPOINTS = {
   companies: {
     companies: () => 'companies/companies/',
     byId: (id: number) => `companies/companies/${id}/`,
-    contacts:{
-      contacts:()=>`/companies/contacts/`
-    }
+    contacts: {
+      contacts: () => `/companies/contacts/`,
+    },
   },
   internships: {
     base: () => 'internship/',
-    byId: (id:number) => `/internship/${id}/`,
+    byId: (id: number) => `/internship/${id}/`,
   },
   requests: {
-    requests:() => `/internship/requests/`,
+    requests: () => `/internship/requests/`,
     approve: (id: number) => `internship/requests/${id}/approve/`,
     decline: (id: number) => `internship/requests/${id}/`,
   },
