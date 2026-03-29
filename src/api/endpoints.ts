@@ -2,6 +2,18 @@ const ENDPOINTS = {
   companies: {
     companies: () => 'companies/companies/',
     byId: (id: number) => `companies/companies/${id}/`,
+    contacts: {
+      contacts: () => `/companies/contacts/`,
+    },
+  },
+  internships: {
+    list: () => '/internship/',
+    byId: (id: number) => `/internship/${id}/`,
+    requests: {
+      getRequests: (internshipId: number) => `/internship/requests/${internshipId}`,
+      approve: (id: number) => `/internship/requests/${id}/approve/`,
+      decline: (id: number) => `/internship/requests/${id}/`,
+    },
   },
   auth: {
     login: () => 'auths/dev-auth/login/',
@@ -11,9 +23,6 @@ const ENDPOINTS = {
   },
   users: {
     profileRepresentative: () => 'auths/company-representative/profile/',
-  },
-  internships: {
-    list: () => '/internship/',
   },
   skills: {
     list: () => '/internship/skills/',
