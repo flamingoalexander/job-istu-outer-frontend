@@ -1,7 +1,13 @@
-import { type Internship } from './models/Internship';
-import publicAxiosClient from './axios.clients';
+import { type Internship } from 'src/api/models/Internship';
+import { userAxiosClient, publicAxiosClient } from './axios.clients';
 import ENDPOINTS from './endpoints';
 
+export const getInternshipsByCompany = async (companyId: number): Promise<Internship[]> => {
+  const { data } = await userAxiosClient.get<Internship[]>(ENDPOINTS.internships.base(), {
+    params: { company: companyId },
+  });
+  return data;
+};
 export const getInternships = async (): Promise<Internship[]> => {
   const { data } = await publicAxiosClient.get<Internship[]>(ENDPOINTS.internships.list());
   return data;
