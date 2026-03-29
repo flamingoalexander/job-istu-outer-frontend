@@ -112,7 +112,6 @@ const {
     if (!id) return [];
     return await getStudentInternships(id);
   },
-  enabled: !!studentId.value,
 });
 
 const handleRefetchInternships = () => {
