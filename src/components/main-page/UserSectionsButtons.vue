@@ -68,6 +68,15 @@ const props = defineProps<UserSectionButtonsProps>();
     :to="{ name: 'student-internships' }"
     label="Кабинет студента (Student-Screen-3)"
   />
+  <q-btn
+    v-if="props.role === UserRoles.CompanyRepresentative"
+    color="primary"
+    unelevated
+    no-caps
+    class="q-mr-sm"
+    :to="{ name: 'company-profile' }"
+    label="Личный кабинет компании"
+  />
 </template>
 
 <style scoped></style>
