@@ -39,4 +39,5 @@ const ENDPOINTS = {
     list: () => '/university/specialities/',
   },
 };
+
 export default ENDPOINTS;
