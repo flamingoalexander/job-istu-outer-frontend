@@ -46,25 +46,23 @@ export const getContacts = async (): Promise<Contact[]> => {
 };
 
 export const getInternshipData = async (internshipId: number): Promise<Internship> => {
-  const { data } = await userAxiosClient.get(`/internship/${internshipId}/`);
+  const { data } = await userAxiosClient.get<Internship>(ENDPOINTS.internships.byId(internshipId));
   return data;
 };
 
 export const getCandidates = async (internshipId: number): Promise<Candidate[]> => {
-  const { data } = await userAxiosClient.get(`/internship/requests/`, {
-    params: { internship: internshipId },
-  });
+  const { data } = await userAxiosClient.get<Candidate[]>(ENDPOINTS.requests.requests(internshipId));
   return data;
 };
 
 export const approveRequest = async (requestId: number): Promise<void> => {
-  await userAxiosClient.post(`/internship/requests/${requestId}/approve/`);
+  await userAxiosClient.post(ENDPOINTS.requests.approve(requestId));
 };
 
 export const declineRequest = async (requestId: number): Promise<void> => {
-  await userAxiosClient.delete(`/internship/requests/${requestId}/`);
+  await userAxiosClient.delete(ENDPOINTS.requests.decline(requestId));
 };
 
 export const closeInternship = async (internshipId: number): Promise<void> => {
-  await userAxiosClient.delete(`/internship/${internshipId}/`);
+  await userAxiosClient.delete(ENDPOINTS.internships.byId(internshipId));
 };
