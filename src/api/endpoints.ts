@@ -7,7 +7,7 @@ const ENDPOINTS = {
     },
   },
   internships: {
-    base: () => 'internship/',
+    list: () => '/internship/',
     byId: (id: number) => `/internship/${id}/`,
     requests: {
       getRequests: (internshipId:number) => `/internship/requests/${internshipId}`,
@@ -23,6 +23,12 @@ const ENDPOINTS = {
   },
   users: {
     profileRepresentative: () => 'auths/company-representative/profile/',
+  },
+  skills: {
+    list: () => '/internship/skills/',
+  },
+  specialities: {
+    list: () => '/university/specialities/',
   },
 };
 export default ENDPOINTS;
