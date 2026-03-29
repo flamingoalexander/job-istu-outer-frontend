@@ -51,7 +51,9 @@ export const getInternshipData = async (internshipId: number): Promise<Internshi
 };
 
 export const getCandidates = async (internshipId: number): Promise<Candidate[]> => {
-  const { data } = await userAxiosClient.get<Candidate[]>(ENDPOINTS.internships.requests.getRequests(internshipId));
+  const { data } = await userAxiosClient.get<Candidate[]>(
+    ENDPOINTS.internships.requests.getRequests(internshipId),
+  );
   return data;
 };
 
