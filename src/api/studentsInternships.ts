@@ -1,5 +1,6 @@
 import { type StudentsInternship } from './models/StudentsInternship';
 import { userAxiosClient } from './axios.clients';
+import ENDPOINTS from './endpoints';
 
 export const getInternshipParticipants = async (
   internshipId: number,
@@ -12,7 +13,7 @@ export const getInternshipParticipants = async (
 
 export const getStudentInternships = async (studentId: number): Promise<StudentsInternship[]> => {
   const { data } = await userAxiosClient.get<StudentsInternship[]>(
-    `/internship/students-internships/?student=${studentId}`,
+    `${ENDPOINTS.studentsInternships.list()}?student=${studentId}`,
   );
   return data;
 };
