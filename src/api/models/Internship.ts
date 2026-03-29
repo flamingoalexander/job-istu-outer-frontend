@@ -2,6 +2,25 @@
 /**
  * Сериализатор для модели Internship (Практика)
  */
+export type Skill = {
+  id: number;
+  name: string;
+};
+
+export type Speciality = {
+  id: number;
+  name: string;
+  code: string;
+};
+
+export type Contact = {
+  id: number;
+  name: string;
+  job_title: string;
+  contact_type: string;
+  value: string;
+};
+
 export type Internship = {
   readonly id: number;
   theme: string;
@@ -11,9 +30,9 @@ export type Internship = {
   company?: number | null;
   readonly company_name: string;
   contacts: Array<number>;
-  readonly contacts_list: string;
+  readonly contacts_list: Contact[];
   skills: Array<number>;
-  readonly skills_list: string;
+  readonly skills_list: Skill[];
   specialities: Array<number>;
-  readonly specialities_list: string;
+  readonly specialities_list: Speciality[];
 };
