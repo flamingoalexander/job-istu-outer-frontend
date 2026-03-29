@@ -3,9 +3,6 @@ const ENDPOINTS = {
     companies: () => 'companies/companies/',
     byId: (id: number) => `companies/companies/${id}/`,
   },
-  internships: {
-    base: () => 'internship/',
-  },
   auth: {
     login: () => 'auths/dev-auth/login/',
     logout: () => 'auths/dev-auth/logout/',
@@ -14,6 +11,15 @@ const ENDPOINTS = {
   },
   users: {
     profileRepresentative: () => 'auths/company-representative/profile/',
+  },
+  internships: {
+    list: () => '/internship/',
+  },
+  skills: {
+    list: () => '/internship/skills/',
+  },
+  specialities: {
+    list: () => '/university/specialities/',
   },
 };
 export default ENDPOINTS;

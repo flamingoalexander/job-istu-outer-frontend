@@ -41,16 +41,16 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/CompaniesPage.vue'),
       },
       {
+        path: '/practice/:id',
+        name: 'practice-detail',
+        meta: { roles: [UserRoles.Student], requiresAuth: true },
+        component: () => import('pages/InternshipDetailPage.vue'),
+      },
+      {
         path: '/company-profile',
         name: 'company-profile',
         meta: { roles: [UserRoles.CompanyRepresentative], requiresAuth: true },
         component: () => import('pages/CompanyProfilePage.vue'),
-      },
-      {
-        path: '/practice',
-        name: 'practice-detail',
-        meta: { roles: [UserRoles.Student], requiresAuth: true },
-        component: () => import('pages/InternshipDetailPage.vue'),
       },
       {
         path: '/teacher',
