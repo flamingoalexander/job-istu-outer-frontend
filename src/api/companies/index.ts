@@ -1,9 +1,23 @@
 import { userAxiosClient } from '../axios.clients';
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { type Company } from 'src/api/models/Company';
+import ENDPOINTS from '../endpoints';
 
-const route = useRoute();
+export const getCompanies = async (): Promise<Company[]> => {
+  const { data } = await userAxiosClient.get<Company[]>(ENDPOINTS.companies.companies());
+  return data;
+};
 
+export const getCompanyById = async (id: number): Promise<Company> => {
+  const { data } = await userAxiosClient.get<Company>(ENDPOINTS.companies.byId(id));
+  return data;
+};
+
+export const updateCompany = async (id: number, payload: Partial<Company>): Promise<Company> => {
+  const { data } = await userAxiosClient.put<Company>(ENDPOINTS.companies.byId(id), payload);
+  return data;
+};
+
+//Company Representative
 export interface Contact {
   id: number;
   contact_type?: string;
@@ -15,8 +29,9 @@ export interface Contact {
 
 export interface Internship {
   id: number;
-  title: string;
+  theme: string;
   description: string;
+  year: number;
 }
 
 export interface Candidate {
@@ -25,46 +40,31 @@ export interface Candidate {
   status: number;
 }
 
-const internshipId = computed(() => {
-  const id = route.params.id;
-  if (!id) return null;
-  return Array.isArray(id) ? id[0] : id;
-});
-
 export const getContacts = async (): Promise<Contact[]> => {
-  const response = await userAxiosClient.get('/companies/contacts/');
-  console.warn(response.data);
-  return response.data;
+  const { data } = await userAxiosClient.get('/companies/contacts/');
+  return data;
 };
 
-export const getInternshipData = async (): Promise<Internship | null> => {
-  const internship_id = internshipId.value;
-  if (!internship_id) {
-    console.warn('ID стажировки не найден');
-    return null;
-  }
-  const response = await userAxiosClient.get(`/internship/${internship_id}/`);
-  console.warn(response.data);
-  return response.data;
+export const getInternshipData = async (internshipId: number): Promise<Internship> => {
+  const { data } = await userAxiosClient.get(`/internship/${internshipId}/`);
+  return data;
 };
 
-export const getCandidates = async (): Promise<Candidate[]> => {
-  const response = await userAxiosClient.get(`/internship/requests/`);
-  console.warn(response.data);
-  return response.data;
+export const getCandidates = async (internshipId: number): Promise<Candidate[]> => {
+  const { data } = await userAxiosClient.get(`/internship/requests/`, {
+    params: { internship: internshipId },
+  });
+  return data;
 };
 
 export const approveRequest = async (requestId: number): Promise<void> => {
   await userAxiosClient.post(`/internship/requests/${requestId}/approve/`);
-  console.warn('Заявка принята');
 };
 
 export const declineRequest = async (requestId: number): Promise<void> => {
   await userAxiosClient.delete(`/internship/requests/${requestId}/`);
-  console.warn('Заявка отклонена');
 };
 
 export const closeInternship = async (internshipId: number): Promise<void> => {
   await userAxiosClient.delete(`/internship/${internshipId}/`);
-  console.warn('Практика закрыта');
 };

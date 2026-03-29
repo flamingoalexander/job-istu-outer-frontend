@@ -127,9 +127,9 @@ import type { Company } from 'src/api/models/Company';
 import type { Internship } from 'src/api/models/Internship';
 import type { CompanyRepresentative } from 'src/api/models/CompanyRepresentative';
 import type { CompanyFormState } from 'src/components/forms/CompanyProfileForm.vue';
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const router = useRouter();
 const companyFormVisible = ref(false);
 const practiceFormVisible = ref(false);
 const openCompanyForm = () => {
@@ -139,7 +139,6 @@ const openCompanyForm = () => {
 const openPracticeForm = () => {
   practiceFormVisible.value = true;
 };
-
 
 const queryClient = useQueryClient();
 
@@ -171,10 +170,9 @@ const { data: internships, isPending: internshipsPending } = useQuery<Internship
   enabled: computed(() => !!companyId.value),
 });
 
-const openPracticeProfile=(internshipId:number)=>{
-  router.push(`/company-practices/${internshipId}`).catch(error => {
+const openPracticeProfile = (internshipId: number) => {
+  router.push(`/company-practices/${internshipId}`).catch((error) => {
     console.error('Navigation error:', error);
   });
-}
-
+};
 </script>

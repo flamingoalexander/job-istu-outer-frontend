@@ -10,22 +10,24 @@ import {
   approveRequest,
   declineRequest,
   closeInternship,
-} from '../api/companies/index';
-import type { Contact, Internship, Candidate } from '../api/companies/index';
+} from 'src/api/companies';
+import { useRoute } from 'vue-router';
+const internshipId = Number(useRoute().params.id as string);
+import type { Contact, Candidate } from 'src/api/companies';
 
-const { data: contacts } = useQuery<Contact[]>({
+const { data: contacts, isLoading: isContactsLoading } = useQuery<Contact[]>({
   queryKey: ['contacts'],
   queryFn: getContacts,
 });
 
-const { data: candidates } = useQuery<Candidate[]>({
+const { data: candidates, isLoading: isCandidatesLoading } = useQuery<Candidate[]>({
   queryKey: ['candidates'],
-  queryFn: getCandidates,
+  queryFn: () => getCandidates(internshipId),
 });
 
-const { data: internship_data } = useQuery<Internship | null>({
+const { data: internshipData, isLoading: isInternshipLoading } = useQuery({
   queryKey: ['internship'],
-  queryFn: getInternshipData,
+  queryFn: () => getInternshipData(internshipId),
 });
 const $q = useQuasar();
 const handleApprove = async (id: number) => {
@@ -42,7 +44,7 @@ const handleApprove = async (id: number) => {
       message: 'Ошибка при принятии заявки',
       position: 'bottom',
     });
-    console.warn(error);
+    console.error(error);
   }
 };
 
@@ -60,13 +62,13 @@ const handleDecline = async (id: number) => {
       message: 'Ошибка при отклонении заявки',
       position: 'bottom',
     });
-    console.warn(error);
+    console.error(error);
   }
 };
 
-const handleClosing = async (id: number) => {
+const handleClosing = async () => {
   try {
-    await closeInternship(id);
+    await closeInternship(internshipId);
     $q.notify({
       type: 'warning',
       message: 'Практика закрыта',
@@ -78,7 +80,7 @@ const handleClosing = async (id: number) => {
       message: 'Практика закрыта с ошибкой',
       position: 'bottom',
     });
-    console.warn(error);
+    console.error(error);
   }
 };
 </script>
@@ -87,9 +89,9 @@ const handleClosing = async (id: number) => {
   <div class="q-pa-md">
     <div class="row">
       <div class="col-9">
-        <q-card flat bordered>
+        <q-card flat bordered v-if="!isInternshipLoading">
           <q-card-section>
-            <div class="text-h5 q-mb-md text-center">{{ internship_data?.title }}</div>
+            <div class="text-h5 q-mb-md text-center">{{ internshipData?.theme }}</div>
             <q-tabs
               v-model="activeTab"
               dense
@@ -109,10 +111,10 @@ const handleClosing = async (id: number) => {
             <q-tab-panels v-model="activeTab" animated>
               <q-tab-panel name="about">
                 <div class="text-h6">О практике</div>
-                <p>{{ internship_data?.description }}</p>
+                <p>{{ internshipData?.description }}</p>
               </q-tab-panel>
 
-              <q-tab-panel name="participants">
+              <q-tab-panel name="participants" v-if="!isCandidatesLoading">
                 <div class="text-h6">Участники</div>
                 <q-list bordered separator>
                   <template v-for="candidate_item in candidates" :key="candidate_item.id">
@@ -127,7 +129,7 @@ const handleClosing = async (id: number) => {
 
               <q-tab-panel name="applications">
                 <div class="text-h6">Заявки</div>
-                <q-list bordered separator>
+                <q-list v-if="!isCandidatesLoading" bordered separator>
                   <template v-for="candidate_item in candidates" :key="candidate_item.id">
                     <q-item v-if="candidate_item.status != 1">
                       <q-item-section>
@@ -147,8 +149,7 @@ const handleClosing = async (id: number) => {
 
             <div class="row items-center justify-between q-mt-md">
               <q-btn
-                v-if="internship_data?.id"
-                @click="handleClosing(internship_data.id)"
+                @click="handleClosing"
                 label="Закрыть набор"
                 color="red"
                 class="q-px-lg"
@@ -158,7 +159,7 @@ const handleClosing = async (id: number) => {
           </q-card-section>
         </q-card>
       </div>
-      <div class="col-3">
+      <div class="col-3" v-if="!isContactsLoading">
         <div class="text-h5 q-mt-md text-center">Контакты:</div>
         <div v-for="contactItem in contacts" :key="contactItem.id">
           <q-card>
@@ -178,7 +179,3 @@ const handleClosing = async (id: number) => {
     </div>
   </div>
 </template>
-
-<styles>
-
-</styles>
