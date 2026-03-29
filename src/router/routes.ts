@@ -28,7 +28,16 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/companies',
         name: 'companies',
-        meta: { roles: [UserRoles.Student], requiresAuth: true },
+        meta: {
+          roles: [
+            UserRoles.Student,
+            UserRoles.Teacher,
+            UserRoles.Directorate,
+            UserRoles.CompanyRepresentative,
+            UserRoles.CareerCenter,
+          ],
+          requiresAuth: true,
+        },
         component: () => import('pages/CompaniesPage.vue'),
       },
       {
@@ -36,6 +45,12 @@ const routes: RouteRecordRaw[] = [
         name: 'practice-detail',
         meta: { roles: [UserRoles.Student], requiresAuth: true },
         component: () => import('pages/InternshipDetailPage.vue'),
+      },
+      {
+        path: '/company-profile',
+        name: 'company-profile',
+        meta: { roles: [UserRoles.CompanyRepresentative], requiresAuth: true },
+        component: () => import('pages/CompanyProfilePage.vue'),
       },
       {
         path: '/teacher',
@@ -48,6 +63,11 @@ const routes: RouteRecordRaw[] = [
         name: 'student-internships',
         meta: { roles: [UserRoles.Student], requiresAuth: true },
         component: () => import('pages/StudentInternshipsPage.vue'),
+      },
+      {
+        path: '/company-practices/:id',
+        name: 'company-practices',
+        component: () => import('pages/CompanyPractice.vue'),
       },
     ],
   },
