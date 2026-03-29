@@ -51,16 +51,16 @@ export const getInternshipData = async (internshipId: number): Promise<Internshi
 };
 
 export const getCandidates = async (internshipId: number): Promise<Candidate[]> => {
-  const { data } = await userAxiosClient.get<Candidate[]>(ENDPOINTS.requests.requests(internshipId));
+  const { data } = await userAxiosClient.get<Candidate[]>(ENDPOINTS.internships.requests.getRequests(internshipId));
   return data;
 };
 
 export const approveRequest = async (requestId: number): Promise<void> => {
-  await userAxiosClient.post(ENDPOINTS.requests.approve(requestId));
+  await userAxiosClient.post(ENDPOINTS.internships.requests.approve(requestId));
 };
 
 export const declineRequest = async (requestId: number): Promise<void> => {
-  await userAxiosClient.delete(ENDPOINTS.requests.decline(requestId));
+  await userAxiosClient.delete(ENDPOINTS.internships.requests.decline(requestId));
 };
 
 export const closeInternship = async (internshipId: number): Promise<void> => {

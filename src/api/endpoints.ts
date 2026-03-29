@@ -9,11 +9,11 @@ const ENDPOINTS = {
   internships: {
     base: () => 'internship/',
     byId: (id: number) => `/internship/${id}/`,
-  },
-  requests: {
-    requests: (internshipId:number) => `/internship/requests/=${internshipId}`,
-    approve: (id: number) => `/internship/requests/${id}/approve/`,
-    decline: (id: number) => `/internship/requests/${id}/`,
+    requests: {
+      getRequests: (internshipId:number) => `/internship/requests/${internshipId}`,
+      approve: (id: number) => `/internship/requests/${id}/approve/`,
+      decline: (id: number) => `/internship/requests/${id}/`,
+    },
   },
   auth: {
     login: () => 'auths/dev-auth/login/',
