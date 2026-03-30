@@ -1,18 +1,36 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
+import { useQuasar } from 'quasar';
 import type { Credentials } from 'src/api/models/Credentials';
 import authFormImage from '/pics/auth-form-preview.jpg';
-const authMessage = ref('');
 import { useRouter } from 'vue-router';
 import { useUserStore } from 'stores/user';
+
+const $q = useQuasar();
+
+const authMessage = ref('');
 const store = useUserStore();
 
 const credentials: Credentials = reactive({
   username: '',
   password: '',
 });
+
 const router = useRouter();
 const loading = ref(false);
+
+const isMobile = computed(() => $q.screen.lt.md);
+
+const cardStyle = computed(() => ({
+  maxWidth: isMobile.value ? '560px' : '1080px',
+  width: '100%',
+  borderRadius: '24px',
+  overflow: 'hidden',
+  background: 'white',
+}));
+
+const imageMinHeight = computed(() => (isMobile.value ? '220px' : '420px'));
+
 const handleAuth = async (isEsia: boolean) => {
   try {
     if (isEsia) {
@@ -32,33 +50,38 @@ const handleAuth = async (isEsia: boolean) => {
 
 <template>
   <q-page class="bg-grey-2 flex flex-center q-pa-md">
-    <div class="auth-card q-pa-none q-mx-auto">
-      <div class="row items-stretch no-wrap">
-        <div class="col-12 col-md-6">
+    <q-card :style="cardStyle" flat bordered>
+      <div class="row items-stretch">
+        <!-- Картинка: показываем только на md+ (чтобы на телефоне не занимала полэкрана) -->
+        <div class="col-12 col-md-6 gt-sm">
           <q-img
             :src="authFormImage"
             ratio="4/3"
-            class="full-height radius-left"
-            :img-class="'object-cover'"
+            :style="{ height: '100%', minHeight: imageMinHeight }"
+            img-class="object-cover"
           >
-            <div
-              class="absolute-top-left q-pa-lg text-dark text-weight-medium text-h2 text-shadow-2"
-            >
-              Центр<br />
-              Карьеры <br />
-              ИРНИТУ
+            <div class="absolute-top-left q-pa-lg text-dark text-weight-medium">
+              <div class="text-h3 text-shadow" style="line-height: 1.05">
+                Центр<br />
+                Карьеры<br />
+                ИРНИТУ
+              </div>
             </div>
           </q-img>
         </div>
 
-        <div class="col-12 col-md-6 bg-white radius-right flex column">
+        <!-- Форма -->
+        <div class="col-12 col-md-6 bg-white">
           <div class="q-pa-lg">
-            <div class="text-h4 text-dark q-mb-md">Авторизация</div>
+            <div :class="isMobile ? 'text-h5' : 'text-h4'" class="text-dark q-mb-md">
+              Авторизация
+            </div>
 
             <q-banner
               v-if="authMessage"
               inline-actions
-              class="bg-red-6 text-white q-mb-md radius-md"
+              class="bg-red-6 text-white q-mb-md"
+              style="border-radius: 12px"
             >
               {{ authMessage }}
             </q-banner>
@@ -69,7 +92,7 @@ const handleAuth = async (isEsia: boolean) => {
                 label="Логин"
                 autocomplete="username"
                 outlined
-                dense
+                :dense="isMobile"
                 clearable
                 :disable="loading"
                 prepend-inner-icon="person"
@@ -81,72 +104,48 @@ const handleAuth = async (isEsia: boolean) => {
                 label="Пароль"
                 autocomplete="current-password"
                 outlined
-                dense
+                :dense="isMobile"
                 :disable="loading"
                 prepend-inner-icon="lock"
               />
-              <div class="row items-center q-mt-lg">
-                <q-btn
-                  type="submit"
-                  :loading="loading"
-                  unelevated
-                  color="primary"
-                  class="full-width q-py-sm radius-md"
-                >
-                  <div class="text-center">Производственный<br />партнер</div>
-                </q-btn>
-                <q-btn
-                  @click="handleAuth(true)"
-                  target="_blank"
-                  unelevated
-                  class="full-width q-py-sm radius-md"
-                  color="cyan-5"
-                  label="ИРНИТУ"
-                />
+
+              <!-- Кнопки: на мобилке в столбик, на md+ можно в строку -->
+              <div class="row q-col-gutter-sm q-mt-md">
+                <div class="col-12 col-sm-6">
+                  <q-btn
+                    type="submit"
+                    :loading="loading"
+                    unelevated
+                    color="primary"
+                    class="full-width q-py-sm"
+                    style="border-radius: 12px"
+                  >
+                    <div class="text-center">Производственный<br />партнер</div>
+                  </q-btn>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                  <q-btn
+                    @click="handleAuth(true)"
+                    unelevated
+                    class="full-width q-py-sm"
+                    style="border-radius: 12px"
+                    color="cyan-5"
+                    label="ИРНИТУ"
+                    :disable="loading"
+                  />
+                </div>
               </div>
             </q-form>
           </div>
-          <div class="q-mt-auto" />
         </div>
       </div>
-    </div>
+    </q-card>
   </q-page>
 </template>
 
 <style scoped>
-.auth-card {
-  max-width: 1080px;
-  width: 100%;
-  border-radius: 24px;
-  background: white;
-  overflow: hidden;
-}
-
-.radius-left {
-  border-top-left-radius: 24px;
-  border-bottom-left-radius: 24px;
-}
-.radius-right {
-  border-top-right-radius: 24px;
-  border-bottom-right-radius: 24px;
-}
-
-@media (max-width: 1023px) {
-  .radius-left,
-  .radius-right {
-    border-radius: 0 !important;
-  }
-  .auth-card {
-    border-radius: 24px;
-  }
-}
-
-.text-shadow-2 {
+.text-shadow {
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
-}
-
-.full-height {
-  height: 100%;
-  min-height: 420px;
 }
 </style>

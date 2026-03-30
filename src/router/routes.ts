@@ -4,9 +4,24 @@ import { UserRoles } from 'src/constants';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
+
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', name: 'home', component: () => import('pages/MainPage.vue') },
+      {
+        path: '',
+        meta: {
+          roles: [
+            UserRoles.CompanyRepresentative,
+            UserRoles.Teacher,
+            UserRoles.Student,
+            UserRoles.CareerCenter,
+            UserRoles.Directorate,
+          ],
+          requiresAuth: true,
+        },
+        name: 'home',
+        component: () => import('pages/MainPage.vue'),
+      },
       {
         path: '/practice-form',
         name: 'practice-form',
