@@ -52,8 +52,12 @@ export const getInternshipData = async (internshipId: number): Promise<Internshi
 
 export const getCandidates = async (internshipId: number): Promise<Candidate[]> => {
   const { data } = await userAxiosClient.get<Candidate[]>(
-    ENDPOINTS.internships.requests.getRequests(internshipId),
+    ENDPOINTS.internships.requests.getRequests(),
+    {
+      params: { internship: internshipId }
+    }
   );
+  console.warn(data)
   return data;
 };
 

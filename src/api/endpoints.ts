@@ -10,7 +10,7 @@ const ENDPOINTS = {
     list: () => '/internship/',
     byId: (id: number) => `/internship/${id}/`,
     requests: {
-      getRequests: (internshipId: number) => `/internship/requests/${internshipId}`,
+      getRequests: () => `/internship/requests/`,
       approve: (id: number) => `/internship/requests/${id}/approve/`,
       decline: (id: number) => `/internship/requests/${id}/`,
     },
