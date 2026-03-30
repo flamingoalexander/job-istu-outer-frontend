@@ -1,81 +1,115 @@
 <template>
-  <q-page class="q-pa-xl">
-    <div class="text-h3 q-mb-lg text-weight-bold">Мои практики</div>
+  <q-page :class="pagePadding">
+    <div class="row justify-center">
+      <!-- Центруем контент и ограничиваем ширину на больших экранах -->
+      <div class="col-12 col-md-10 col-lg-9">
+        <!-- Заголовок -->
+        <div :class="titleClass" class="q-mb-lg text-weight-bold">Мои практики</div>
 
-    <div v-if="profileLoading" class="flex flex-center q-pa-xl">
-      <q-spinner color="primary" size="3em" />
-      <div class="q-ml-md">Загрузка профиля...</div>
-    </div>
+        <!-- Профиль: загрузка -->
+        <div v-if="profileLoading" class="flex flex-center" :class="blockPadding">
+          <q-spinner color="primary" size="3em" />
+          <div class="q-ml-md">Загрузка профиля...</div>
+        </div>
 
-    <div v-else-if="profileError" class="flex flex-center q-pa-xl">
-      <q-banner class="bg-red-1 text-red q-pa-md rounded-borders">
-        <div class="text-h6">Ошибка загрузки профиля</div>
-        <div>{{ profileError.message }}</div>
-        <q-btn flat color="red" label="Повторить" @click="handleRefetchProfile" class="q-mt-md" />
-      </q-banner>
-    </div>
-
-    <template v-else-if="profile">
-      <div v-if="internshipsLoading" class="flex flex-center q-pa-xl">
-        <q-spinner color="primary" size="3em" />
-        <div class="q-ml-md">Загрузка практик...</div>
-      </div>
-
-      <div v-else-if="internshipsError" class="flex flex-center q-pa-xl">
-        <q-banner class="bg-red-1 text-red q-pa-md rounded-borders">
-          <div class="text-h6">Ошибка загрузки практик</div>
-          <div>{{ internshipsError.message }}</div>
-          <q-btn
-            flat
-            color="red"
-            label="Повторить"
-            @click="handleRefetchInternships"
-            class="q-mt-md"
-          />
-        </q-banner>
-      </div>
-
-      <template v-else>
-        <template v-if="currentInternships.length > 0">
-          <div class="text-h4 q-mb-sm text-weight-bold">Текущая</div>
-          <CurrentInternship v-for="item in currentInternships" :key="item.id" :internship="item" />
-        </template>
-
-        <template v-else>
-          <q-banner class="primary-background q-pa-md q-my-md rounded-borders">
-            <div class="text-h5 text-weight-bold text-white text-center">
-              Сейчас у вас нет активной практики
-            </div>
-            <div class="text-subtitle1 text-weight-bold text-white text-center">
-              Как только вы договоритесь с компанией, тут появится активная практика
-            </div>
+        <!-- Профиль: ошибка -->
+        <div v-else-if="profileError" class="flex flex-center" :class="blockPadding">
+          <q-banner class="bg-red-1 text-red q-pa-md rounded-borders" style="max-width: 720px">
+            <div class="text-h6">Ошибка загрузки профиля</div>
+            <div class="q-mt-xs">{{ profileError.message }}</div>
+            <q-btn
+              flat
+              color="red"
+              label="Повторить"
+              @click="handleRefetchProfile"
+              class="q-mt-md"
+            />
           </q-banner>
+        </div>
+
+        <template v-else-if="profile">
+          <!-- Практики: загрузка -->
+          <div v-if="internshipsLoading" class="flex flex-center" :class="blockPadding">
+            <q-spinner color="primary" size="3em" />
+            <div class="q-ml-md">Загрузка практик...</div>
+          </div>
+
+          <!-- Практики: ошибка -->
+          <div v-else-if="internshipsError" class="flex flex-center" :class="blockPadding">
+            <q-banner class="bg-red-1 text-red q-pa-md rounded-borders" style="max-width: 720px">
+              <div class="text-h6">Ошибка загрузки практик</div>
+              <div class="q-mt-xs">{{ internshipsError.message }}</div>
+              <q-btn
+                flat
+                color="red"
+                label="Повторить"
+                @click="handleRefetchInternships"
+                class="q-mt-md"
+              />
+            </q-banner>
+          </div>
+
+          <template v-else>
+            <!-- Текущая -->
+            <template v-if="currentInternships.length > 0">
+              <div :class="sectionTitleClass" class="q-mb-sm text-weight-bold">Текущая</div>
+
+              <div class="column q-gutter-md">
+                <CurrentInternship
+                  v-for="item in currentInternships"
+                  :key="item.id"
+                  :internship="item"
+                />
+              </div>
+            </template>
+
+            <!-- Пустое состояние -->
+            <template v-else>
+              <q-banner class="primary-background q-pa-md q-my-md rounded-borders">
+                <div class="text-h6 text-weight-bold text-white text-center">
+                  Сейчас у вас нет активной практики
+                </div>
+                <div class="text-body1 text-weight-bold text-white text-center q-mt-xs">
+                  Как только вы договоритесь с компанией, тут появится активная практика
+                </div>
+              </q-banner>
+            </template>
+
+            <!-- Прошлые -->
+            <div class="q-mt-xl" v-if="previousInternships.length > 0">
+              <div :class="sectionTitleClass" class="q-mb-md text-weight-bold">Прошлые</div>
+
+              <div class="column q-gutter-md">
+                <PreviousInternship
+                  v-for="item in previousInternships"
+                  :key="item.id"
+                  :internship="item"
+                />
+              </div>
+            </div>
+
+            <!-- Отклоненные -->
+            <div class="q-mt-xl" v-if="rejectedInternships.length > 0">
+              <div :class="sectionTitleClass" class="q-mb-md text-weight-bold">Отклоненные</div>
+
+              <div class="column q-gutter-md">
+                <PreviousInternship
+                  v-for="item in rejectedInternships"
+                  :key="item.id"
+                  :internship="item"
+                />
+              </div>
+            </div>
+          </template>
         </template>
-
-        <div class="q-mt-xl" v-if="previousInternships.length > 0">
-          <div class="text-h4 q-mb-md text-weight-bold">Прошлые</div>
-          <PreviousInternship
-            v-for="item in previousInternships"
-            :key="item.id"
-            :internship="item"
-          />
-        </div>
-
-        <div class="q-mt-xl" v-if="rejectedInternships.length > 0">
-          <div class="text-h4 q-mb-md text-weight-bold">Отклоненные</div>
-          <PreviousInternship
-            v-for="item in rejectedInternships"
-            :key="item.id"
-            :internship="item"
-          />
-        </div>
-      </template>
-    </template>
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useQuasar } from 'quasar';
 import { useQuery } from '@tanstack/vue-query';
 import { getStudentProfile } from 'src/api/studentProfile';
 import { getStudentInternships } from 'src/api/studentsInternships';
@@ -83,6 +117,18 @@ import type { StudentsInternship } from 'src/api/models/StudentsInternship';
 import CurrentInternship from 'src/components/student/CurrentInternship.vue';
 import PreviousInternship from 'src/components/student/PreviousInternship.vue';
 import { StudentsInternshipStatusEnum } from 'src/api/models/StudentsInternshipStatusEnum';
+
+const $q = useQuasar();
+
+const pagePadding = computed(() =>
+  $q.screen.lt.sm ? 'q-pa-md' : $q.screen.lt.md ? 'q-pa-lg' : 'q-pa-xl',
+);
+const blockPadding = computed(() => ($q.screen.lt.sm ? 'q-pa-lg' : 'q-pa-xl'));
+
+const titleClass = computed(() =>
+  $q.screen.lt.sm ? 'text-h5' : $q.screen.lt.md ? 'text-h4' : 'text-h3',
+);
+const sectionTitleClass = computed(() => ($q.screen.lt.sm ? 'text-h6' : 'text-h5'));
 
 const {
   data: profile,
