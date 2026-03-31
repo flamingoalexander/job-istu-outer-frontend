@@ -44,6 +44,7 @@
     </div>
 
     <q-card flat bordered class="bg-white" v-if="!internshipsPending">
+      <div class="q-mb-md" v-if="!internships">Нет заявок на практику</div>
       <q-table
         :rows="internships ?? []"
         :columns="columns"
