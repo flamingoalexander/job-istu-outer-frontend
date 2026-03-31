@@ -43,9 +43,9 @@
       </div>
     </div>
 
-    <q-card flat bordered class="bg-white">
+    <q-card flat bordered class="bg-white" v-if="!internshipsPending">
       <q-table
-        :rows="filteredApplications"
+        :rows="internships ?? []"
         :columns="columns"
         row-key="id"
         flat
@@ -69,15 +69,25 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed } from 'vue';
-import { filter } from 'lodash';
+import { reactive } from 'vue';
+import { useQuery } from '@tanstack/vue-query';
+import type { StudentsInternship } from 'src/api';
+import { getStudentInternships } from 'src/api/teacher';
+import { userAxiosClient } from 'src/api/axios.clients';
+
+const { data: internships, isPending: internshipsPending } = useQuery<StudentsInternship[]>({
+  queryKey: ['students-internships'],
+  queryFn: async () => {
+    const id = (await userAxiosClient.get('/auths/teacher/profile/')).data.id as number;
+    return await getStudentInternships({ teacherId: id });
+  },
+});
 
 interface Application {
   id: number;
-  studentName: string;
-  email: string;
+  student_name: string;
   group: string;
-  company: string;
+  internship_theme: string;
   practice: string;
   status: string;
 }
@@ -123,35 +133,35 @@ const columns: TableColumn[] = [
     required: true,
     label: 'ФИО Студента',
     align: 'left',
-    field: (row: Application) => row.studentName,
+    field: (row: Application) => row.student_name,
     sortable: true,
   },
   {
     name: 'email',
     align: 'left',
     label: 'Почта',
-    field: (row: Application) => row.email,
+    field: '',
     sortable: true,
   },
   {
     name: 'group',
     align: 'left',
     label: 'Группа',
-    field: (row: Application) => row.group,
+    field: '',
     sortable: true,
   },
   {
     name: 'company',
     align: 'left',
     label: 'Компания',
-    field: (row: Application) => row.company,
+    field: '',
     sortable: true,
   },
   {
     name: 'practice',
     align: 'left',
     label: 'Практика',
-    field: (row: Application) => row.practice,
+    field: (row: Application) => row.internship_theme,
     sortable: true,
   },
   {
@@ -168,62 +178,13 @@ const columns: TableColumn[] = [
     field: 'action',
   },
 ];
-
-const applications = reactive<Application[]>([
-  {
-    id: 1,
-    studentName: 'Ходалицкий Павел Юрьевич',
-    email: 'dreamsobenatic00@mail.ru',
-    group: 'ИСИ6-22-1',
-    company: 'ООО "МОЯ ОБОРОНА"',
-    practice: 'Изучение...',
-    status: 'Не проверено',
-  },
-  {
-    id: 2,
-    studentName: 'Ходалицкий Павел Юрьевич',
-    email: 'dreamsobenatic00@mail.ru',
-    group: 'ИСИ6-22-1',
-    company: 'ООО "МОЯ ОБОРОНА"',
-    practice: 'Изучение...',
-    status: 'Не проверено',
-  },
-  {
-    id: 3,
-    studentName: 'Ходалицкий Павел Юрьевич',
-    email: 'dreamsobenatic00@mail.ru',
-    group: 'ИСИ6-22-1',
-    company: 'ООО "МОЯ ОБОРОНА"',
-    practice: 'Изучение...',
-    status: 'Не проверено',
-  },
-  {
-    id: 4,
-    studentName: 'Ходалицкий Павел Юрьевич',
-    email: 'dreamsobenatic00@mail.ru',
-    group: 'АСУ6-22-2',
-    company: 'ООО "Рога и копыта"',
-    practice: 'Разработка API',
-    status: 'Одобрено',
-  },
-  {
-    id: 5,
-    studentName: 'Ходалицкий Павел Юрьевич',
-    email: 'dreamsobenatic00@mail.ru',
-    group: 'АСУ6-22-1',
-    company: 'ООО "МОЯ ОБОРОНА"',
-    practice: 'Тестирование',
-    status: 'Отклонено',
-  },
-]);
-
-const filteredApplications = computed(() => {
-  return filter(applications, (application: Application) => {
-    const matchGroup = !filters.group || application.group === filters.group;
-    const matchStatus = !filters.status || application.status === filters.status;
-    const matchCompany = !filters.company || application.company === filters.company;
-
-    return matchGroup && matchStatus && matchCompany;
-  });
-});
+// const filteredApplications = computed(() => {
+//   return filter(internships, (internship: Application) => {
+//     const matchGroup = !filters.group || application.group === filters.group;
+//     const matchStatus = !filters.status || application.status === filters.status;
+//     const matchCompany = !filters.company || application.company === filters.company;
+//
+//     return matchGroup && matchStatus && matchCompany;
+//   });
+// });
 </script>
