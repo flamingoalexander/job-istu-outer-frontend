@@ -16,8 +16,8 @@ const ENDPOINTS = {
     },
   },
   auth: {
-    login: () => 'auths/outer/login',
-    logout: () => 'auths/logout',
+    login: () => 'auths/outer/login/',
+    logout: () => 'auths/logout/',
     esia: () => 'auths/login/',
     me: () => 'auths/me/',
     studentProfile: 'auths/student/profile/',
